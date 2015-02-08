@@ -76,6 +76,40 @@
       div {
         word-wrap: break-word;
       }
+
+      #imageArea img {
+        padding: 0px 0px 3px 0px;
+        margin: 0px 0px 0px 0px;
+        vertical-align: bottom;
+        border-radius: 20px;
+      }
+
+      #surfReportInfoArea, #surfReportCommentsArea {
+        overflow: auto;
+      }
+
+      #showMoreImages {
+        display: none;
+        font-size: 2em;
+        width: 100%;
+      }
+
+      .thumbnailGroup {
+        position: relative;
+        padding: 0px 0px 0px 0px;
+        border: 0px none #000000;
+        margin: 0px 0px 0px 0px;
+      }
+
+      .thumbnailLabel {
+        position: absolute;
+        bottom: 3px; /* this should match exactly with the #imageArea img padding-bottom value */
+        left: 20px;
+        font-weight: bold;
+        color: #ffffff;
+        background-color: #000000;
+        opacity: 0.5;
+      }
     </style>
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   </head>
