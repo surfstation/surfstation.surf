@@ -41,6 +41,10 @@
       img {
         width: 100%; /* default to mobile-first */
       }
+
+      table tr:nth-child(odd) {
+        background-color: #cccccc;
+      }
     </style>
   </head>
   <body>
@@ -56,8 +60,8 @@
       <h1>Current Weather</h1>
       <h3>Weather Station GPS Location: <span>29° 50.811' N; 81° 15.968' W - 40 FT</span></h3>
       <table>
-        <tr><td>Temperature</td><td><span id="temperature"></span></td></tr>
-        <tr><td>Humidity</td><td><span id="humidity"></span></td></tr>
+        <tr><td>Temperature</td><td><span id="temperature"></span>&deg; F</td></tr>
+        <tr><td>Humidity</td><td><span id="humidity"></span>%</td></tr>
         <tr><td>First Light</td><td><span id="firstLight"></span></td></tr>
         <tr><td>Sunrise</td><td><span id="sunrise"></span></td></tr>
         <tr><td>Sunset</td><td><span id="sunset"></span></td></tr>
@@ -151,6 +155,7 @@
       var $windGustDirectionHand = $('#windGustDirectionHand');
       var $windGustDirectionDisplay = $('#windGustDirectionDisplay');
       var $windGustSpeedDisplay = $('#windGustSpeedDisplay');
+      var $svgs = $('section > svg');
       io().on('wx', function (wx) {
         $windDirectionHand.attr('transform', 'rotate(' + wx.wd + ' 500 500)');
         $windDirectionDisplay.html('From ' + wx.wd + '&deg;');
@@ -159,7 +164,7 @@
         $windGustDirectionHand.attr('transform', 'rotate(' + wx.wgd + ' 500 500)');
         $windGustDirectionDisplay.html('From ' + wx.wgd + '&deg;');
         $windGustSpeedDisplay.text(wx.wgs + ' MPH');
-        $('section > svg').show();
+        $svgs.show();
       });
     </script>
   </body>
