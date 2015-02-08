@@ -187,7 +187,7 @@
         var $temperature = $('#temperature');
         var $humidity = $('#humidity');
 
-        io().on('wx', function (wx) {
+        io('http://ws.surfstation.surf/').on('wx', function (wx) {
           $windDirectionHand.attr('transform', 'rotate(' + wx.wd + ' 500 500)');
           $windDirectionDisplay.html('From ' + wx.wd + '&deg;');
           $windSpeedDisplay.text(wx.ws + ' MPH');
