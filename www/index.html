@@ -26,6 +26,10 @@
         text-align: center;
       }
 
+      section > svg {
+        display: none; /* do not show initially to avoid showing incorrect direction before first data update */
+      }
+
       svg > text {
         font-size: 70px; font-weight: bold; text-anchor: middle; fill: #ffffff; stroke: #000000; stroke-width: 3;
       }
@@ -120,5 +124,26 @@
       </svg>
     </section>
     <script src="/static/jquery-1.11.2.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var $windDirectionHand = $('#windDirectionHand');
+      var $windDirectionDisplay = $('#windDirectionDisplay');
+      var $windSpeedDisplay = $('#windSpeedDisplay');
+      var $windInstant = $('#windInstant');
+      var $windGustDirectionHand = $('#windGustDirectionHand');
+      var $windGustDirectionDisplay = $('#windGustDirectionDisplay');
+      var $windGustSpeedDisplay = $('#windGustSpeedDisplay');
+      io().on('wx', function (wx) {
+        $windDirectionHand.attr('transform', 'rotate(' + wx.wd + ' 500 500)');
+        $windDirectionDisplay.html('From ' + wx.wd + '&deg;');
+        $windSpeedDisplay.text(wx.ws + ' MPH');
+        $windInstant.text(new Date(wx.instant).toLocaleString());
+        $windGustDirectionHand.attr('transform', 'rotate(' + wx.wgd + ' 500 500)');
+        $windGustDirectionDisplay.html('From ' + wx.wgd + '&deg;');
+        $windGustSpeedDisplay.text(wx.wgs + ' MPH');
+        $('section > svg').show();
+      });
+    </script>
   </body>
 </html>
+
