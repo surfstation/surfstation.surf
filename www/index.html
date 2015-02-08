@@ -172,6 +172,14 @@
         <text id="windGustSpeedDisplay" x="500" y="680"></text>
       </svg>
     </section>
+    <section>
+      <h1>Surf Report Comments</h1>
+      <div id="surfReportCommentsArea"></div>
+    </section>
+    <section>
+      <h1>Surf Report Info</h1>
+      <div id="surfReportInfoArea"></div>
+    </section>
     <script src="/static/jquery-1.11.2.min.js"></script>
     <script src="http://ws.surfstation.surf/socket.io/socket.io.js"></script>
     <script>
@@ -209,7 +217,26 @@
           $('#tides').append('<li>'+ data.tides.join('</li><li>')+'</li>');
         });
       });
+
+      var SurfStation = SurfStation || {};
+      SurfStation.surfReportInfoCallback = function(data) {
+        if (data) {
+          var html=[];
+          html.push('<ul>');
+          for (x in data) {
+            if ("Comments" !== x) {
+              html.push('<li>'+ x + ': ' + data[x] + '</li>');
+            }
+          }
+          html.push('</ul>');
+          $('#surfReportInfoArea').html(html.join(''));
+          if (data.Comments) {
+            $('#surfReportCommentsArea').html(data.Comments.replace('\u00A0', '').replace(/[\r\n]+/gm, '<br>'));
+          }
+        }
+      };
     </script>
+    <script src="/surfReportInfo.js" async></script>
   </body>
 </html>
 
