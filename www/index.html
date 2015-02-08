@@ -238,25 +238,26 @@
           $('#moonStatus').text(data.moonStatus);
           $('#tides').append('<li>'+ data.tides.join('</li><li>')+'</li>');
         });
-      });
 
-      var SurfStation = SurfStation || {};
-      SurfStation.surfReportInfoCallback = function(data) {
-        if (data) {
-          var html=[];
-          html.push('<ul>');
-          for (x in data) {
-            if ("Comments" !== x) {
-              html.push('<li>'+ x + ': ' + data[x] + '</li>');
+        var SurfStation = SurfStation || {};
+
+        SurfStation.surfReportInfoCallback = function(data) {
+          if (data) {
+            var html = [];
+            html.push('<ul>');
+            Object.keys(data).forEach(function(val, index, obj) {
+              if ("Comments" !== val) {
+                html.push('<li>' + val + ': ' + data[val] + '</li>');
+              }
+            });
+            html.push('</ul>');
+            $('#surfReportInfoArea').html(html.join(''));
+            if (data.Comments) {
+              $('#surfReportCommentsArea').html(data.Comments.replace('\u00A0', '').replace(/[\r\n]+/gm, '<br>'));
             }
           }
-          html.push('</ul>');
-          $('#surfReportInfoArea').html(html.join(''));
-          if (data.Comments) {
-            $('#surfReportCommentsArea').html(data.Comments.replace('\u00A0', '').replace(/[\r\n]+/gm, '<br>'));
-          }
-        }
-      };
+        };
+      });
     </script>
     <script src="/surfReportInfo.js" async></script>
     <script src="https://images.surf-station.com/image-data.js"></script>
@@ -291,7 +292,6 @@
         SurfStation.imageUrls.reverse(); // order newest images first
         SurfStation.currentDisplayIndex = 0;
       }
-      $('#imageArea').append('<div class="thumbnailGroup"><div class="thumbnailLabel">Live Cam Still Shot</div><img src="https://cam.surf-station.com/axis-cgi/jpg/image.cgi?resolution=640x480&compression=10&textbackgroundcolor=transparent&textpos=top&textstring=%23L%20-%20%25a%20%25b%20%25d%2C%20%25Y%20%25I%3A%25M%3A%25S%25p" /></div>');
       SurfStation.showMoreImages();
     }
 
