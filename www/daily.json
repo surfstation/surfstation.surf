@@ -1,9 +1,9 @@
 {
-  'firstLight':'06:18 AM',
-  'sunrise':'07:11 AM',
-  'sunset':'06:08 PM',
-  'lastLight':'07:01 PM',
-  'moonStatus':'Waning 85%',
-  'tides':['04:31AM Low', '10:43AM High', '04:50PM Low', '11:09PM High']
+  "firstLight":"06:18 AM",
+  "sunrise":"07:11 AM",
+  "sunset":"06:08 PM",
+  "lastLight":"07:01 PM",
+  "moonStatus":"Waning 85%",
+  "tides":["04:31AM Low", "10:43AM High", "04:50PM Low", "11:09PM High"]
 }
 
