@@ -67,7 +67,7 @@
         <tr><td>Sunset</td><td><span id="sunset"></span></td></tr>
         <tr><td>Last Light</td><td><span id="lastLight"></span></td></tr>
         <tr><td>Moon</td><td><span id="moonStatus"></span></td></tr>
-        <tr><td>Tides</td><td><table></table></td></tr>
+        <tr><td>Tides</td><td><ul id="tides"></ul></td></tr>
       </table>
     </section>
     <section>
@@ -148,23 +148,38 @@
     <script src="/static/jquery-1.11.2.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-      var $windDirectionHand = $('#windDirectionHand');
-      var $windDirectionDisplay = $('#windDirectionDisplay');
-      var $windSpeedDisplay = $('#windSpeedDisplay');
-      var $windInstant = $('#windInstant');
-      var $windGustDirectionHand = $('#windGustDirectionHand');
-      var $windGustDirectionDisplay = $('#windGustDirectionDisplay');
-      var $windGustSpeedDisplay = $('#windGustSpeedDisplay');
-      var $svgs = $('section > svg');
-      io().on('wx', function (wx) {
-        $windDirectionHand.attr('transform', 'rotate(' + wx.wd + ' 500 500)');
-        $windDirectionDisplay.html('From ' + wx.wd + '&deg;');
-        $windSpeedDisplay.text(wx.ws + ' MPH');
-        $windInstant.text(new Date(wx.instant).toLocaleString());
-        $windGustDirectionHand.attr('transform', 'rotate(' + wx.wgd + ' 500 500)');
-        $windGustDirectionDisplay.html('From ' + wx.wgd + '&deg;');
-        $windGustSpeedDisplay.text(wx.wgs + ' MPH');
-        $svgs.show();
+      $(function() {
+        var $windDirectionHand = $('#windDirectionHand');
+        var $windDirectionDisplay = $('#windDirectionDisplay');
+        var $windSpeedDisplay = $('#windSpeedDisplay');
+        var $windInstant = $('#windInstant');
+        var $windGustDirectionHand = $('#windGustDirectionHand');
+        var $windGustDirectionDisplay = $('#windGustDirectionDisplay');
+        var $windGustSpeedDisplay = $('#windGustSpeedDisplay');
+        var $svgs = $('section > svg');
+        var $temperature = $('#temperature');
+        var $humidity = $('#humidity');
+        io().on('wx', function (wx) {
+          $windDirectionHand.attr('transform', 'rotate(' + wx.wd + ' 500 500)');
+          $windDirectionDisplay.html('From ' + wx.wd + '&deg;');
+          $windSpeedDisplay.text(wx.ws + ' MPH');
+          $windInstant.text(new Date(wx.instant).toLocaleString());
+          $windGustDirectionHand.attr('transform', 'rotate(' + wx.wgd + ' 500 500)');
+          $windGustDirectionDisplay.html('From ' + wx.wgd + '&deg;');
+          $windGustSpeedDisplay.text(wx.wgs + ' MPH');
+          $svgs.show();
+          $temperature.text(wx.ot);
+          $humidity.text(wx.oh);
+        });
+
+        $.getJSON('/daily.json').done(function(data) {
+          $('#firstLight').text(data.firstLight);
+          $('#sunrise').text(data.sunrise);
+          $('#sunset').text(data.sunset);
+          $('#lastLight').text(data.lastLight);
+          $('#moonStatus').text(data.moonStatus);
+          // todo: populate the ul li $('#tides').text(data.tides[]);
+        });
       });
     </script>
   </body>
