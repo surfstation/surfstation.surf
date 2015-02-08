@@ -7,7 +7,7 @@
     <title>The Surf Station: Updated Live and Current Surf, Wind, and Weather Information for St. Augustine Beach, FL 32080</title>
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu">
     <style>
-      body {
+      body, svg {
         margin: 0px;
         border: 0px none #000000;
         padding: 0px;
@@ -25,6 +25,14 @@
         width: 100%;
         text-align: center;
       }
+
+      svg > text {
+        font-size: 70px; font-weight: bold; text-anchor: middle; fill: #ffffff; stroke: #000000; stroke-width: 3;
+      }
+
+      svg > line {
+        stroke: #333333; stroke-width: 10; stroke-opacity: 0.75;
+      }
     </style>
   </head>
   <body>
@@ -35,6 +43,81 @@
     <section>
       <h1>Live Wavecam Snapshot</h1>
       <img src="https://cam.surf-station.com/axis-cgi/jpg/image.cgi?resolution=640x480&compression=10&textbackgroundcolor=transparent&textpos=top&textstring=%23L%20-%20%25a%20%25b%20%25d%2C%20%25Y%20%25I%3A%25M%3A%25S%25p">
+    </section>
+    <section>
+      <h1>Realtime Wind</h1>
+      <svg viewBox="0 0 1000 1000">
+        <defs>
+          <marker id="arrowEnd" markerWidth="8" markerHeight="8" refx="0" refy="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" style="fill: #ff6666; fill-opacity: 1;" />
+          </marker>
+          <marker id="circleEnd" markerWidth="6" markerHeight="6" refx="3" refy="3" orient="auto">
+            <circle cx="3" cy="3" r="3" style="fill: #ff6666;" />
+          </marker>
+          <linearGradient id="dialGradient" x1="0%" y1="0%" x2="0%" y2="100%" spreadMethod="pad">
+            <stop offset="20%" stop-color="#b2f0ff" stop-opacity="1" />
+            <stop offset="100%" stop-color="#00ccff" stop-opacity="1" />
+          </linearGradient>
+        </defs>
+        <circle cx="500" cy="500" r="500" style="fill: url(#dialGradient);" />
+        <line id="windDirectionHand" x1="500" y1="500" x2="500" y2="80" marker-start="url(#circleEnd)" marker-end="url(#arrowEnd)" style="stroke: #ff6666; stroke-width: 10; stroke-opacity: 0.5;" />
+        <line x1="500" y1="0" x2="500" y2="100" />
+        <text style="font-size: 80px; text-anchor: middle;" x="500" y="180">N</text>
+        <line x1="1000" y1="500" x2="900" y2="500" />
+        <text style="font-size: 80px; text-anchor: end;" x="880" y="530">E</text>
+        <line x1="500" y1="1000" x2="500" y2="900" />
+        <text style="font-size: 80px; text-anchor: middle;" x="500" y="880">S</text>
+        <line x1="0" y1="500" x2="100" y2="500" />
+        <text style="font-size: 80px; text-anchor: start;" x="120" y="530">W</text>
+        <line x1="146.4" y1="146.4" x2="181.8" y2="181.8" />
+        <text style="font-size: 80px; text-anchor: start;" x="200" y="280">NW</text>
+        <line x1="853.6" y1="146.4" x2="818.2" y2="181.8" />
+        <text style="font-size: 80px; text-anchor: end;" x="800" y="280">NE</text>
+        <line x1="146.4" y1="853.6" x2="181.8" y2="818.2" />
+        <text style="font-size: 80px; text-anchor: start;" x="200" y="800">SW</text>
+        <line x1="853.6" y1="853.6" x2="818.2" y2="818.2" />
+        <text style="font-size: 80px; text-anchor: end;" x="800" y="800">SE</text>
+        <text id="windDirectionDisplay" x="500" y="380"></text>
+        <text id="windSpeedDisplay" x="500" y="680"></text>
+      </svg>
+      <h3>Last Updated: <span id="windInstant"></span></h3>
+    </section>
+    <section>
+      <h1>Wind Gust - Last 10 Minutes</h1>
+      <svg viewBox="0 0 1000 1000">
+        <defs>
+          <marker id="arrowEnd" markerWidth="8" markerHeight="8" refx="0" refy="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" style="fill: #ff6666; fill-opacity: 1;" />
+          </marker>
+          <marker id="circleEnd" markerWidth="6" markerHeight="6" refx="3" refy="3" orient="auto">
+            <circle cx="3" cy="3" r="3" style="fill: #ff6666;" />
+          </marker>
+          <linearGradient id="dialGradient" x1="0%" y1="0%" x2="0%" y2="100%" spreadMethod="pad">
+            <stop offset="20%" stop-color="#b2f0ff" stop-opacity="1" />
+            <stop offset="100%" stop-color="#00ccff" stop-opacity="1" />
+          </linearGradient>
+        </defs>
+        <circle cx="500" cy="500" r="500" style="fill: url(#dialGradient);" />
+        <line id="windGustDirectionHand" x1="500" y1="500" x2="500" y2="80" marker-start="url(#circleEnd)" marker-end="url(#arrowEnd)" style="stroke: #ff6666; stroke-width: 10; stroke-opacity: 0.5;" />
+        <line x1="500" y1="0" x2="500" y2="100" />
+        <text style="font-size: 80px; text-anchor: middle;" x="500" y="180">N</text>
+        <line x1="1000" y1="500" x2="900" y2="500" />
+        <text style="font-size: 80px; text-anchor: end;" x="880" y="530">E</text>
+        <line x1="500" y1="1000" x2="500" y2="900" />
+        <text style="font-size: 80px; text-anchor: middle;" x="500" y="880">S</text>
+        <line x1="0" y1="500" x2="100" y2="500" />
+        <text style="font-size: 80px; text-anchor: start;" x="120" y="530">W</text>
+        <line x1="146.4" y1="146.4" x2="181.8" y2="181.8" />
+        <text style="font-size: 80px; text-anchor: start;" x="200" y="280">NW</text>
+        <line x1="853.6" y1="146.4" x2="818.2" y2="181.8" />
+        <text style="font-size: 80px; text-anchor: end;" x="800" y="280">NE</text>
+        <line x1="146.4" y1="853.6" x2="181.8" y2="818.2" />
+        <text style="font-size: 80px; text-anchor: start;" x="200" y="800">SW</text>
+        <line x1="853.6" y1="853.6" x2="818.2" y2="818.2" />
+        <text style="font-size: 80px; text-anchor: end;" x="800" y="800">SE</text>
+        <text id="windGustDirectionDisplay" x="500" y="380"></text>
+        <text id="windGustSpeedDisplay" x="500" y="680"></text>
+      </svg>
     </section>
     <script src="/static/jquery-1.11.2.min.js"></script>
   </body>
