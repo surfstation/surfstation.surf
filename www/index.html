@@ -38,8 +38,25 @@
         stroke: #333333; stroke-width: 10; stroke-opacity: 0.75;
       }
 
-      img {
+      img, table {
         width: 100%; /* default to mobile-first */
+      }
+
+      table {
+        border-spacing: 0px;
+      }
+
+      table tr td {
+        width: 50%;
+        padding: 10px;
+      }
+
+      table tr td:nth-child(odd) {
+        text-align: right;
+      }
+
+      table tr td:nth-child(even) {
+        text-align: left;
       }
 
       table tr:nth-child(odd) {
