@@ -167,6 +167,15 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
       $(function() {
+        $.getJSON('/daily.json').done(function(data) {
+          $('#firstLight').text(data.firstLight);
+          $('#sunrise').text(data.sunrise);
+          $('#sunset').text(data.sunset);
+          $('#lastLight').text(data.lastLight);
+          $('#moonStatus').text(data.moonStatus);
+          // todo: populate the ul li $('#tides').text(data.tides[]);
+        });
+
         var $windDirectionHand = $('#windDirectionHand');
         var $windDirectionDisplay = $('#windDirectionDisplay');
         var $windSpeedDisplay = $('#windSpeedDisplay');
@@ -177,6 +186,7 @@
         var $svgs = $('section > svg');
         var $temperature = $('#temperature');
         var $humidity = $('#humidity');
+
         io().on('wx', function (wx) {
           $windDirectionHand.attr('transform', 'rotate(' + wx.wd + ' 500 500)');
           $windDirectionDisplay.html('From ' + wx.wd + '&deg;');
@@ -188,15 +198,6 @@
           $svgs.show();
           $temperature.text(wx.ot);
           $humidity.text(wx.oh);
-        });
-
-        $.getJSON('/daily.json').done(function(data) {
-          $('#firstLight').text(data.firstLight);
-          $('#sunrise').text(data.sunrise);
-          $('#sunset').text(data.sunset);
-          $('#lastLight').text(data.lastLight);
-          $('#moonStatus').text(data.moonStatus);
-          // todo: populate the ul li $('#tides').text(data.tides[]);
         });
       });
     </script>
