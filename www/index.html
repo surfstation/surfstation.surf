@@ -59,7 +59,7 @@
         text-align: left;
       }
 
-      table tr:nth-child(odd) {
+      table tr:nth-child(even) {
         background-color: #cccccc;
       }
 
@@ -78,7 +78,7 @@
       }
 
       h1 {
-        background-color: #dddddd;
+        background-color: #cccccc;
         padding: 10px 10px 10px 10px;
         margin-bottom: 3px;
         border-radius: 20px;
@@ -98,6 +98,7 @@
       #showMoreImages {
         display: none;
         width: 100%;
+        font-size: 24px;
       }
 
       .thumbnailGroup {
@@ -131,7 +132,6 @@
     <section>
       <h1>Current Weather</h1>
       <table>
-        <tr><td>Weather Station GPS Location</td><td>29° 50.811' N; 81° 15.968' W - 40 FT</td></tr>
         <tr><td>Tides</td><td><ul id="tides"></ul></td></tr>
         <tr><td>Temperature</td><td><span id="temperature"></span>&deg; F</td></tr>
         <tr><td>Humidity</td><td><span id="humidity"></span>%</td></tr>
@@ -140,6 +140,7 @@
         <tr><td>Sunset</td><td><span id="sunset"></span></td></tr>
         <tr><td>Last Light</td><td><span id="lastLight"></span></td></tr>
         <tr><td>Moon</td><td><span id="moonStatus"></span><br><img src="/moon.png"></td></tr>
+        <tr><td>Weather Station GPS Location</td><td>29&deg; 50.811&apos; N; 81&deg; 15.968&apos; W - 40 FT</td></tr>
       </table>
     </section>
     <section>
@@ -224,7 +225,7 @@
     <section>
       <h1>Current Surf Report Images</h1>
       <div id="imageArea"></div>
-      <div id="showMoreArea"><input type="button" id="showMoreImages" value="Show More Images"></div>
+      <div><input type="button" id="showMoreImages" value="Show More Images"></div>
     </section>
     <section>
       <h1>Surf Report Info</h1>
@@ -333,6 +334,7 @@
       }
 
       $('#showMoreImages').click(function(event) {
+        event.preventDefault();
         if (SurfStation.currentDisplayIndex) { // if not, then the initial display has not completed yet, so ignore
           SurfStation.showMoreImages();
         }
