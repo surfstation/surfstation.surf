@@ -119,7 +119,11 @@
       }
 
       #moonImg {
-        max-width: 450px;
+        max-width: 250px;
+      }
+
+      #wavecamSnapshot {
+        max-width: 640px;
       }
 
       @media (min-width: 500px) {
@@ -150,7 +154,7 @@
     </header>
     <section>
       <h1>Live Wavecam Snapshot</h1>
-      <img src="https://cam.surf-station.com/axis-cgi/jpg/image.cgi?resolution=640x480&compression=10&textbackgroundcolor=transparent&textpos=top&textstring=%23L%20-%20%25a%20%25b%20%25d%2C%20%25Y%20%25I%3A%25M%3A%25S%25p">
+      <img id="wavecamSnapshot" src="https://cam.surf-station.com/axis-cgi/jpg/image.cgi?resolution=640x480&compression=10&textbackgroundcolor=transparent&textpos=top&textstring=%23L%20-%20%25a%20%25b%20%25d%2C%20%25Y%20%25I%3A%25M%3A%25S%25p">
     </section>
     <section>
       <h1>Current Weather</h1>
