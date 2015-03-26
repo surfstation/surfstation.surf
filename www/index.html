@@ -349,8 +349,7 @@
 
         if (!SurfStation.imageUrls) {
           SurfStation.imageUrls = [];
-          var boxCount = ((SurfStation.boxImageData.length > 3) ? 3 : SurfStation.boxImageData.length); // only show at most, the first three boxes of images
-          for (var x = 0; x < boxCount; x++) {
+          for (var x = 0; x < SurfStation.boxImageData.length; x++) {
             for (var y = 0; y < SurfStation.boxImageData[x].length; y++) {
               if (SurfStation.boxImageData[x][y].uri) {
                 SurfStation.imageUrls.push(SurfStation.boxImageData[x][y].uri);
