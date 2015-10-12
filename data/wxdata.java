@@ -8,8 +8,8 @@ public class wxdata {
     final BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
     String line = null;
     while ((line = stdin.readLine()) != null) {
-      final String daylightSavingsStart = "2015-03-08";
-      final String daylightSavingsEnd = "2015-11-01";
+      final String daylightSavingsStart = "2016-03-13";
+      final String daylightSavingsEnd = "2016-11-06";
       final String[] parts = line.split(" ");
       int time = Integer.parseInt(parts[1], 10);
       if ((0 <= parts[0].compareTo(daylightSavingsStart)) && (parts[0].compareTo(daylightSavingsEnd) < 0)) {
