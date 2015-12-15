@@ -26,7 +26,7 @@
         text-align: center;
       }
 
-      section > svg, #displayTemp, #displayHumidity, #displayWind {
+      section > svg, #displayTemp, #displayHumidity, #displayWindRealtime, #displayWindGust {
         display: none; /* do not show initially to avoid showing incorrect direction before first data update */
       }
 
@@ -136,7 +136,7 @@
         <tr><td>Weather Station GPS Location</td><td>29&deg; 50.811&apos; N; 81&deg; 15.968&apos; W - 40 FT<br><img id="wxImg" src="/static/wx-5fcf8aa1cef8dbf0d85a6ef3b30783f7.jpg"></td></tr>
       </table>
     </section>
-    <section id="displayWind">
+    <section id="displayWindRealtime">
       <h1>Realtime Wind</h1>
       <svg viewBox="0 0 1000 1000">
         <defs>
@@ -174,7 +174,7 @@
       </svg>
       <h3>Last Updated: <span id="windInstant"></span></h3>
     </section>
-    <section>
+    <section id="displayWindGust">
       <h1>Wind Gust - Last 10 Minutes</h1>
       <svg viewBox="0 0 1000 1000">
         <defs>
@@ -234,7 +234,8 @@
         var $humidity = $('#humidity');
         var $displayTemp = $('#displayTemp');
         var $displayHumidity = $('#displayHumidity');
-        var $displayWind = $('#displayWind');
+        var $displayWindRealtime = $('#displayWindRealtime');
+        var $displayWindGust = $('#displayWindGust');
 
         io('http://ws.surfstation.surf/').on('wx', function (wx) {
           $windDirectionHand.attr('transform', 'rotate(' + wx.wd + ' 500 500)');
@@ -249,7 +250,8 @@
           $humidity.text(wx.oh);
           $displayTemp.show();
           $displayHumidity.show();
-          $displayWind.show();
+          $displayWindRealtime.show();
+          $displayWindGust.show();
         });
 
         $.getJSON('/daily.json').done(function(data) {
