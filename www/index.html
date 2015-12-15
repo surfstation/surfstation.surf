@@ -26,7 +26,7 @@
         text-align: center;
       }
 
-      section > svg {
+      section > svg, #displayTemp, #displayHumidity, #displayWind {
         display: none; /* do not show initially to avoid showing incorrect direction before first data update */
       }
 
@@ -126,8 +126,8 @@
       <h1>Current Weather</h1>
       <table>
         <tr><td>Tides</td><td><ul id="tides"></ul></td></tr>
-        <tr><td>Temperature</td><td><span id="temperature"></span>&deg; F</td></tr>
-        <tr><td>Humidity</td><td><span id="humidity"></span>%</td></tr>
+        <tr id="displayTemp"><td>Temperature</td><td><span id="temperature"></span>&deg; F</td></tr>
+        <tr id="displayHumidity"><td>Humidity</td><td><span id="humidity"></span>%</td></tr>
         <tr><td>First Light</td><td><span id="firstLight"></span></td></tr>
         <tr><td>Sunrise</td><td><span id="sunrise"></span></td></tr>
         <tr><td>Sunset</td><td><span id="sunset"></span></td></tr>
@@ -136,7 +136,7 @@
         <tr><td>Weather Station GPS Location</td><td>29&deg; 50.811&apos; N; 81&deg; 15.968&apos; W - 40 FT<br><img id="wxImg" src="/static/wx-5fcf8aa1cef8dbf0d85a6ef3b30783f7.jpg"></td></tr>
       </table>
     </section>
-    <section>
+    <section id="displayWind">
       <h1>Realtime Wind</h1>
       <svg viewBox="0 0 1000 1000">
         <defs>
@@ -232,6 +232,9 @@
         var $svgs = $('section > svg');
         var $temperature = $('#temperature');
         var $humidity = $('#humidity');
+        var $displayTemp = $('#displayTemp');
+        var $displayHumidity = $('#displayHumidity');
+        var $displayWind = $('#displayWind');
 
         io('http://ws.surfstation.surf/').on('wx', function (wx) {
           $windDirectionHand.attr('transform', 'rotate(' + wx.wd + ' 500 500)');
@@ -244,6 +247,9 @@
           $svgs.show();
           $temperature.text(wx.ot);
           $humidity.text(wx.oh);
+          $displayTemp.show();
+          $displayHumidity.show();
+          $displayWind.show();
         });
 
         $.getJSON('/daily.json').done(function(data) {
