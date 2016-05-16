@@ -188,7 +188,7 @@
     </section>
     <section>
       <h1>Live Wavecam Snapshot</h1>
-      <img id="wavecamSnapshot" src="https://surfstation.surf/wavecam.jpg">
+      <img id="wavecamSnapshot" src="/wavecam.jpg">
     </section>
     <section>
       <h1>Current Weather</h1>
@@ -216,7 +216,7 @@
       <a href="https://www.surfstationstore.com/"><img id="storeLogo" src="/static/headerad-7d7410b672fda97d0ccb21a2e0c7f76f.jpg"></a>
     </section>
     <script src="/static/jquery-2.2.0.min.js"></script>
-    <script src="https://ws.surfstation.surf/socket.io/socket.io.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
     <script>
       $(function() {
         var $windDirectionHand = $('#windDirectionHand');
@@ -234,7 +234,7 @@
         var $displayWindRealtime = $('#displayWindRealtime');
         var $displayWindGust = $('#displayWindGust');
 
-        io('https://ws.surfstation.surf/').on('wx', function (wx) {
+        io('https://www.surfstation.surf/').on('wx', function (wx) {
           $windDirectionHand.attr('transform', 'rotate(' + wx.wd + ' 500 500)');
           $windDirectionDisplay.html('From ' + wx.wd + '&deg;');
           $windSpeedDisplay.text(wx.ws + ' MPH');
