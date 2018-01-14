@@ -2,6 +2,7 @@
 import json
 import re
 import requests
+import sys
 
 # api references:
 # http://aa.usno.navy.mil/data/docs/api.php
@@ -68,5 +69,5 @@ if r.status_code == 200:
     temp_hour = temp_hour - 12 if temp_hour > 12 else 12 if temp_hour == 0 else temp_hour
     result['tides'].append(str(temp_hour) + ':' + time_split[1] + ' ' + ampm + ' ' + highlow_decode[prediction['type']])
 
-print(json.dumps(result, sort_keys=False, indent=2))
-
+with open(sys.argv[1], 'w') as f:
+  f.write(json.dumps(result, sort_keys=False, indent=2))
