@@ -39,7 +39,7 @@ r = requests.get('http://api.usno.navy.mil/rstt/oneday', headers=headers, params
 if r.status_code == 200:
   data = r.json()
   if not data['error']:
-    result['moonStatus'] = data['fracillum'] + ' - ' + data['curphase']
+    result['moonStatus'] = data['fracillum'] + ' - ' + data['curphase'] if hasattr(data, 'fracillum') and hasattr(data, 'curphase') else ''
     rgx = re.compile(r'\s*([ap]\.m\.).*', re.IGNORECASE)
     for phenomena in data['sundata']:
       if phenomena['phen'] in phen_decode:
