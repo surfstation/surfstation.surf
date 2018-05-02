@@ -36,10 +36,12 @@ params = {
 
 r = requests.get('http://api.usno.navy.mil/rstt/oneday', headers=headers, params=params, timeout=60)
 
+print(r.url)
+
 if r.status_code == 200:
   data = r.json()
   if not data['error']:
-    result['moonStatus'] = data['fracillum'] + ' - ' + data['curphase'] if hasattr(data, 'fracillum') and hasattr(data, 'curphase') else ''
+    result['moonStatus'] = data['fracillum'] + ' - ' + data['curphase'] if 'fracillum' in data and 'curphase' in data else ''
     rgx = re.compile(r'\s*([ap]\.m\.).*', re.IGNORECASE)
     for phenomena in data['sundata']:
       if phenomena['phen'] in phen_decode:
@@ -58,6 +60,8 @@ params = {
 }
 
 r = requests.get('https://tidesandcurrents.noaa.gov/api/datagetter', headers=headers, params=params, timeout=60)
+
+print(r.url)
 
 if r.status_code == 200:
   data = r.json()
