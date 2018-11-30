@@ -5,7 +5,7 @@ import requests
 import sys
 
 # api references:
-# http://aa.usno.navy.mil/data/docs/api.php
+# https://aa.usno.navy.mil/data/docs/api.php
 # https://tidesandcurrents.noaa.gov/api/
 
 result = {'tides': []}
@@ -34,7 +34,7 @@ params = {
   'format': 'json',
 }
 
-r = requests.get('http://api.usno.navy.mil/rstt/oneday', headers=headers, params=params, timeout=60)
+r = requests.get('https://api.usno.navy.mil/rstt/oneday', headers=headers, params=params, timeout=60, verify=False)
 
 print(r.url)
 
