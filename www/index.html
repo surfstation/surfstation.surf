@@ -244,7 +244,7 @@
           $windDirectionHand.attr('transform', 'rotate(' + wx.wd + ' 500 500)');
           $windDirectionDisplay.html('From ' + wx.wd + '&deg;');
           $windSpeedDisplay.text(wx.ws + ' MPH');
-          $windInstant.text(new Date(wx.instant).toLocaleString());
+          $windInstant.text(new Date(wx.instant).toLocaleString('en-US', { timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit', second: '2-digit' })));
           $windGustDirectionHand.attr('transform', 'rotate(' + wx.wgd + ' 500 500)');
           $windGustDirectionDisplay.html('From ' + wx.wgd + '&deg;');
           $windGustSpeedDisplay.text(wx.wgs + ' MPH');
