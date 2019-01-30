@@ -38,11 +38,7 @@
         max-width: 450px;
       }
 
-      #surfstationCam {
-        height: 400px;
-      }
-
-      img, table, #surfstationCam {
+      img, table {
         width: 100%; /* default to mobile-first */
       }
 
@@ -92,7 +88,7 @@
         max-width: 250px;
       }
 
-      #wavecamSnapshot, #surfstationCam {
+      #wavecamLiveStream {
         max-width: 640px;
       }
 
@@ -187,8 +183,8 @@
       </svg>
     </section>
     <section>
-      <h1>Live Wavecam Snapshot</h1>
-      <img id="wavecamSnapshot" src="/wavecam.jpg">
+      <h1>Wavecam Livestream</h1>
+      <iframe id="wavecamLiveStream" src="https://www.youtube-nocookie.com/embed/BQk3ULvWTC8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </section>
     <section>
       <h1>Current Weather</h1>
@@ -203,10 +199,6 @@
         <tr><td>Moon</td><td><span id="moonStatus"></span><br><a href="/moon.png" target="_blank"><img id="moonImg" src="/moon.png"></a></td></tr>
         <tr><td>Weather Station GPS Location</td><td>29&deg; 50.811&apos; N; 81&deg; 15.968&apos; W - 40 FT<br><a href="/static/wx-5fcf8aa1cef8dbf0d85a6ef3b30783f7.jpg" target="_blank"><img id="wxImg" src="/static/wx-5fcf8aa1cef8dbf0d85a6ef3b30783f7.jpg"></a></td></tr>
       </table>
-    </section>
-    <section>
-      <h1>Wavecam Livestream</h1>
-      <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/BQk3ULvWTC8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </section>
     <section>
       <h1>Links</h1>
