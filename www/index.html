@@ -90,7 +90,7 @@
 
       #ytplayer {
         max-width: 640px;
-        width: 640px;
+        width: 100%;
         height: 360px;
       }
 
@@ -186,7 +186,7 @@
     </section>
     <section>
       <h1>Wavecam Livestream</h1>
-      <iframe id="ytplayer" src="https://www.youtube-nocookie.com/embed/?listType=playlist&list=PLJyLRh0ulkUdaPUMV3J_pA_OLphbxDGvJ&autoplay=1&enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe id="ytplayer" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </section>
     <section>
       <h1>Current Weather</h1>
@@ -261,6 +261,13 @@
         });
       });
     </script>
+    <script>
+    let SurfStation = SurfStation || {};
+    SurfStation.youtube_video_callback_surfstationcam = function(data) {
+      $('#ytplayer').attr('src', 'https://www.youtube-nocookie.com/embed/' + data.videoId);
+    };
+    </script>
+    <script src="/surfstationcam.js"></script>
   </body>
 </html>
 
