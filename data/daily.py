@@ -3,75 +3,42 @@ import json
 import re
 import requests
 import sys
+import datetime
 
 # api references:
-# https://aa.usno.navy.mil/data/docs/api.php
-# https://tidesandcurrents.noaa.gov/api/
+# https://api.sunrise-sunset.org/json?lat=29.84&lng=-81.26&formatted=0
 
 result = {'tides': []}
 
-phen_decode = {
-  'BC': 'firstLight',
-  'R': 'sunrise',
-  'U': 'midday',
-  'S': 'sunset',
-  'EC': 'lastLight',
-}
+now = datetime.datetime.now().strftime('%Y-%m-%d')
 
-highlow_decode = {
-  'L': 'Low',
-  'H': 'High',
-}
+with open(sys.argv[1], 'r') as f:
+  for line in f:
+    fields = line.split()
+    if fields[0] == now:
+      result['tides'].append(fields[1] + ' ' + fields[2] + ' ' + fields[3])
 
 headers = {
-  'User-Agent': 'TheSurfStationSurfReport/1.0',
+  'User-Agent': 'Mozilla/5.0 (Linux; Android 8.0.0;) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36',
 }
 
 params = {
-  'ID': 'SURFSTAT',
-  'date': 'today',
-  'loc': 'St. Augustine, FL',
-  'format': 'json',
+  'lat': '29.84',
+  'lng': '-81.26',
+  'formatted': '0',
 }
 
-r = requests.get('https://api.usno.navy.mil/rstt/oneday', headers=headers, params=params, timeout=60, verify=False)
+r = requests.get('https://api.sunrise-sunset.org/json', headers=headers, params=params, timeout=60, verify=True)
 
 print(r.url)
 
 if r.status_code == 200:
   data = r.json()
-  if not data['error']:
-    result['moonStatus'] = data['fracillum'] + ' - ' + data['curphase'] if 'fracillum' in data and 'curphase' in data else ''
-    rgx = re.compile(r'\s*([ap]\.m\.).*', re.IGNORECASE)
-    for phenomena in data['sundata']:
-      if phenomena['phen'] in phen_decode:
-        result[phen_decode[phenomena['phen']]] = rgx.sub(r' \1', phenomena['time'].upper()).replace('.', '')
+  if data['status'] == 'OK':
+    result['firstLight'] = datetime.datetime.fromisoformat(data['results']['nautical_twilight_begin']).astimezone().strftime('%I:%M %p')
+    result['sunrise'] = datetime.datetime.fromisoformat(data['results']['sunrise']).astimezone().strftime('%I:%M %p')
+    result['sunset'] = datetime.datetime.fromisoformat(data['results']['sunset']).astimezone().strftime('%I:%M %p')
+    result['lastLight'] = datetime.datetime.fromisoformat(data['results']['nautical_twilight_end']).astimezone().strftime('%I:%M %p')
 
-params = {
-  'station': '8720587',
-  'date': 'today',
-  'product': 'predictions',
-  'datum': 'MLLW',
-  'units': 'english',
-  'time_zone': 'lst_ldt',
-  'format': 'json',
-  'interval': 'hilo',
-  'application': 'SURFSTAT',
-}
-
-r = requests.get('https://tidesandcurrents.noaa.gov/api/datagetter', headers=headers, params=params, timeout=60)
-
-print(r.url)
-
-if r.status_code == 200:
-  data = r.json()
-  rgx = re.compile(r'.*\s+', re.IGNORECASE)
-  for prediction in data['predictions']:
-    time_split = rgx.sub(r'', prediction['t']).split(':')
-    temp_hour = int(time_split[0], 10)
-    ampm = 'AM' if temp_hour < 12 else 'PM'
-    temp_hour = temp_hour - 12 if temp_hour > 12 else 12 if temp_hour == 0 else temp_hour
-    result['tides'].append(str(temp_hour) + ':' + time_split[1] + ' ' + ampm + ' ' + highlow_decode[prediction['type']])
-
-with open(sys.argv[1], 'w') as f:
+with open(sys.argv[2], 'w') as f:
   f.write(json.dumps(result, sort_keys=False, indent=2))
