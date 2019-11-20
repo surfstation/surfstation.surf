@@ -8,8 +8,7 @@ import java.util.LinkedList;
 import java.util.Date;
 import java.nio.charset.Charset;
 
-// javac wxdaily.java
-// cd surfstation.surf/data/; java wxdaily .
+// cd surfstation.surf/data/ && javac wxdaily.java && java wxdaily .
 public class wxdaily {
   public static void main(final String[] args) throws Exception {
     if (args.length != 1) {
@@ -38,10 +37,10 @@ public class wxdaily {
         for (final String line : lines) {
           if (line.matches("^" + date + ".+")) {
             final String[] arr = line.split(" ");
-            found.add("\"" + arr[1] + " " + arr[2] + "\"");
+            found.add("\"" + arr[1] + " " + arr[2] + " " + arr[3] + "\"");
           }
         }
-        result.append("  \"" + files[i][1] + "\":" + found + "\n");
+        result.append("  \"" + files[i][1] + "\":" + found + "\n"); // the tides file is processed last, so do not add the trailing comma
       } else if("moonpercentvis.txt".equals(files[i][0])) {
         String prevLine = null;
         for (final String line : lines) {
