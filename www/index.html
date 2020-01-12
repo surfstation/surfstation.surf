@@ -200,6 +200,7 @@
         <tr><td>Last Light</td><td><span id="lastLight"></span></td></tr>
         <!--<tr><td>Moon</td><td><span id="moonStatus"></span><br><a href="/moon.png" target="_blank"><img id="moonImg" src="/moon.png"></a></td></tr>-->
         <tr><td>Moon</td><td><span>January 2020</span><br><a href="/static/moon_january_2020.png" target="_blank"><img id="moonImg" src="/static/moon_january_2020.png"></a></td></tr>
+        <tr><td>Tide Heights</td><td><div id="curve_chart"></div></td></tr>
         <tr><td>Weather Station GPS Location</td><td>29&deg; 50.811&apos; N; 81&deg; 15.968&apos; W - 40 FT<br><a href="/static/wx-5fcf8aa1cef8dbf0d85a6ef3b30783f7.jpg" target="_blank"><img id="wxImg" src="/static/wx-5fcf8aa1cef8dbf0d85a6ef3b30783f7.jpg"></a></td></tr>
       </table>
     </section>
@@ -262,6 +263,34 @@
           $('#tides').append('<li>'+ data.tides.join('</li><li>')+'</li>');
         });
       });
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        $.ajax({
+          url: 'tide_heights.json',
+          success: function (result) {
+            let data = new google.visualization.DataTable();
+            data.addColumn('datetime', 'Time');
+            data.addColumn('number', 'Height in feet (MLLW)');
+            if (result.predictions) {
+              for (let i = 0; i < result.predictions.length; i++) {
+                data.addRow([new Date(result.predictions[i].t), Number(result.predictions[i].v)]);
+              }
+            }
+            let options = {
+              title: 'Today\'s NOAA Tide Predictions at 8720587 - St. Augustine Beach, FL',
+              curveType: 'function',
+              legend: { position: 'bottom' }
+            };
+            let chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+            chart.draw(data, options);
+          }
+        });
+      }
     </script>
   </body>
 </html>
