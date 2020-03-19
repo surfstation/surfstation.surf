@@ -42,3 +42,26 @@ if r.status_code == 200:
 
 with open(sys.argv[2], 'w') as f:
   f.write(json.dumps(result, sort_keys=False, indent=2))
+
+now = datetime.datetime.now().strftime('%Y%m%d')
+
+params = {
+  'product': 'predictions',
+  'application': 'NOS.COOPS.TAC.WL',
+  'begin_date': now,
+  'end_date': now,
+  'datum': 'MLLW',
+  'station': '8720587',
+  'time_zone': 'lst_ldt',
+  'units': 'english',
+  'interval': 'h',
+  'format': 'json',
+}
+
+r = requests.get('https://tidesandcurrents.noaa.gov/api/datagetter', headers=headers, params=params, timeout=60, verify=True)
+
+print(r.url)
+
+if r.status_code == 200:
+  with open(sys.argv[3], 'w') as f:
+    f.write(r.text)
