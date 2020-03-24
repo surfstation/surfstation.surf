@@ -4,6 +4,7 @@ import re
 import requests
 import sys
 import datetime
+from dateutil import tz
 
 # api references:
 # https://api.sunrise-sunset.org/json?lat=29.84&lng=-81.26&formatted=0
@@ -31,14 +32,15 @@ params = {
 r = requests.get('https://api.sunrise-sunset.org/json', headers=headers, params=params, timeout=60, verify=True)
 
 print(r.url)
+new_york_time = tz.gettz('America/New_York')
 
 if r.status_code == 200:
   data = r.json()
   if data['status'] == 'OK':
-    result['firstLight'] = datetime.datetime.fromisoformat(data['results']['nautical_twilight_begin']).astimezone().strftime('%I:%M %p')
-    result['sunrise'] = datetime.datetime.fromisoformat(data['results']['sunrise']).astimezone().strftime('%I:%M %p')
-    result['sunset'] = datetime.datetime.fromisoformat(data['results']['sunset']).astimezone().strftime('%I:%M %p')
-    result['lastLight'] = datetime.datetime.fromisoformat(data['results']['nautical_twilight_end']).astimezone().strftime('%I:%M %p')
+    result['firstLight'] = datetime.datetime.fromisoformat(data['results']['nautical_twilight_begin']).astimezone(new_york_time).strftime('%I:%M %p')
+    result['sunrise'] = datetime.datetime.fromisoformat(data['results']['sunrise']).astimezone(new_york_time).strftime('%I:%M %p')
+    result['sunset'] = datetime.datetime.fromisoformat(data['results']['sunset']).astimezone(new_york_time).strftime('%I:%M %p')
+    result['lastLight'] = datetime.datetime.fromisoformat(data['results']['nautical_twilight_end']).astimezone(new_york_time).strftime('%I:%M %p')
 
 with open(sys.argv[2], 'w') as f:
   f.write(json.dumps(result, sort_keys=False, indent=2))
