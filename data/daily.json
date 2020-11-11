@@ -1,12 +1,12 @@
 {
   "tides": [
-    "03:01 AM Low",
-    "09:29 AM High",
-    "03:44 PM Low",
-    "09:54 PM High"
+    "04:08 AM High",
+    "10:12 AM Low",
+    "04:30 PM High",
+    "10:37 PM Low"
   ],
-  "firstLight": "05:48 AM",
-  "sunrise": "06:41 AM",
-  "sunset": "05:36 PM",
-  "lastLight": "06:29 PM"
+  "firstLight": "05:53 AM",
+  "sunrise": "06:47 AM",
+  "sunset": "05:30 PM",
+  "lastLight": "06:24 PM"
 }
