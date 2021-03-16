@@ -98,6 +98,11 @@
         text-align: center;
       }
 
+      #swell_direction_svg {
+        width: 100px;
+	vertical-align: middle;
+      }
+
       @media (min-width: 1000px) {
         section {
           display: inline-block;
@@ -209,7 +214,19 @@
         <tr><td>Last Light</td><td><span id="lastLight"></span></td></tr>
 	<tr><td><a href="https://cdip.ucsd.edu/m/products/?stn=194p1" target="_blank" rel="noopener noreferrer">Buoy</a> Swell Height</td><td><span id="buoy_swell_height_feet"></span> feet</td></tr>
 	<tr><td>Buoy Swell Period</td><td><span id="buoy_swell_period_secs"></span> secs</td></tr>
-	<tr><td>Buoy Swell Angle</td><td><span id="buoy_swell_angle_degrees"></span>°</td></tr>
+	<tr><td>Buoy Swell Angle</td><td><span id="buoy_swell_angle_degrees"></span>°
+          <svg id="swell_direction_svg" viewBox="0 0 1000 1000">
+            <defs>
+              <marker id="swell_direction_arrow_end" markerWidth="8" markerHeight="8" refx="0" refy="4" orient="auto">
+                <path d="M0,0 L8,4 L0,8 Z" style="fill: #000000; fill-opacity: 1;" />
+              </marker>
+              <marker id="swell_direction_circle_end" markerWidth="6" markerHeight="6" refx="3" refy="3" orient="auto">
+                <circle cx="3" cy="3" r="3" style="fill: #000000;" />
+              </marker>
+            </defs>
+            <line id="swell_angle_hand" x1="500" y1="500" x2="500" y2="80" marker-start="url(#swell_direction_circle_end)" marker-end="url(#swell_direction_arrow_end)" style="stroke: #000000; stroke-width: 10; stroke-opacity: 0.5;" />
+          </svg>
+        </td></tr>
 	<tr><td>Buoy Surface Temp</td><td><span id="buoy_temperature_fahrenheit"></span>° F</td></tr>
         <!--<tr><td>Moon</td><td><span id="moonStatus"></span><br><a href="/moon.png" target="_blank"><img id="moonImg" src="/moon.png"></a></td></tr>-->
         <tr><td>Moon</td><td><span>March 2021</span><br><a href="/static/moon_march_2021.png" target="_blank"><img id="moonImg" src="/static/moon_march_2021.png"></a></td></tr>
@@ -286,6 +303,7 @@
           $('#buoy_swell_period_secs').text(data.buoy.swell_period_secs);
           $('#buoy_swell_angle_degrees').text(data.buoy.swell_angle_degrees);
           $('#buoy_temperature_fahrenheit').text(data.buoy.temperature_fahrenheit);
+          $('#swell_angle_hand').attr('transform', 'rotate(' +  ((parseInt(data.buoy.swell_angle_degrees, 10) + 180) % 360) + ' 500 500)');
         });
       });
     </script>
