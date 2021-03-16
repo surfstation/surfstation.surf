@@ -207,6 +207,10 @@
         <tr><td>Sunrise</td><td><span id="sunrise"></span></td></tr>
         <tr><td>Sunset</td><td><span id="sunset"></span></td></tr>
         <tr><td>Last Light</td><td><span id="lastLight"></span></td></tr>
+	<tr><td><a href="https://cdip.ucsd.edu/m/products/?stn=194p1" target="_blank" rel="noopener noreferrer">Buoy</a> Swell Height</td><td><span id="buoy_swell_height_feet"></span> feet</td></tr>
+	<tr><td>Buoy Swell Period</td><td><span id="buoy_swell_period_secs"></span> secs</td></tr>
+	<tr><td>Buoy Swell Angle</td><td><span id="buoy_swell_angle_degrees"></span>°</td></tr>
+	<tr><td>Buoy Surface Temp</td><td><span id="buoy_temperature_fahrenheit"></span>° F</td></tr>
         <!--<tr><td>Moon</td><td><span id="moonStatus"></span><br><a href="/moon.png" target="_blank"><img id="moonImg" src="/moon.png"></a></td></tr>-->
         <tr><td>Moon</td><td><span>March 2021</span><br><a href="/static/moon_march_2021.png" target="_blank"><img id="moonImg" src="/static/moon_march_2021.png"></a></td></tr>
 	<tr><td>Water Temperature<br>at The Pier<br><a href="https://www.ndbc.noaa.gov/station_page.php?station=sauf1" target="_blank" rel="noopener noreferrer">SAUF1</a></td><td><a href="/water_temperature.png" target="_blank"><img src="/water_temperature.png"></a></td></tr>
@@ -226,7 +230,8 @@
       <div><a href="http://www.ndbc.noaa.gov/station_page.php?station=41008" target="_blank">Grays Reef Buoy</a></div>
       <div><a href="https://www.ndbc.noaa.gov/maps/Florida.shtml" target="_blank">Check Local Buoys</a></div>
       <div><a href="http://www.ndbc.noaa.gov/data/Forecasts/FZUS52.KJAX.html" target="_blank">Local Marine Forecast</a></div>
-      <div><a href="https://sunrise-sunset.org/api" target="_blank">Sunrise, sunset, first light, and last light data provided by sunrise-sunset.org.</a></div>
+      <div><a href="https://sunrise-sunset.org/api" target="_blank" rel="noopener noreferrer">Sunrise, sunset, first light, and last light data provided by sunrise-sunset.org.</a></div>
+      <div><a href="https://cdip.ucsd.edu/" target="_blank" rel="noopener noreferrer">Buoy Data courtesy of CDIP.</a></div>
     </section>
     <section>
       <a href="https://www.surfstationstore.com/"><img src="/static/shop-2030841f88201f7ac3b9cfa272c30a9e.svg"></a>
@@ -274,6 +279,13 @@
           $('#lastLight').text(data.lastLight);
           $('#moonStatus').text(data.moonStatus);
           $('#tides').append('<li>'+ data.tides.join('</li><li>')+'</li>');
+        });
+
+        $.getJSON('/buoy.json').done(function(data) {
+          $('#buoy_swell_height_feet').text(data.buoy.swell_height_feet);
+          $('#buoy_swell_period_secs').text(data.buoy.swell_period_secs);
+          $('#buoy_swell_angle_degrees').text(data.buoy.swell_angle_degrees);
+          $('#buoy_temperature_fahrenheit').text(data.buoy.temperature_fahrenheit);
         });
       });
     </script>
