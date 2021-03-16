@@ -1,10 +1,10 @@
 {
   "buoy": {
-    "swell_height_feet": "3.90",
-    "swell_period_secs": "9.09",
-    "swell_angle_degrees": "61",
-    "temperature_fahrenheit": "64.8",
-    "when": "03/16/2021 12:50 PM",
-    "timestamp": "2021-03-16T17:00:00"
+    "swell_height_feet": "3.35",
+    "swell_period_secs": "9.88",
+    "swell_angle_degrees": "69",
+    "temperature_fahrenheit": "65.8",
+    "when": "03/16/2021 03:20 PM",
+    "timestamp": "2021-03-16T19:30:02"
   }
 }
