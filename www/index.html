@@ -213,9 +213,9 @@
         <tr><td>Sunrise</td><td><span id="sunrise"></span></td></tr>
         <tr><td>Sunset</td><td><span id="sunset"></span></td></tr>
         <tr><td>Last Light</td><td><span id="lastLight"></span></td></tr>
-	<tr><td><a href="https://cdip.ucsd.edu/m/products/?stn=194p1" target="_blank" rel="noopener noreferrer">Buoy</a> Swell Height</td><td><span id="buoy_swell_height_feet"></span> feet</td></tr>
-	<tr><td>Buoy Swell Period</td><td><span id="buoy_swell_period_secs"></span> secs</td></tr>
-	<tr><td>Buoy Swell Angle</td><td><span id="buoy_swell_angle_degrees"></span>°
+        <tr><td><a href="https://cdip.ucsd.edu/m/products/?stn=194p1" target="_blank" rel="noopener noreferrer">Buoy</a> Swell Height</td><td><span id="buoy_swell_height_feet"></span> feet</td></tr>
+        <tr><td>Buoy Swell Period</td><td><span id="buoy_swell_period_secs"></span> secs</td></tr>
+        <tr><td>Buoy Swell Angle</td><td><span id="buoy_swell_angle_degrees"></span>°
           <svg id="swell_direction_svg" viewBox="0 0 1000 1000">
             <defs>
               <marker id="swell_direction_arrow_end" markerWidth="8" markerHeight="8" refx="0" refy="4" orient="auto">
@@ -228,11 +228,11 @@
             <line id="swell_angle_hand" x1="500" y1="500" x2="500" y2="80" marker-start="url(#swell_direction_circle_end)" marker-end="url(#swell_direction_arrow_end)" style="stroke: #000000; stroke-width: 10; stroke-opacity: 0.5;" />
           </svg>
         </td></tr>
-	<tr><td>Buoy Surface Temp</td><td><span id="buoy_temperature_fahrenheit"></span>° F</td></tr>
-	<tr><td>Buoy Swell Combined Polar Spectrum</td><td><a href="/swell_polar_spectrum_combined.png" target="_blank"><img src="/swell_polar_spectrum_combined.png"></a></td></tr>
+        <tr><td>Buoy Surface Temp</td><td><span id="buoy_temperature_fahrenheit"></span>° F</td></tr>
+        <tr><td>Buoy Swell Combined Polar Spectrum</td><td><a href="/swell_polar_spectrum_combined.png" target="_blank"><img src="/swell_polar_spectrum_combined.png"></a></td></tr>
         <!--<tr><td>Moon</td><td><span id="moonStatus"></span><br><a href="/moon.png" target="_blank"><img id="moonImg" src="/moon.png"></a></td></tr>-->
-        <tr><td>Moon</td><td><span>March 2022</span><br><a href="/static/moon_march_2022.png" target="_blank"><img id="moonImg" src="/static/moon_march_2022.png"></a></td></tr>
-	<tr><td>Water Temperature<br>at The Pier<br><a href="https://www.ndbc.noaa.gov/station_page.php?station=sauf1" target="_blank" rel="noopener noreferrer">SAUF1</a></td><td><a href="/water_temperature.png" target="_blank"><img src="/water_temperature.png"></a></td></tr>
+        <tr><td>Moon</td><td><span>April 2022</span><br><a href="/static/moon_april_2022.png" target="_blank"><img id="moonImg" src="/static/moon_april_2022.png"></a></td></tr>
+        <tr><td>Water Temperature<br>at The Pier<br><a href="https://www.ndbc.noaa.gov/station_page.php?station=sauf1" target="_blank" rel="noopener noreferrer">SAUF1</a></td><td><a href="/water_temperature.png" target="_blank"><img src="/water_temperature.png"></a></td></tr>
         <tr><td>Weather Station GPS Location</td><td>29&deg; 50.811&apos; N; 81&deg; 15.968&apos; W - 40 FT<br><a href="/static/wx.jpg" target="_blank"><img id="wxImg" src="/static/wx.jpg"></a></td></tr>
       </table>
     </section>
@@ -256,25 +256,31 @@
       <a href="https://www.surfstationstore.com/"><img src="/static/weather_shop_button-a3ffac88aff6bfb70c536d635fad5ce9.svg"></a>
     </section>
     <script src="/static/jquery-3.6.0.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
     <script>
-      $(function() {
-        var $windDirectionHand = $('#windDirectionHand');
-        var $windDirectionDisplay = $('#windDirectionDisplay');
-        var $windSpeedDisplay = $('#windSpeedDisplay');
-        var $windInstant = $('#windInstant');
-        var $windGustDirectionHand = $('#windGustDirectionHand');
-        var $windGustDirectionDisplay = $('#windGustDirectionDisplay');
-        var $windGustSpeedDisplay = $('#windGustSpeedDisplay');
-        var $svgs = $('section > svg');
-        var $temperature = $('#temperature');
-        var $humidity = $('#humidity');
-        var $displayTemp = $('#displayTemp');
-        var $displayHumidity = $('#displayHumidity');
-        var $displayWindRealtime = $('#displayWindRealtime');
-        var $displayWindGust = $('#displayWindGust');
+      var $windDirectionHand = null;
+      var $windDirectionDisplay = null;
+      var $windSpeedDisplay = null;
+      var $windInstant = null;
+      var $windGustDirectionHand = null;
+      var $windGustDirectionDisplay = null;
+      var $windGustSpeedDisplay = null;
+      var $svgs = null;
+      var $temperature = null;
+      var $humidity = null;
+      var $displayTemp = null;
+      var $displayHumidity = null;
+      var $displayWindRealtime = null;
+      var $displayWindGust = null;
 
-        io('https://www.surfstation.surf/').on('wx', function (wx) {
+      function poll_wx_data() {
+        $.ajax({
+          async: true,
+          cache: false,
+          dataType: 'json',
+          method: 'GET',
+          timeout: 2000,
+          url: '/wx.json'
+        }).done(function(wx) {
           $windDirectionHand.attr('transform', 'rotate(' + wx.wd + ' 500 500)');
           $windDirectionDisplay.html('From ' + wx.wd + '&deg;');
           $windSpeedDisplay.text(wx.ws + ' MPH');
@@ -289,8 +295,12 @@
           $displayHumidity.show();
           $displayWindRealtime.show();
           $displayWindGust.show();
+        }).always(function() {
+          setTimeout(poll_wx_data, 4000);
         });
+      }
 
+      $(function() {
         $.getJSON('/daily.json').done(function(data) {
           $('#firstLight').text(data.firstLight);
           $('#sunrise').text(data.sunrise);
@@ -307,6 +317,23 @@
           $('#buoy_temperature_fahrenheit').text(data.buoy.temperature_fahrenheit);
           $('#swell_angle_hand').attr('transform', 'rotate(' +  ((parseInt(data.buoy.swell_angle_degrees, 10) + 180) % 360) + ' 500 500)');
         });
+
+        $windDirectionHand = $('#windDirectionHand');
+        $windDirectionDisplay = $('#windDirectionDisplay');
+        $windSpeedDisplay = $('#windSpeedDisplay');
+        $windInstant = $('#windInstant');
+        $windGustDirectionHand = $('#windGustDirectionHand');
+        $windGustDirectionDisplay = $('#windGustDirectionDisplay');
+        $windGustSpeedDisplay = $('#windGustSpeedDisplay');
+        $svgs = $('section > svg');
+        $temperature = $('#temperature');
+        $humidity = $('#humidity');
+        $displayTemp = $('#displayTemp');
+        $displayHumidity = $('#displayHumidity');
+        $displayWindRealtime = $('#displayWindRealtime');
+        $displayWindGust = $('#displayWindGust');
+
+        poll_wx_data();
       });
     </script>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
