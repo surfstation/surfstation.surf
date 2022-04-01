@@ -281,16 +281,16 @@
           timeout: 2000,
           url: '/wx.json'
         }).done(function(wx) {
-          $windDirectionHand.attr('transform', 'rotate(' + wx.wd + ' 500 500)');
-          $windDirectionDisplay.html('From ' + wx.wd + '&deg;');
-          $windSpeedDisplay.text(wx.ws + ' MPH');
-          $windInstant.text(new Date(wx.instant).toLocaleString('en-US', {timeZone: 'America/New_York'}));
-          $windGustDirectionHand.attr('transform', 'rotate(' + wx.wgd + ' 500 500)');
-          $windGustDirectionDisplay.html('From ' + wx.wgd + '&deg;');
-          $windGustSpeedDisplay.text(wx.wgs + ' MPH');
+          $windDirectionHand.attr('transform', 'rotate(' + wx.windDirectionDegrees + ' 500 500)');
+          $windDirectionDisplay.html('From ' + wx.windDirectionDegrees + '&deg;');
+          $windSpeedDisplay.text(wx.windSpeedMph + ' MPH');
+          $windInstant.text(new Date(wx.timestamp).toLocaleString('en-US', {timeZone: 'America/New_York'}));
+          $windGustDirectionHand.attr('transform', 'rotate(' + wx.windGustDirection + ' 500 500)');
+          $windGustDirectionDisplay.html('From ' + wx.windGustDirection + '&deg;');
+          $windGustSpeedDisplay.text(wx.windGustSpeedMph + ' MPH');
           $svgs.show();
-          $temperature.text(wx.ot);
-          $humidity.text(wx.oh);
+          $temperature.text(wx.outsideTemperature);
+          $humidity.text(wx.outsideHumidity);
           $displayTemp.show();
           $displayHumidity.show();
           $displayWindRealtime.show();
