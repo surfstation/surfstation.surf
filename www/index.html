@@ -103,7 +103,11 @@
 	vertical-align: middle;
       }
 
-      .announcement {
+      section.announcements {
+        display: block;
+      }
+
+      section.announcements > div {
         background-color: #ffe9a6;
 	padding: 10px 10px 10px 10px;
 	border-radius: 20px;
@@ -124,9 +128,9 @@
     <header>
       <img src="/static/ss_weather_station_logo-afe265e3d43d7c631c89bc472f81b091.svg">
     </header>
-    <section>
+    <section class="announcements">
       <h1>Announcements</h1>
-      <div class="announcement">The Surf Station's Summer FREE Saturday Surf Lessons<br><br>Starting Saturday, June 11, 2022, just after sunrise behind Surf Station 2 at Crescent Beach, just north of the ramp  -  Free Surf Lessons from 7:30 am until 9:30 am. Surfboards, instructors, and fun provided by The Surf Station. To participate you must sign up. It's first come first serve. Send an email to: support@surf-station.com We will write you back. Once confirmed, you are in! Entry limited. Email us for your free lesson!</div>
+      <div>The Surf Station's Summer FREE Saturday Surf Lessons<br><br>Starting Saturday, June 11, 2022, just after sunrise behind Surf Station 2 at Crescent Beach, just north of the ramp  -  Free Surf Lessons from 7:30 am until 9:30 am. Surfboards, instructors, and fun provided by The Surf Station. To participate you must sign up. It's first come first serve. Send an email to: support@surf-station.com We will write you back. Once confirmed, you are in! Entry limited. Email us for your free lesson!</div>
     </section>
     <section id="displayWindRealtime">
       <h1>Realtime Wind</h1>
