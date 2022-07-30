@@ -29,7 +29,7 @@ params = {
   'formatted': '0',
 }
 
-r = requests.get('https://api.sunrise-sunset.org/json', headers=headers, params=params, timeout=60, verify=True)
+r = requests.get('https://api.sunrise-sunset.org/json', headers=headers, params=params, timeout=60, verify=False)
 
 print(r.url)
 new_york_time = tz.gettz('America/New_York')
@@ -60,7 +60,7 @@ params = {
   'format': 'json',
 }
 
-r = requests.get('https://tidesandcurrents.noaa.gov/api/datagetter', headers=headers, params=params, timeout=60, verify=True)
+r = requests.get('https://tidesandcurrents.noaa.gov/api/datagetter', headers=headers, params=params, timeout=60, verify=False)
 
 print(r.url)
 
