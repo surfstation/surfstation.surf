@@ -5,21 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="google-site-verification" content="Tl2kLWXQ8_lfdNmb82-KoxA7NTruKD0TIsyRAidzY0s">
     <meta name="description" content="Current wind, weather, and surf data for St. Augustine Beach, FL 32080.">
-    <title>The Surf Station Weather Station - St. Augustine Beach, FL 32080</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
+    <title>The Surf Station Weather</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans">
     <style>
       body, svg {
         margin: 0px;
         border: 0px none #000000;
         padding: 0px;
         width: 100%;
-        font-family: 'Ubuntu', sans-serif;
+        font-family: 'Open Sans', sans-serif;
         font-size: 16px;
+        text-align: center;
       }
 
-      header, section {
-        width: 100%;
-        text-align: center;
+      img, table {
+        width: 100%; /* default to mobile-first */
+      }
+
+      header {
+        padding: 10px;
+      }
+
+      header > img {
+        max-height: 1.5in;
       }
 
       section > svg, #displayTemp, #displayHumidity, #displayWindRealtime, #displayWindGust {
@@ -36,10 +44,6 @@
 
       section > svg {
         max-width: 450px;
-      }
-
-      img, table {
-        width: 100%; /* default to mobile-first */
       }
 
       table {
@@ -100,7 +104,7 @@
 
       #swell_direction_svg {
         width: 100px;
-	vertical-align: middle;
+        vertical-align: middle;
       }
 
       @media (min-width: 1000px) {
