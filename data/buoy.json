@@ -1,10 +1,10 @@
 {
   "buoy": {
-    "swell_height_feet": "3.3",
-    "swell_period_secs": "6.1",
-    "swell_angle_degrees": "84",
-    "temperature_fahrenheit": "67.5",
-    "when": "12/05/2022 05:25 AM",
-    "timestamp": "2022-12-05T11:00:00"
+    "swell_height_feet": "1.6",
+    "swell_period_secs": "3.6",
+    "swell_angle_degrees": "78",
+    "temperature_fahrenheit": "67.1",
+    "when": "01/11/2023 07:25 PM",
+    "timestamp": "2023-01-12T00:30:00"
   }
 }
