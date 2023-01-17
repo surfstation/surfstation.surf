@@ -6,18 +6,25 @@ import sys
 import datetime
 from dateutil import tz
 
+new_york_time = tz.gettz('America/New_York')
+now = datetime.datetime.now(new_york_time)
+tomorrow = now + datetime.timedelta(days = 1)
+
+now_str = now.strftime('%Y-%m-%d')
+tomorrow_str = tomorrow.strftime('%Y-%m-%d')
+
 # api references:
 # https://api.sunrise-sunset.org/json?lat=29.84&lng=-81.26&formatted=0
 
-result = {'tides': []}
-
-now = datetime.datetime.now().strftime('%Y-%m-%d')
+result = {'tides': [], 'tides_tomorrow': []}
 
 with open(sys.argv[1], 'r') as f:
   for line in f:
     fields = line.split()
-    if fields[0] == now:
+    if fields[0] == now_str:
       result['tides'].append(fields[1] + ' ' + fields[2] + ' ' + fields[3])
+    if fields[0] == tomorrow_str:
+      result['tides_tomorrow'].append(fields[1] + ' ' + fields[2] + ' ' + fields[3])
 
 headers = {
   'User-Agent': 'Mozilla/5.0 (Linux; Android 8.0.0;) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36',
@@ -32,7 +39,6 @@ params = {
 r = requests.get('https://api.sunrise-sunset.org/json', headers=headers, params=params, timeout=60, verify=False)
 
 print(r.url)
-new_york_time = tz.gettz('America/New_York')
 
 if r.status_code == 200:
   data = r.json()
@@ -45,13 +51,13 @@ if r.status_code == 200:
 with open(sys.argv[2], 'w') as f:
   f.write(json.dumps(result, sort_keys=False, indent=2))
 
-now = datetime.datetime.now().strftime('%Y%m%d')
+now_str = now.strftime('%Y%m%d')
 
 params = {
   'product': 'predictions',
   'application': 'NOS.COOPS.TAC.WL',
-  'begin_date': now,
-  'end_date': now,
+  'begin_date': now_str,
+  'end_date': now_str,
   'datum': 'MLLW',
   'station': '8720587',
   'time_zone': 'lst_ldt',
