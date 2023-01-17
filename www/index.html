@@ -216,6 +216,7 @@
       <h1>Current Weather</h1>
       <table>
         <tr><td>Tides</td><td><ul id="tides"></ul></td></tr>
+        <tr><td>Tomorrow's Tides</td><td><ul id="tomorrowstides"></ul></td></tr>
         <tr id="displayTemp"><td>Temperature</td><td><span id="temperature"></span>&deg; F</td></tr>
         <tr id="displayHumidity"><td>Humidity</td><td><span id="humidity"></span>%</td></tr>
         <tr><td>First Light</td><td><span id="firstLight"></span></td></tr>
@@ -317,6 +318,7 @@
           $('#sunset').text(data.sunset);
           $('#lastLight').text(data.lastLight);
           $('#tides').append('<li>'+ data.tides.join('</li><li>')+'</li>');
+          $('#tomorrowstides').append('<li>'+ data.tides_tomorrow.join('</li><li>')+'</li>');
         });
 
         $.getJSON('/buoy.json').done(function(data) {
