@@ -3,269 +3,327 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Current wind, weather, and surf data for St. Augustine Beach, FL 32080.">
+    <meta name="description" content="Current weather and surf conditions for St. Augustine Beach, FL 32080">
     <title>The Surf Station Weather</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans">
     <style>
-      body, svg {
+      body {
         margin: 0px;
         border: 0px none #000000;
         padding: 0px;
-        width: 100%;
         font-family: 'Open Sans', sans-serif;
-        font-size: 16px;
-      }
-
-      header, section {
-        width: 100%;
+        font-size: 14px;
         text-align: center;
-      }
-
-      img, table {
-        width: 100%; /* default to mobile-first */
+        word-break: break-word;
       }
 
       header {
-        padding: 10px 0px 10px 0px;
+        background-color: #3a3a3a;
+        line-height: 0px;
       }
 
       header > img {
-        max-height: 1.5in;
+        width: 100%;
+        max-width: 288px;
       }
 
-      section > svg, #displayTemp, #displayHumidity, #displayWindRealtime, #displayWindGust {
-        display: none; /* do not show initially to avoid showing incorrect direction before first data update */
+      div.card {
+        width: 100%;
+        max-width: 500px;
+        margin: auto;
       }
 
-      svg > text {
-        font-size: 70px; text-anchor: middle; fill: #000000;
+      div.card > div.description {
+        font-size: 16px;
+        background-color: #00ffee;
+        font-weight: 600;
       }
 
-      svg > line {
-        stroke: #333333; stroke-width: 10; stroke-opacity: 0.75;
+      div.card > div.imagecontentonly {
+        line-height: 0px;
       }
 
-      section > svg {
-        max-width: 450px;
+      div.card img {
+        width: 100%;
+      }
+
+      .showondata {
+        display: none;
+      }
+
+      svg text {
+        font-size: 70px;
+        text-anchor: middle;
+        fill: #ffffff;
+      }
+
+      svg line {
+        stroke: #ffffff;
+        stroke-width: 10;
+        stroke-opacity: 0.75;
       }
 
       table {
         border-spacing: 0px;
+        border-top: 1px solid #efefef;
+        margin: auto;
       }
 
-      table tr td {
-        width: 50%;
+      td {
         padding: 10px;
-      }
-
-      table tr td:nth-child(odd) {
-        text-align: right;
-      }
-
-      table tr td:nth-child(even) {
-        text-align: left;
-      }
-
-      table tr:nth-child(even) {
-        background-color: #cccccc;
+        border-bottom: 1px solid #efefef;
       }
 
       ul {
         list-style-type: none;
-        margin: 0px;
+        margin: auto;
         padding: 0px;
+        width: fit-content;
       }
 
       ul li {
-        padding: 0px 0px 5px 0px;
+        padding: 10px;
+        border-bottom: 1px solid #efefef;
       }
 
-      div {
-        word-wrap: break-word;
-      }
-
-      h1 {
-        background-color: #cccccc;
-        padding: 10px 10px 10px 10px;
-        margin-bottom: 3px;
-        border-radius: 20px;
-      }
-
-      #moonImg, #wxImg {
-        max-width: 250px;
-      }
-
-      #third_street_player, #pier_player, #south_pier_player {
-        max-width: 640px;
+      iframe {
         width: 100%;
-        height: 360px;
+        min-height: 360px;
       }
 
-      #curve_chart {
-        text-align: center;
+      footer {
+        background-color: #3a3a3a;
+        color: #ffffff;
+        clear: both;
       }
 
-      #swell_direction_svg {
-        width: 100px;
-        vertical-align: middle;
+      @media (min-width: 600px) {
+        div.card {
+          max-width: 50%;
+          float: left;
+        }
       }
 
       @media (min-width: 1000px) {
-        section {
-          display: inline-block;
-          width: 49%;
-          vertical-align: top;
-          text-align: center;
+        div.card {
+          max-width: 33.333%;
+          float: left;
         }
       }
     </style>
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   </head>
   <body>
-    <header>
-      <img src="/static/ss_weather_station_logo-4466294d30e3d77a5078ca3850813877.svg">
-    </header>
-    <section id="displayWindRealtime">
-      <h1>Realtime Wind</h1>
-      <svg viewBox="0 0 1000 1000">
-        <defs>
-          <marker id="arrowEnd" markerWidth="8" markerHeight="8" refx="0" refy="4" orient="auto">
-            <path d="M0,0 L8,4 L0,8 Z" style="fill: #ff6666; fill-opacity: 1;" />
-          </marker>
-          <marker id="circleEnd" markerWidth="6" markerHeight="6" refx="3" refy="3" orient="auto">
-            <circle cx="3" cy="3" r="3" style="fill: #ff6666;" />
-          </marker>
-          <linearGradient id="dialGradient" x1="0%" y1="0%" x2="0%" y2="100%" spreadMethod="pad">
-            <stop offset="20%" stop-color="#b2f0ff" stop-opacity="1" />
-            <stop offset="100%" stop-color="#00ccff" stop-opacity="1" />
-          </linearGradient>
-        </defs>
-        <circle cx="500" cy="500" r="500" style="fill: url(#dialGradient);" />
-        <line id="windDirectionHand" x1="500" y1="500" x2="500" y2="80" marker-start="url(#circleEnd)" marker-end="url(#arrowEnd)" style="stroke: #ff6666; stroke-width: 10; stroke-opacity: 0.5;" />
-        <line x1="500" y1="0" x2="500" y2="100" />
-        <text style="font-size: 80px; text-anchor: middle;" x="500" y="180">N</text>
-        <line x1="1000" y1="500" x2="900" y2="500" />
-        <text style="font-size: 80px; text-anchor: end;" x="880" y="530">E</text>
-        <line x1="500" y1="1000" x2="500" y2="900" />
-        <text style="font-size: 80px; text-anchor: middle;" x="500" y="880">S</text>
-        <line x1="0" y1="500" x2="100" y2="500" />
-        <text style="font-size: 80px; text-anchor: start;" x="120" y="530">W</text>
-        <line x1="146.4" y1="146.4" x2="181.8" y2="181.8" />
-        <text style="font-size: 80px; text-anchor: start;" x="200" y="280">NW</text>
-        <line x1="853.6" y1="146.4" x2="818.2" y2="181.8" />
-        <text style="font-size: 80px; text-anchor: end;" x="800" y="280">NE</text>
-        <line x1="146.4" y1="853.6" x2="181.8" y2="818.2" />
-        <text style="font-size: 80px; text-anchor: start;" x="200" y="800">SW</text>
-        <line x1="853.6" y1="853.6" x2="818.2" y2="818.2" />
-        <text style="font-size: 80px; text-anchor: end;" x="800" y="800">SE</text>
-        <text id="windDirectionDisplay" x="500" y="380"></text>
-        <text id="windSpeedDisplay" x="500" y="680"></text>
-      </svg>
-      <h3>Last Updated: <span id="windInstant"></span></h3>
-    </section>
-    <section id="displayWindGust">
-      <h1>Wind Gust - Last 10 Minutes</h1>
-      <svg viewBox="0 0 1000 1000">
-        <defs>
-          <marker id="arrowEnd" markerWidth="8" markerHeight="8" refx="0" refy="4" orient="auto">
-            <path d="M0,0 L8,4 L0,8 Z" style="fill: #ff6666; fill-opacity: 1;" />
-          </marker>
-          <marker id="circleEnd" markerWidth="6" markerHeight="6" refx="3" refy="3" orient="auto">
-            <circle cx="3" cy="3" r="3" style="fill: #ff6666;" />
-          </marker>
-          <linearGradient id="dialGradient" x1="0%" y1="0%" x2="0%" y2="100%" spreadMethod="pad">
-            <stop offset="20%" stop-color="#b2f0ff" stop-opacity="1" />
-            <stop offset="100%" stop-color="#00ccff" stop-opacity="1" />
-          </linearGradient>
-        </defs>
-        <circle cx="500" cy="500" r="500" style="fill: url(#dialGradient);" />
-        <line id="windGustDirectionHand" x1="500" y1="500" x2="500" y2="80" marker-start="url(#circleEnd)" marker-end="url(#arrowEnd)" style="stroke: #ff6666; stroke-width: 10; stroke-opacity: 0.5;" />
-        <line x1="500" y1="0" x2="500" y2="100" />
-        <text style="font-size: 80px; text-anchor: middle;" x="500" y="180">N</text>
-        <line x1="1000" y1="500" x2="900" y2="500" />
-        <text style="font-size: 80px; text-anchor: end;" x="880" y="530">E</text>
-        <line x1="500" y1="1000" x2="500" y2="900" />
-        <text style="font-size: 80px; text-anchor: middle;" x="500" y="880">S</text>
-        <line x1="0" y1="500" x2="100" y2="500" />
-        <text style="font-size: 80px; text-anchor: start;" x="120" y="530">W</text>
-        <line x1="146.4" y1="146.4" x2="181.8" y2="181.8" />
-        <text style="font-size: 80px; text-anchor: start;" x="200" y="280">NW</text>
-        <line x1="853.6" y1="146.4" x2="818.2" y2="181.8" />
-        <text style="font-size: 80px; text-anchor: end;" x="800" y="280">NE</text>
-        <line x1="146.4" y1="853.6" x2="181.8" y2="818.2" />
-        <text style="font-size: 80px; text-anchor: start;" x="200" y="800">SW</text>
-        <line x1="853.6" y1="853.6" x2="818.2" y2="818.2" />
-        <text style="font-size: 80px; text-anchor: end;" x="800" y="800">SE</text>
-        <text id="windGustDirectionDisplay" x="500" y="380"></text>
-        <text id="windGustSpeedDisplay" x="500" y="680"></text>
-      </svg>
-    </section>
-    <section>
-      <h1>Wavecam Livestream</h1>
-      <iframe id="pier_player" src="https://camstreamer.com/embed/Cwyc610HmMb53lJKweotlAb3biST7WgGWXfc8nd8?autoplay=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      <iframe id="south_pier_player" src="https://camstreamer.com/embed/JULvJitzgQ31uxTEcBWFDxDcauow6FP93I3q8iSg?autoplay=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      <iframe id="third_street_player" src="https://camstreamer.com/yt-embed/68a2c2b1d0a16ce/S-29474?autoplay=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      <h1>Forecast</h1>
-      <a class="weatherwidget-io" href="https://forecast7.com/en/29d84n81d28/32080/?unit=us" data-label_1="ST. AUGUSTINE" data-label_2="BEACH WEATHER" data-font="Ubuntu" data-icons="Climacons" data-mode="Forecast" data-days="5" data-theme="pure" >ST. AUGUSTINE BEACH WEATHER</a>
-      <script>
-        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
-      </script>
-    </section>
-    <section>
-      <h1>Current Weather</h1>
-      <table>
-        <tr><td>Tides</td><td><ul id="tides"></ul></td></tr>
-        <tr><td>Tomorrow's Tides</td><td><ul id="tomorrowstides"></ul></td></tr>
-        <tr id="displayTemp"><td>Temperature</td><td><span id="temperature"></span>&deg; F</td></tr>
-        <tr id="displayHumidity"><td>Humidity</td><td><span id="humidity"></span>%</td></tr>
-        <tr><td>First Light</td><td><span id="firstLight"></span></td></tr>
-        <tr><td>Sunrise</td><td><span id="sunrise"></span></td></tr>
-        <tr><td>Sunset</td><td><span id="sunset"></span></td></tr>
-        <tr><td>Last Light</td><td><span id="lastLight"></span></td></tr>
-        <tr><td><a href="https://cdip.ucsd.edu/m/products/?stn=194p1" target="_blank" rel="noopener noreferrer">Buoy</a> Swell Height</td><td><span id="buoy_swell_height_feet"></span> feet</td></tr>
-        <tr><td>Buoy Swell Period</td><td><span id="buoy_swell_period_secs"></span> secs</td></tr>
-        <tr><td>Buoy Swell Angle</td><td><span id="buoy_swell_angle_degrees"></span>°
-          <svg id="swell_direction_svg" viewBox="0 0 1000 1000">
-            <defs>
-              <marker id="swell_direction_arrow_end" markerWidth="8" markerHeight="8" refx="0" refy="4" orient="auto">
-                <path d="M0,0 L8,4 L0,8 Z" style="fill: #000000; fill-opacity: 1;" />
-              </marker>
-              <marker id="swell_direction_circle_end" markerWidth="6" markerHeight="6" refx="3" refy="3" orient="auto">
-                <circle cx="3" cy="3" r="3" style="fill: #000000;" />
-              </marker>
-            </defs>
-            <line id="swell_angle_hand" x1="500" y1="500" x2="500" y2="80" marker-start="url(#swell_direction_circle_end)" marker-end="url(#swell_direction_arrow_end)" style="stroke: #000000; stroke-width: 10; stroke-opacity: 0.5;" />
-          </svg>
-        </td></tr>
-        <tr><td>Buoy Surface Temp</td><td><span id="buoy_temperature_fahrenheit"></span>° F</td></tr>
-        <tr><td>Buoy Swell Combined Polar Spectrum</td><td><a href="/swell_polar_spectrum_combined.png" target="_blank"><img src="/swell_polar_spectrum_combined.png"></a></td></tr>
-	<tr><td><a href="https://cdip.ucsd.edu/m/products/?stn=194p1" target="_blank" rel="noopener noreferrer">Buoy Predictions</a></td><td><a href="/ucsd_forecast.png" target="_blank"><img src="/ucsd_forecast.png"></a></td></tr>
-        <tr><td>Moon</td><td><a href="/moon.png" target="_blank"><img id="moonImg" src="/moon.png"></a></td></tr>
-        <tr><td>Water Temperature<br>at The Pier<br><a href="https://www.ndbc.noaa.gov/station_page.php?station=sauf1" target="_blank" rel="noopener noreferrer">SAUF1</a></td><td><a href="/water_temperature.png" target="_blank"><img src="/water_temperature.png"></a></td></tr>
-        <tr><td>Weather Station GPS Location</td><td>29&deg; 50.811&apos; N; 81&deg; 15.968&apos; W - 40 FT<br><a href="/static/wx.jpg" target="_blank"><img id="wxImg" src="/static/wx.jpg"></a></td></tr>
-      </table>
-    </section>
-    <section>
-      <h1>Tide Heights</h1>
-      <a href="https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=8720587&units=standard&bdate=20210501&edate=20210531&timezone=LST/LDT&clock=12hour&datum=MLLW&interval=hilo&action=monthlychart" target="_blank" rel="noopener noreferrer"><div id="curve_chart"></div></a>
-    </section>
-    <section>
-      <h1>Links</h1>
-      <div><a href="https://www.surf-station.com/" target="_blank">The Surf Station Surf Report</a></div>
-      <div><a href="https://www.surf-station.com/north-florida-surf-forecast/" target="_blank">Dean&apos;s North Florida Surf Forecast</a></div>
-      <div><a href="https://www.ndbc.noaa.gov/station_page.php?station=41117" target="_blank">St. Augustine Buoy</a></div>
-      <div><a href="https://www.ndbc.noaa.gov/station_page.php?station=41009" target="_blank">Canaveral Buoy</a></div>
-      <div><a href="https://www.ndbc.noaa.gov/station_page.php?station=41008" target="_blank">Grays Reef Buoy</a></div>
-      <div><a href="https://www.ndbc.noaa.gov/obs.shtml?lat=29.709466&lon=-80.659100&zoom=7&type=oceans&status=r&pgm=&op=&ls=n" target="_blank">Check Local Buoys</a></div>
-      <div><a href="https://www.ndbc.noaa.gov/data/Forecasts/FZUS52.KJAX.html" target="_blank">Local Marine Forecast</a></div>
-      <div><a href="https://www.accuweather.com/en/us/st-augustine/32084/weather-radar/332327" target="_blank" rel="noopener noreferrer">Local Radar</a></div>
-      <div><a href="https://sunrise-sunset.org/api" target="_blank" rel="noopener noreferrer">Sunrise, sunset, first light, and last light data provided by sunrise-sunset.org.</a></div>
-      <div><a href="https://cdip.ucsd.edu/" target="_blank" rel="noopener noreferrer">Buoy Data courtesy of CDIP.</a></div>
-    </section>
-    <section>
-      <a href="https://www.surfstationstore.com/"><img src="/static/weather_shop_button-a3ffac88aff6bfb70c536d635fad5ce9.svg"></a>
-    </section>
-    <script src="/static/jquery-3.6.0.min.js"></script>
+    <header><img src="/static/logo-1d27fdaadbcbcb2c6f99d146f57057eb.png"></header>
+    <div class="card showondata">
+      <div class="description">
+        <div>Realtime Wind</div>
+        <div>Last Updated: <span id="windInstant"></span></div>
+      </div>
+      <div class="imagecontentonly">
+        <svg viewBox="0 0 1000 1000">
+          <defs>
+            <marker id="arrowEnd" markerWidth="8" markerHeight="8" refx="0" refy="4" orient="auto">
+              <path d="M0,0 L8,4 L0,8 Z" style="fill: #000000; fill-opacity: 1;" />
+            </marker>
+            <marker id="circleEnd" markerWidth="6" markerHeight="6" refx="3" refy="3" orient="auto">
+              <circle cx="3" cy="3" r="3" style="fill: #000000;" />
+            </marker>
+            <linearGradient id="dialGradient" x1="0%" y1="0%" x2="0%" y2="100%" spreadMethod="pad">
+              <stop offset="20%" stop-color="#3a3a3a" stop-opacity="1" />
+              <stop offset="100%" stop-color="#888888" stop-opacity="1" />
+            </linearGradient>
+          </defs>
+          <circle cx="500" cy="500" r="500" style="fill: url(#dialGradient);" />
+          <line id="windDirectionHand" x1="500" y1="500" x2="500" y2="80" marker-start="url(#circleEnd)" marker-end="url(#arrowEnd)" style="stroke: #000000; stroke-width: 10; stroke-opacity: 0.5;" />
+          <line x1="500" y1="0" x2="500" y2="100" />
+          <text style="font-size: 80px; text-anchor: middle;" x="500" y="180">N</text>
+          <line x1="1000" y1="500" x2="900" y2="500" />
+          <text style="font-size: 80px; text-anchor: end;" x="880" y="530">E</text>
+          <line x1="500" y1="1000" x2="500" y2="900" />
+          <text style="font-size: 80px; text-anchor: middle;" x="500" y="880">S</text>
+          <line x1="0" y1="500" x2="100" y2="500" />
+          <text style="font-size: 80px; text-anchor: start;" x="120" y="530">W</text>
+          <line x1="146.4" y1="146.4" x2="181.8" y2="181.8" />
+          <text style="font-size: 80px; text-anchor: start;" x="200" y="280">NW</text>
+          <line x1="853.6" y1="146.4" x2="818.2" y2="181.8" />
+          <text style="font-size: 80px; text-anchor: end;" x="800" y="280">NE</text>
+          <line x1="146.4" y1="853.6" x2="181.8" y2="818.2" />
+          <text style="font-size: 80px; text-anchor: start;" x="200" y="800">SW</text>
+          <line x1="853.6" y1="853.6" x2="818.2" y2="818.2" />
+          <text style="font-size: 80px; text-anchor: end;" x="800" y="800">SE</text>
+          <text id="windDirectionDisplay" x="500" y="380"></text>
+          <text id="windSpeedDisplay" x="500" y="680"></text>
+        </svg>
+      </div>
+    </div>
+    <div class="card showondata">
+      <div class="description">
+        <div>Wind Gust</div>
+        <div>Last 10 Minutes</div>
+      </div>
+      <div class="imagecontentonly">
+        <svg viewBox="0 0 1000 1000">
+          <circle cx="500" cy="500" r="500" style="fill: url(#dialGradient);" />
+          <line id="windGustDirectionHand" x1="500" y1="500" x2="500" y2="80" marker-start="url(#circleEnd)" marker-end="url(#arrowEnd)" style="stroke: #000000; stroke-width: 10; stroke-opacity: 0.5;" />
+          <line x1="500" y1="0" x2="500" y2="100" />
+          <text style="font-size: 80px; text-anchor: middle;" x="500" y="180">N</text>
+          <line x1="1000" y1="500" x2="900" y2="500" />
+          <text style="font-size: 80px; text-anchor: end;" x="880" y="530">E</text>
+          <line x1="500" y1="1000" x2="500" y2="900" />
+          <text style="font-size: 80px; text-anchor: middle;" x="500" y="880">S</text>
+          <line x1="0" y1="500" x2="100" y2="500" />
+          <text style="font-size: 80px; text-anchor: start;" x="120" y="530">W</text>
+          <line x1="146.4" y1="146.4" x2="181.8" y2="181.8" />
+          <text style="font-size: 80px; text-anchor: start;" x="200" y="280">NW</text>
+          <line x1="853.6" y1="146.4" x2="818.2" y2="181.8" />
+          <text style="font-size: 80px; text-anchor: end;" x="800" y="280">NE</text>
+          <line x1="146.4" y1="853.6" x2="181.8" y2="818.2" />
+          <text style="font-size: 80px; text-anchor: start;" x="200" y="800">SW</text>
+          <line x1="853.6" y1="853.6" x2="818.2" y2="818.2" />
+          <text style="font-size: 80px; text-anchor: end;" x="800" y="800">SE</text>
+          <text id="windGustDirectionDisplay" x="500" y="380"></text>
+          <text id="windGustSpeedDisplay" x="500" y="680"></text>
+        </svg>
+      </div>
+    </div>
+    <div class="card">
+      <div class="description">Today's Tides</div>
+      <div><ul id="tides"></ul></div>
+    </div>
+    <div class="card">
+      <div class="description">Tomorrow's Tides</div>
+      <div><ul id="tomorrowstides"></ul></div>
+    </div>
+    <div class="card">
+      <div class="description">Daylight</div>
+      <div>
+        <table>
+          <tr><td>First Light</td><td><span id="firstLight"></span></td></tr>
+          <tr><td>Sunrise</td><td><span id="sunrise"></span></td></tr>
+          <tr><td>Sunset</td><td><span id="sunset"></span></td></tr>
+          <tr><td>Last Light</td><td><span id="lastLight"></span></td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="card showondata">
+      <div class="description">Local Observations</div>
+      <div>
+        <table>
+          <tr><td>Temperature</td><td><span id="temperature"></span>&deg; F</td></tr>
+          <tr><td>Humidity</td><td><span id="humidity"></span>%</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="description"><a href="https://cdip.ucsd.edu/m/products/?stn=194p1" target="_blank" rel="noopener noreferrer">Buoy</a></div>
+      <div>
+        <table>
+          <tr><td>Swell Height</td><td><span id="buoy_swell_height_feet"></span> feet</td></tr>
+          <tr><td>Swell Period</td><td><span id="buoy_swell_period_secs"></span> secs</td></tr>
+          <tr><td>Surface Temp</td><td><span id="buoy_temperature_fahrenheit"></span>° F</td></tr>
+          <tr>
+            <td>Swell Angle</td>
+            <td>
+              <div><span id="buoy_swell_angle_degrees"></span>&deg;</div>
+              <svg viewBox="0 0 1000 1000">
+                <defs>
+                  <marker id="swell_direction_arrow_end" markerWidth="8" markerHeight="8" refx="0" refy="4" orient="auto">
+                    <path d="M0,0 L8,4 L0,8 Z" style="fill: #000000; fill-opacity: 1;" />
+                  </marker>
+                  <marker id="swell_direction_circle_end" markerWidth="6" markerHeight="6" refx="3" refy="3" orient="auto">
+                    <circle cx="3" cy="3" r="3" style="fill: #000000;" />
+                  </marker>
+                </defs>
+                <circle cx="500" cy="500" r="500" style="fill: #efefef;" />
+                <line id="swell_angle_hand" x1="500" y1="500" x2="500" y2="80" marker-start="url(#swell_direction_circle_end)" marker-end="url(#swell_direction_arrow_end)" style="stroke: #000000; stroke-width: 10; stroke-opacity: 0.5;" />
+              </svg>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="description">Pier North Live Cam</div>
+      <div class="imagecontentonly">
+        <iframe src="https://camstreamer.com/embed/Cwyc610HmMb53lJKweotlAb3biST7WgGWXfc8nd8?autoplay=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="card">
+      <div class="description">Pier South Live Cam</div>
+      <div class="imagecontentonly">
+        <iframe src="https://camstreamer.com/embed/JULvJitzgQ31uxTEcBWFDxDcauow6FP93I3q8iSg?autoplay=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="card">
+      <div class="description">3rd St Live Cam</div>
+      <div class="imagecontentonly">
+        <iframe src="https://camstreamer.com/yt-embed/68a2c2b1d0a16ce/S-29474?autoplay=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+<!--
+    <div class="card">
+      <div class="description">Forecast</div>
+      <div>
+        <a class="weatherwidget-io" href="https://forecast7.com/en/29d84n81d28/32080/?unit=us" data-label_1="ST. AUGUSTINE" data-label_2="BEACH WEATHER" data-font="Ubuntu" data-icons="Climacons" data-mode="Forecast" data-days="5" data-theme="pure" >ST. AUGUSTINE BEACH WEATHER</a>
+        <script>
+          !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+        </script>
+      </div>
+    </div>
+-->
+    <div class="card">
+      <div class="description">Buoy Swell Combined Polar Spectrum</div>
+      <div class="imagecontentonly"><a href="/swell_polar_spectrum_combined.png" target="_blank"><img src="/swell_polar_spectrum_combined.png"></a></div>
+    </div>
+    <div class="card">
+      <div class="description"><a href="https://cdip.ucsd.edu/m/products/?stn=194p1" target="_blank" rel="noopener noreferrer">Buoy Predictions</a></div>
+      <div class="imagecontentonly"><a href="/ucsd_forecast.png" target="_blank"><img src="/ucsd_forecast.png"></a></div>
+    </div>
+    <div class="card">
+      <div class="description">Moon</div>
+      <div class="imagecontentonly"><a href="/moon.jpg" target="_blank"><img src="/moon.jpg"></a></div>
+    </div>
+    <div class="card">
+      <div class="description">
+        <div>Water Temperature at The Pier (<a href="https://www.ndbc.noaa.gov/station_page.php?station=sauf1" target="_blank" rel="noopener noreferrer">SAUF1</a>)</div>
+      </div>
+      <div class="imagecontentonly"><a href="/water_temperature.png" target="_blank"><img src="/water_temperature.png"></a></div>
+    </div>
+    <div class="card">
+      <div class="description">
+        <div>About the Weather Station</div>
+        <div>GPS: 29&deg; 50.811&apos; N; 81&deg; 15.968&apos; W; 40 FT</div>
+      </div>
+      <div class="imagecontentonly"><a href="/static/wx-818b519807575cb096fe1197b200327a.jpg" target="_blank"><img src="/static/wx-818b519807575cb096fe1197b200327a.jpg"></a></div>
+    </div>
+<!--
+    <div class="card">
+      <div class="description">Tide Heights</div>
+      <div>
+        <a href="https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=8720587&units=standard&bdate=20210501&edate=20210531&timezone=LST/LDT&clock=12hour&datum=MLLW&interval=hilo&action=monthlychart" target="_blank" rel="noopener noreferrer"><div id="curve_chart"></div></a>
+      </div>
+    </div>
+-->
+    <div class="card">
+      <div class="description">Links</div>
+      <div>
+        <ul>
+          <li><a href="https://www.surf-station.com/" target="_blank">The Surf Station Surf Report</a></li>
+          <li><a href="https://www.surf-station.com/north-florida-surf-forecast/" target="_blank">Dean&apos;s North Florida Surf Forecast</a></li>
+          <li><a href="https://www.ndbc.noaa.gov/station_page.php?station=41117" target="_blank">St. Augustine Buoy</a></li>
+          <li><a href="https://www.ndbc.noaa.gov/station_page.php?station=41009" target="_blank">Canaveral Buoy</a></li>
+          <li><a href="https://www.ndbc.noaa.gov/station_page.php?station=41008" target="_blank">Grays Reef Buoy</a></li>
+          <li><a href="https://www.ndbc.noaa.gov/obs.shtml?lat=29.709466&lon=-80.659100&zoom=7&type=oceans&status=r&pgm=&op=&ls=n" target="_blank">Check Local Buoys</a></li>
+          <li><a href="https://www.ndbc.noaa.gov/data/Forecasts/FZUS52.KJAX.html" target="_blank">Local Marine Forecast</a></li>
+          <li><a href="https://www.accuweather.com/en/us/st-augustine/32084/weather-radar/332327" target="_blank" rel="noopener noreferrer">Local Radar</a></li>
+          <li><a href="https://sunrise-sunset.org/api" target="_blank" rel="noopener noreferrer">Sunrise, sunset, first light, and last light data provided by sunrise-sunset.org</a></li>
+          <li><a href="https://cdip.ucsd.edu/" target="_blank" rel="noopener noreferrer">Buoy Data courtesy of CDIP</a></li>
+          <li><a href="https://www.surfstationstore.com/"><img src="/static/weather_shop_button-a3ffac88aff6bfb70c536d635fad5ce9.svg"></a></li>
+        </ul>
+      </div>
+    </div>
+    <footer>St. Augustine Beach, FL 32080</footer>
+    <script src="/static/jquery-3.6.3.min.js"></script>
     <script>
       var $windDirectionHand = null;
       var $windDirectionDisplay = null;
@@ -274,13 +332,9 @@
       var $windGustDirectionHand = null;
       var $windGustDirectionDisplay = null;
       var $windGustSpeedDisplay = null;
-      var $svgs = null;
       var $temperature = null;
       var $humidity = null;
-      var $displayTemp = null;
-      var $displayHumidity = null;
-      var $displayWindRealtime = null;
-      var $displayWindGust = null;
+      var $showondata = null;
 
       function poll_wx_data() {
         $.ajax({
@@ -298,13 +352,9 @@
           $windGustDirectionHand.attr('transform', 'rotate(' + wx.gd + ' 500 500)');
           $windGustDirectionDisplay.html('From ' + wx.gd + '&deg;');
           $windGustSpeedDisplay.text(wx.g + ' MPH');
-          $svgs.show();
           $temperature.text(wx.f);
           $humidity.text(wx.h);
-          $displayTemp.show();
-          $displayHumidity.show();
-          $displayWindRealtime.show();
-          $displayWindGust.show();
+          $showondata.show();
         }).always(function() {
           setTimeout(poll_wx_data, 4000);
         });
@@ -335,17 +385,13 @@
         $windGustDirectionHand = $('#windGustDirectionHand');
         $windGustDirectionDisplay = $('#windGustDirectionDisplay');
         $windGustSpeedDisplay = $('#windGustSpeedDisplay');
-        $svgs = $('section > svg');
         $temperature = $('#temperature');
         $humidity = $('#humidity');
-        $displayTemp = $('#displayTemp');
-        $displayHumidity = $('#displayHumidity');
-        $displayWindRealtime = $('#displayWindRealtime');
-        $displayWindGust = $('#displayWindGust');
-
+        $showondata = $('.showondata');
         poll_wx_data();
       });
     </script>
+<!--
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
       google.charts.load('current', {'packages':['corechart']});
@@ -375,5 +421,6 @@
         });
       }
     </script>
+-->
   </body>
 </html>
