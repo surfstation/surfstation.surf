@@ -296,14 +296,10 @@
       </div>
       <div class="imagecontentonly"><a href="/static/wx-818b519807575cb096fe1197b200327a.jpg" target="_blank"><img src="/static/wx-818b519807575cb096fe1197b200327a.jpg"></a></div>
     </div>
-<!--
     <div class="card">
-      <div class="description">Tide Heights</div>
-      <div>
-        <a href="https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=8720587&units=standard&bdate=20210501&edate=20210531&timezone=LST/LDT&clock=12hour&datum=MLLW&interval=hilo&action=monthlychart" target="_blank" rel="noopener noreferrer"><div id="curve_chart"></div></a>
-      </div>
+      <div class="description"><a href="https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=8720587&units=standard&bdate=20210501&edate=20210531&timezone=LST/LDT&clock=12hour&datum=MLLW&interval=hilo&action=monthlychart" target="_blank" rel="noopener noreferrer">Tide Heights</a></div>
+      <div class="imagecontentonly"><a href="/dynamic/tideheights.svg" target="_blank"><img src="/dynamic/tideheights.svg"></a></div>
     </div>
--->
     <div class="card">
       <div class="description">Links</div>
       <div>
@@ -390,36 +386,5 @@
         poll_wx_data();
       });
     </script>
-<!--
-    <script src="https://www.gstatic.com/charts/loader.js"></script>
-    <script>
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        $.ajax({
-          url: '/dynamic/tide_heights.json',
-          success: function (result) {
-            let data = new google.visualization.DataTable();
-            data.addColumn('datetime', 'Time');
-            data.addColumn('number', 'Height in feet (MLLW)');
-            if (result.predictions) {
-              for (let i = 0; i < result.predictions.length; i++) {
-                data.addRow([new Date(result.predictions[i].t), Number(result.predictions[i].v)]);
-              }
-            }
-            let options = {
-              width: '100%',
-              height: '500',
-              title: 'Today\'s NOAA Tide Predictions - St. Augustine Beach, FL',
-              curveType: 'function',
-              legend: { position: 'bottom' }
-            };
-            let chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-            chart.draw(data, options);
-          }
-        });
-      }
-    </script>
--->
   </body>
 </html>
