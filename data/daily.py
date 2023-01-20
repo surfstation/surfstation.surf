@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 import json
-import re
-import requests
 import sys
 import datetime
 from dateutil import tz
@@ -13,12 +11,9 @@ tomorrow = now + datetime.timedelta(days = 1)
 now_str = now.strftime('%Y-%m-%d')
 tomorrow_str = tomorrow.strftime('%Y-%m-%d')
 
-# api references:
-# https://api.sunrise-sunset.org/json?lat=29.84&lng=-81.26&formatted=0
-
 result = {'tides': [], 'tides_tomorrow': []}
 
-with open(sys.argv[1], 'r') as f:
+with open(sys.argv[1] + 'tides.txt', 'r') as f:
   for line in f:
     fields = line.split()
     if fields[0] == now_str:
@@ -26,27 +21,25 @@ with open(sys.argv[1], 'r') as f:
     if fields[0] == tomorrow_str:
       result['tides_tomorrow'].append(fields[1] + ' ' + fields[2] + ' ' + fields[3])
 
-headers = {
-  'User-Agent': 'Mozilla/5.0 (Linux; Android 8.0.0;) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36',
-}
+with open(sys.argv[1] + 'firstlight.txt', 'r') as f:
+  for line in f:
+    if line.startswith(now_str):
+      result['firstLight'] = datetime.datetime.fromisoformat(line[:-1]).astimezone(new_york_time).strftime('%I:%M %p')
 
-params = {
-  'lat': '29.84',
-  'lng': '-81.26',
-  'formatted': '0',
-}
+with open(sys.argv[1] + 'sunrise.txt', 'r') as f:
+  for line in f:
+    if line.startswith(now_str):
+      result['sunrise'] = datetime.datetime.fromisoformat(line[:-1]).astimezone(new_york_time).strftime('%I:%M %p')
 
-r = requests.get('https://api.sunrise-sunset.org/json', headers=headers, params=params, timeout=60, verify=False)
+with open(sys.argv[1] + 'sunset.txt', 'r') as f:
+  for line in f:
+    if line.startswith(now_str):
+      result['sunset'] = datetime.datetime.fromisoformat(line[:-1]).astimezone(new_york_time).strftime('%I:%M %p')
 
-print(r.url)
-
-if r.status_code == 200:
-  data = r.json()
-  if data['status'] == 'OK':
-    result['firstLight'] = datetime.datetime.fromisoformat(data['results']['nautical_twilight_begin']).astimezone(new_york_time).strftime('%I:%M %p')
-    result['sunrise'] = datetime.datetime.fromisoformat(data['results']['sunrise']).astimezone(new_york_time).strftime('%I:%M %p')
-    result['sunset'] = datetime.datetime.fromisoformat(data['results']['sunset']).astimezone(new_york_time).strftime('%I:%M %p')
-    result['lastLight'] = datetime.datetime.fromisoformat(data['results']['nautical_twilight_end']).astimezone(new_york_time).strftime('%I:%M %p')
+with open(sys.argv[1] + 'lastlight.txt', 'r') as f:
+  for line in f:
+    if line.startswith(now_str):
+      result['lastLight'] = datetime.datetime.fromisoformat(line[:-1]).astimezone(new_york_time).strftime('%I:%M %p')
 
 with open(sys.argv[2], 'w') as f:
   f.write(json.dumps(result, sort_keys=False, indent=2))
