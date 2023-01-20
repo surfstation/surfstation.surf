@@ -263,12 +263,7 @@
 <!--
     <div class="card">
       <div class="description">Forecast</div>
-      <div>
-        <a class="weatherwidget-io" href="https://forecast7.com/en/29d84n81d28/32080/?unit=us" data-label_1="ST. AUGUSTINE" data-label_2="BEACH WEATHER" data-font="Ubuntu" data-icons="Climacons" data-mode="Forecast" data-days="5" data-theme="pure" >ST. AUGUSTINE BEACH WEATHER</a>
-        <script>
-          !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
-        </script>
-      </div>
+      <div></div>
     </div>
 -->
     <div class="card">
@@ -340,15 +335,15 @@
           timeout: 2000,
           url: '/dynamic/wx.json'
         }).done(function(wx) {
-          $windDirectionHand.attr('transform', 'rotate(' + wx.d + ' 500 500)');
-          $windDirectionDisplay.html('From ' + wx.d + '&deg;');
-          $windSpeedDisplay.text(wx.w + ' MPH');
-          $windInstant.text(new Date(wx.t).toLocaleString('en-US', {timeZone: 'America/New_York'}));
-          $windGustDirectionHand.attr('transform', 'rotate(' + wx.gd + ' 500 500)');
-          $windGustDirectionDisplay.html('From ' + wx.gd + '&deg;');
-          $windGustSpeedDisplay.text(wx.g + ' MPH');
-          $temperature.text(wx.f);
-          $humidity.text(wx.h);
+          wx.d && $windDirectionHand.attr('transform', 'rotate(' + wx.d + ' 500 500)');
+          wx.d && $windDirectionDisplay.html('From ' + wx.d + '&deg;');
+          wx.w && $windSpeedDisplay.text(wx.w + ' MPH');
+          wx.t && $windInstant.text(new Date(wx.t).toLocaleString('en-US', {timeZone: 'America/New_York'}));
+          wx.gd && $windGustDirectionHand.attr('transform', 'rotate(' + wx.gd + ' 500 500)');
+          wx.gd && $windGustDirectionDisplay.html('From ' + wx.gd + '&deg;');
+          wx.g && $windGustSpeedDisplay.text(wx.g + ' MPH');
+          wx.f && $temperature.text(wx.f);
+          wx.h && $humidity.text(wx.h);
           $showondata.show();
         }).always(function() {
           setTimeout(poll_wx_data, 4000);
@@ -357,20 +352,20 @@
 
       $(function() {
         $.getJSON('/dynamic/daily.json').done(function(data) {
-          $('#firstLight').text(data.firstLight);
-          $('#sunrise').text(data.sunrise);
-          $('#sunset').text(data.sunset);
-          $('#lastLight').text(data.lastLight);
+          data.firstLight && $('#firstLight').text(data.firstLight);
+          data.sunrise && $('#sunrise').text(data.sunrise);
+          data.sunset && $('#sunset').text(data.sunset);
+          data.lastLight && $('#lastLight').text(data.lastLight);
           $('#tides').append('<li>'+ data.tides.join('</li><li>')+'</li>');
           $('#tomorrowstides').append('<li>'+ data.tides_tomorrow.join('</li><li>')+'</li>');
         });
 
         $.getJSON('/dynamic/buoy.json').done(function(data) {
-          $('#buoy_swell_height_feet').text(data.buoy.swell_height_feet);
-          $('#buoy_swell_period_secs').text(data.buoy.swell_period_secs);
-          $('#buoy_swell_angle_degrees').text(data.buoy.swell_angle_degrees);
-          $('#buoy_temperature_fahrenheit').text(data.buoy.temperature_fahrenheit);
-          $('#swell_angle_hand').attr('transform', 'rotate(' +  ((parseInt(data.buoy.swell_angle_degrees, 10) + 180) % 360) + ' 500 500)');
+          data.buoy.swell_height_feet && $('#buoy_swell_height_feet').text(data.buoy.swell_height_feet);
+          data.buoy.swell_period_secs && $('#buoy_swell_period_secs').text(data.buoy.swell_period_secs);
+          data.buoy.swell_angle_degrees && $('#buoy_swell_angle_degrees').text(data.buoy.swell_angle_degrees);
+          data.buoy.temperature_fahrenheit && $('#buoy_temperature_fahrenheit').text(data.buoy.temperature_fahrenheit);
+          data.buoy.swell_angle_degrees && $('#swell_angle_hand').attr('transform', 'rotate(' +  ((parseInt(data.buoy.swell_angle_degrees, 10) + 180) % 360) + ' 500 500)');
         });
 
         $windDirectionHand = $('#windDirectionHand');
