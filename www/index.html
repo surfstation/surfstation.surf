@@ -48,7 +48,7 @@
         width: 100%;
       }
 
-      .showondata {
+      .showondata, .forecast {
         display: none;
       }
 
@@ -261,12 +261,13 @@
         <iframe src="https://camstreamer.com/yt-embed/68a2c2b1d0a16ce/S-29474?autoplay=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
-<!--
-    <div class="card">
+    <div class="card forecast">
       <div class="description">Forecast</div>
-      <div></div>
+      <div>
+        <div><a href="https://www.firstcoastnews.com/forecast" target="_blank" rel="noopener noreferrer"><img src=""></a></div>
+        <div>Credit: WTLV</div>
+      </div>
     </div>
--->
     <div class="card">
       <div class="description">Buoy Swell Combined Polar Spectrum</div>
       <div class="imagecontentonly"><a href="/dynamic/swell_polar_spectrum_combined.png" target="_blank"><img src="/dynamic/swell_polar_spectrum_combined.png"></a></div>
@@ -359,6 +360,10 @@
           data.lastLight && $('#lastLight').text(data.lastLight);
           $('#tides').append('<li>'+ data.tides.join('</li><li>')+'</li>');
           $('#tomorrowstides').append('<li>'+ data.tides_tomorrow.join('</li><li>')+'</li>');
+          if (data.forecast_url) {
+            $('.forecast img').attr('src', data.forecast_url);
+            $('.forecast').show();
+          }
         });
 
         $.getJSON('/dynamic/buoy.json').done(function(data) {

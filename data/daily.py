@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 import json
+import re
+import requests
 import sys
 import datetime
 from dateutil import tz
@@ -40,6 +42,17 @@ with open(sys.argv[1] + 'lastlight.txt', 'r') as f:
   for line in f:
     if line.startswith(now_str):
       result['lastLight'] = datetime.datetime.fromisoformat(line[:-1]).astimezone(new_york_time).strftime('%I:%M %p')
+
+headers = {
+  'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/109.0.5414.83 Mobile/15E148 Safari/604.1',
+}
+
+r = requests.get('https://www.firstcoastnews.com/forecast', headers=headers, timeout=15)
+
+if r.status_code == 200:
+  match = re.search(r'<meta property="og:image" content="([^"]+)">', r.text, re.DOTALL)
+  if match:
+    result['forecast_url'] = match[1]
 
 with open(sys.argv[2], 'w') as f:
   f.write(json.dumps(result, sort_keys=False, indent=2))
