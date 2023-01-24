@@ -50,9 +50,13 @@ headers = {
 r = requests.get('https://www.firstcoastnews.com/forecast', headers=headers, timeout=15)
 
 if r.status_code == 200:
-  match = re.search(r'<meta property="og:image" content="([^"]+)">', r.text, re.DOTALL)
-  if match:
-    result['forecast_url'] = match[1]
+  chunks = re.split('<noscript>', r.text)
+  for chunk in chunks:
+    if re.search(r'7 day forecast', chunk, re.IGNORECASE):
+      match = re.search(r'(https://[^ ]+) 750w', chunk)
+      if match:
+        result['forecast_url'] = match[1]
+        break
 
 with open(sys.argv[2], 'w') as f:
   f.write(json.dumps(result, sort_keys=False, indent=2))
