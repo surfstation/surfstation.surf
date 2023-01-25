@@ -52,7 +52,7 @@ r = requests.get('https://www.firstcoastnews.com/forecast', headers=headers, tim
 if r.status_code == 200:
   chunks = re.split('<noscript>', r.text)
   for chunk in chunks:
-    if re.search(r'7 day forecast', chunk, re.IGNORECASE):
+    if re.search(r'(7|seven)[\s-]*day', chunk, re.IGNORECASE):
       match = re.search(r'(https://[^ ]+) 750w', chunk)
       if match:
         result['forecast_url'] = match[1]
