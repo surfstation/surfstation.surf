@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import json
-import re
-import requests
+#import re
+#import requests
 import sys
 import datetime
 from dateutil import tz
@@ -47,16 +47,17 @@ headers = {
   'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/109.0.5414.83 Mobile/15E148 Safari/604.1',
 }
 
-r = requests.get('https://www.firstcoastnews.com/forecast', headers=headers, timeout=15)
-
-if r.status_code == 200:
-  chunks = re.split('<noscript>', r.text)
-  for chunk in chunks:
-    if re.search(r'(7|seven)[\s-]*day', chunk, re.IGNORECASE):
-      match = re.search(r'(https://[^ ]+) 750w', chunk)
-      if match:
-        result['forecast_url'] = match[1]
-        break
+#r = requests.get('https://www.firstcoastnews.com/forecast', headers=headers, timeout=15)
+#
+#if r.status_code == 200:
+#  chunks = re.split('<noscript>', r.text)
+#  for chunk in chunks:
+#    if re.search(r'(7|seven)[\s-]*day', chunk, re.IGNORECASE):
+#      match = re.search(r'(https://[^ ]+) 750w', chunk)
+#      if match:
+#        result['forecast_url'] = match[1]
+#        break
+result['forecast_url'] = 'https://cdn.tegna-media.com/wtlv/weather/7Day_forecast.jpg'
 
 with open(sys.argv[2], 'w') as f:
   f.write(json.dumps(result, sort_keys=False, indent=2))
