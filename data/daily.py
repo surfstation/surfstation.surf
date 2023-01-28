@@ -2,6 +2,7 @@
 import json
 #import re
 #import requests
+import os
 import sys
 import datetime
 from dateutil import tz
@@ -59,5 +60,9 @@ headers = {
 #        break
 result['forecast_url'] = 'https://cdn.tegna-media.com/wtlv/weather/7Day_forecast.jpg'
 
-with open(sys.argv[2], 'w') as f:
+with open(sys.argv[2] + '.tmp', 'w') as f:
   f.write(json.dumps(result, sort_keys=False, indent=2))
+  f.flush()
+  os.fsync(f.fileno())
+
+os.replace(sys.argv[2] + '.tmp', sys.argv[2]) # atomic file update

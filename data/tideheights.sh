@@ -7,4 +7,4 @@ API_URL="https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=predi
 curl --fail --connect-timeout 5 --max-time 30 --no-progress-meter --output /tmp/tideheights.json "${API_URL}" && \
 jq -r '.predictions[] | (.t | split(" ")[1] | split(":")[0]) as $times | "\($times) \(.v)"' /tmp/tideheights.json | \
 gnuplot -e "set title 'Tide Height Predictions ${PLOT_FORMAT}'; set xlabel 'Hour of Day'; set ylabel 'Height in Feet'; set term svg; set output '/tmp/tideheights.svg'; set xrange [0:23]; set grid back; plot '/dev/stdin' using 0:2:xticlabel(1) with linespoints notitle lt rgb '#0000ff';" && \
-cp /tmp/tideheights.svg /opt/surfstation/surfstation.surf/www/dynamic/tideheights.svg;
+mv /tmp/tideheights.svg /opt/surfstation/surfstation.surf/www/dynamic/tideheights.svg;
