@@ -340,7 +340,7 @@
       function poll_wx_data() {
         $.ajax({
           async: true,
-          cache: false,
+          cache: true,
           dataType: 'json',
           method: 'GET',
           timeout: 2000,
