@@ -345,15 +345,15 @@
           timeout: 2000,
           url: '/dynamic/wx.json'
         }).done(function(wx) {
-          wx.d && $windDirectionHand.attr('transform', 'rotate(' + wx.d + ' 500 500)');
-          wx.d && $windDirectionDisplay.html('From ' + wx.d + '&deg;');
-          wx.w && $windSpeedDisplay.text(wx.w + ' MPH');
-          wx.t && $windInstant.text(new Date(wx.t).toLocaleString('en-US', {timeZone: 'America/New_York'}));
-          wx.gd && $windGustDirectionHand.attr('transform', 'rotate(' + wx.gd + ' 500 500)');
-          wx.gd && $windGustDirectionDisplay.html('From ' + wx.gd + '&deg;');
-          wx.g && $windGustSpeedDisplay.text(wx.g + ' MPH');
-          wx.f && $temperature.text(wx.f);
-          wx.h && $humidity.text(wx.h);
+          'd' in wx && $windDirectionHand.attr('transform', 'rotate(' + wx.d + ' 500 500)');
+          'd' in wx && $windDirectionDisplay.html('From ' + wx.d + '&deg;');
+          'w' in wx && $windSpeedDisplay.text(wx.w + ' MPH');
+          't' in wx && $windInstant.text(new Date(wx.t).toLocaleString('en-US', {timeZone: 'America/New_York'}));
+          'gd' in wx && $windGustDirectionHand.attr('transform', 'rotate(' + wx.gd + ' 500 500)');
+          'gd' in wx && $windGustDirectionDisplay.html('From ' + wx.gd + '&deg;');
+          'g' in wx && $windGustSpeedDisplay.text(wx.g + ' MPH');
+          'f' in wx && $temperature.text(wx.f);
+          'h' in wx && $humidity.text(wx.h);
           $showondata.show();
         }).always(function() {
           setTimeout(poll_wx_data, 4000);
@@ -362,24 +362,25 @@
 
       $(function() {
         $.getJSON('/dynamic/daily.json').done(function(data) {
-          data.firstLight && $('#firstLight').text(data.firstLight);
-          data.sunrise && $('#sunrise').text(data.sunrise);
-          data.sunset && $('#sunset').text(data.sunset);
-          data.lastLight && $('#lastLight').text(data.lastLight);
+          'firstLight' in data && $('#firstLight').text(data.firstLight);
+          'sunrise' in data && $('#sunrise').text(data.sunrise);
+          'sunset' in data && $('#sunset').text(data.sunset);
+          'lastLight' in data && $('#lastLight').text(data.lastLight);
           $('#tides').append('<li>'+ data.tides.join('</li><li>')+'</li>');
           $('#tomorrowstides').append('<li>'+ data.tides_tomorrow.join('</li><li>')+'</li>');
-          if (data.forecast_url) {
+          if ('forecast_url' in data) {
             $('.forecast img').attr('src', data.forecast_url);
             $('.forecast').show();
           }
         });
 
         $.getJSON('/dynamic/buoy.json').done(function(data) {
-          data.buoy.swell_height_feet && $('#buoy_swell_height_feet').text(data.buoy.swell_height_feet);
-          data.buoy.swell_period_secs && $('#buoy_swell_period_secs').text(data.buoy.swell_period_secs);
-          data.buoy.swell_angle_degrees && $('#buoy_swell_angle_degrees').text(data.buoy.swell_angle_degrees);
-          data.buoy.temperature_fahrenheit && $('#buoy_temperature_fahrenheit').text(data.buoy.temperature_fahrenheit);
-          data.buoy.swell_angle_degrees && $('#swell_angle_hand').attr('transform', 'rotate(' +  ((parseInt(data.buoy.swell_angle_degrees, 10) + 180) % 360) + ' 500 500)');
+          data.buoy = data.buoy || {};
+          'swell_height_feet' in data.buoy && $('#buoy_swell_height_feet').text(data.buoy.swell_height_feet);
+          'swell_period_secs' in data.buoy && $('#buoy_swell_period_secs').text(data.buoy.swell_period_secs);
+          'swell_angle_degrees' in data.buoy && $('#buoy_swell_angle_degrees').text(data.buoy.swell_angle_degrees);
+          'temperature_fahrenheit' in data.buoy && $('#buoy_temperature_fahrenheit').text(data.buoy.temperature_fahrenheit);
+          'swell_angle_degrees' in data.buoy && $('#swell_angle_hand').attr('transform', 'rotate(' +  ((parseInt(data.buoy.swell_angle_degrees, 10) + 180) % 360) + ' 500 500)');
         });
 
         $windDirectionHand = $('#windDirectionHand');
