@@ -27,9 +27,28 @@
         max-width: 288px;
       }
 
+      div.ads > div {
+        line-height: 0px;
+        width: 100%;
+        margin: auto;
+      }
+
+      div.ads > div > a > img {
+        width: 100%;
+        max-width: 288px;
+      }
+
+      div.ad1 {
+        background-color: #1e3264;
+      }
+
+      div.ad2 {
+        background-color: #000000;
+      }
+
       div.card {
         width: 100%;
-        max-width: 500px;
+        max-width: 600px;
         margin: auto;
       }
 
@@ -102,6 +121,32 @@
           max-width: 50%;
           float: left;
         }
+
+        div.ads, div.ads > div {
+          height: 50px;
+        }
+
+        div.ads > div {
+          float: left;
+        }
+
+        div.ad1 {
+          max-width: 50%;
+        }
+
+        div.ad2 {
+          max-width: 25%;
+        }
+
+        div.ad3 {
+          max-width: 25%;
+        }
+
+        div.ads > div > a > img {
+          object-fit: cover;
+          width: 100%;
+          height: 100%;
+        }
       }
 
       @media (min-width: 1000px) {
@@ -114,6 +159,11 @@
   </head>
   <body>
     <header><img src="/static/logo-1d27fdaadbcbcb2c6f99d146f57057eb.png"></header>
+    <div class="ads">
+      <div class="ad1"><a href="https://www.mbaileygroup.com/" target="_blank"><img src="/static/ad1-ee5f37b154e3e45063cb93fb920ca971.jpg"></a></div>
+      <div class="ad2"><a href="https://www.atlanticmechanicalac.com/" target="_blank"><img src="/static/ad2-f32721ad7b5b101425e8781cf89b96ee.jpg"></a></div>
+      <div class="ad3"><a href="https://www.surfstationstore.com/" target="_blank"><img src="/static/ad3-9076917b5464004da940e4e459bbc2d7.jpg"></a></div>
+    </div>
     <div class="card showondata">
       <div class="description">
         <div>Current Wind</div>
