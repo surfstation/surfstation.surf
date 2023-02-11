@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans">
     <style>
       body {
-        margin: 0px;
+        margin: 0;
         border: 0px none #000000;
-        padding: 0px;
+        padding: 0;
         font-family: 'Open Sans', sans-serif;
         font-size: 14px;
         text-align: center;
@@ -23,19 +23,15 @@
       }
 
       header > img {
-        width: 100%;
-        max-width: 288px;
+        max-width: 100%;
       }
 
-      div.ads > div {
+      div.ads {
         line-height: 0px;
-        width: 100%;
-        margin: auto;
       }
 
-      div.ads > div > a > img {
-        width: 100%;
-        max-width: 288px;
+      div.ads img {
+        max-width: 100%;
       }
 
       div.ad1 {
@@ -47,14 +43,13 @@
       }
 
       div.card {
-        width: 100%;
-        max-width: 600px;
-        margin: auto;
+        margin: 0 auto;
       }
 
-      div.card > div.description {
+      div.card > div.description, div.card > div.description a {
         font-size: 16px;
-        background-color: #00ffee;
+        color: #ffffff;
+        background-color: #4082ab;
         font-weight: 600;
       }
 
@@ -63,7 +58,7 @@
       }
 
       div.card img {
-        width: 100%;
+        max-width: 100%;
       }
 
       .showondata, .forecast {
@@ -85,7 +80,7 @@
       table {
         border-spacing: 0px;
         border-top: 1px solid #efefef;
-        margin: auto;
+        margin: 0 auto;
       }
 
       td {
@@ -95,7 +90,7 @@
 
       ul {
         list-style-type: none;
-        margin: auto;
+        margin: 0 auto;
         padding: 0px;
         width: fit-content;
       }
@@ -118,7 +113,7 @@
 
       @media (min-width: 600px) {
         div.card {
-          max-width: 50%;
+          width: 50%;
           float: left;
         }
 
@@ -131,20 +126,19 @@
         }
 
         div.ad1 {
-          max-width: 50%;
+          width: 50%;
         }
 
         div.ad2 {
-          max-width: 25%;
+          width: 25%;
         }
 
         div.ad3 {
-          max-width: 25%;
+          width: 25%;
         }
 
-        div.ads > div > a > img {
+        div.ads img {
           object-fit: cover;
-          width: 100%;
           height: 100%;
         }
       }
@@ -153,6 +147,10 @@
         div.card {
           max-width: 33.333%;
           float: left;
+        }
+
+        div.card img {
+          width: 100%;
         }
       }
     </style>
