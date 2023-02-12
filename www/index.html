@@ -9,69 +9,39 @@
     <style>
       body {
         margin: 0;
-        border: 0px none #000000;
+        border: 0;
         padding: 0;
         font-family: 'Open Sans', sans-serif;
-        font-size: 14px;
         text-align: center;
         word-break: break-word;
       }
 
+      a {
+        color: inherit;
+      }
+
       header {
         background-color: #3a3a3a;
-        line-height: 0px;
       }
 
-      header > img {
+      img, svg, iframe {
         max-width: 100%;
-      }
-
-      div.ads {
-        line-height: 0px;
-      }
-
-      div.ads img {
-        max-width: 100%;
-        padding: 5px 0;
-      }
-
-      div.card {
+        display: block;
         margin: 0 auto;
       }
 
-      div.card > div.description, div.card > div.description a {
-        font-size: 16px;
+      div.card > div.description {
         color: #ffffff;
         background-color: #4082ab;
         font-weight: 600;
-      }
-
-      div.card > div.imagecontentonly {
-        line-height: 0px;
-      }
-
-      div.card img {
-        max-width: 100%;
       }
 
       .showondata, .forecast {
         display: none;
       }
 
-      svg text {
-        font-size: 70px;
-        text-anchor: middle;
-        fill: #ffffff;
-      }
-
-      svg line {
-        stroke: #ffffff;
-        stroke-width: 10;
-        stroke-opacity: 0.75;
-      }
-
       table {
-        border-spacing: 0px;
+        border-spacing: 0;
         border-top: 1px solid #efefef;
         margin: 0 auto;
       }
@@ -84,12 +54,12 @@
       ul {
         list-style-type: none;
         margin: 0 auto;
-        padding: 0px;
+        padding: 0;
         width: fit-content;
       }
 
       ul li {
-        padding: 10px;
+        padding: 5px 0;
         border-bottom: 1px solid #efefef;
       }
 
@@ -106,125 +76,111 @@
 
       @media (min-width: 600px) {
         div.card {
-          width: 50%;
           float: left;
-        }
-
-        div.ads, div.ads > div {
-          height: 50px;
-        }
-
-        div.ads > div {
-          float: left;
-        }
-
-        div.ad1 {
           width: 50%;
-        }
-
-        div.ad2 {
-          width: 25%;
-        }
-
-        div.ad3 {
-          width: 25%;
-        }
-
-        div.ads img {
-          object-fit: cover;
-          height: 100%;
-          padding: 0;
         }
       }
 
       @media (min-width: 1000px) {
         div.card {
           max-width: 33.333%;
-          float: left;
         }
 
-        div.card img {
-          width: 100%;
+        ul.ads > li, ul.ads img {
+          display: inline;
+          border: 0;
         }
       }
     </style>
   </head>
   <body>
     <header><img src="/static/logo-1d27fdaadbcbcb2c6f99d146f57057eb.png"></header>
-    <div class="ads">
-      <div class="ad1"><a href="https://www.mbaileygroup.com/" target="_blank"><img src="/static/ad1-b07afccb160c645613eb62934b0959f6.svg"></a></div>
-      <div class="ad2"><a href="https://www.atlanticmechanicalac.com/" target="_blank"><img src="/static/ad2-7e030babee3cae200a7dbf4157c1fcfd.jpg"></a></div>
-      <div class="ad3"><a href="https://www.surfstationstore.com/" target="_blank"><img src="/static/weather_shop_button-9d65878de89b14801dc3e99e4a2fe201.svg"></a></div>
-    </div>
-    <div class="card showondata">
+    <ul class="ads">
+      <li><a href="https://www.mbaileygroup.com/" target="_blank"><img src="/static/ad1-b07afccb160c645613eb62934b0959f6.svg"></a></li>
+      <li><a href="https://www.atlanticmechanicalac.com/" target="_blank"><img src="/static/ad2-7e030babee3cae200a7dbf4157c1fcfd.jpg"></a></li>
+      <li><a href="https://www.surfstationstore.com/" target="_blank"><img src="/static/weather_shop_button-9d65878de89b14801dc3e99e4a2fe201.svg"></a></li>
+    </ul>
+    <div class="card showondata current_wind">
       <div class="description">
         <div>Current Wind</div>
         <div>Last Updated: <span id="windInstant"></span></div>
       </div>
       <div class="imagecontentonly">
-        <svg viewBox="0 0 1000 1000">
+        <svg viewBox="0 0 100 100">
           <defs>
-            <marker id="arrowEnd" markerWidth="8" markerHeight="8" refx="0" refy="4" orient="auto">
-              <path d="M0,0 L8,4 L0,8 Z" style="fill: #000000; fill-opacity: 1;" />
+            <marker style="overflow:visible" id="m1" refX="0.0" refY="0.0" orient="auto">
+              <path transform="scale(0.4) translate(7.4, 1)" style="fill-rule:evenodd;fill:context-stroke;stroke:context-stroke;stroke-width:1.0pt" d="M -2.5,-1.0 C -2.5,1.7600000 -4.7400000,4.0 -7.5,4.0 C -10.260000,4.0 -12.5,1.7600000 -12.5,-1.0 C -12.5,-3.7600000 -10.260000,-6.0 -7.5,-6.0 C -4.7400000,-6.0 -2.5,-3.7600000 -2.5,-1.0 z" />
             </marker>
-            <marker id="circleEnd" markerWidth="6" markerHeight="6" refx="3" refy="3" orient="auto">
-              <circle cx="3" cy="3" r="3" style="fill: #000000;" />
+            <marker style="overflow:visible" id="m2" refX="0.0" refY="0.0" orient="auto">
+              <path transform="scale(0.8)" style="fill-rule:evenodd;fill:context-stroke;stroke:context-stroke;stroke-width:1.0pt" d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z" />
             </marker>
-            <linearGradient id="dialGradient" x1="0%" y1="0%" x2="0%" y2="100%" spreadMethod="pad">
-              <stop offset="20%" stop-color="#3a3a3a" stop-opacity="1" />
-              <stop offset="100%" stop-color="#888888" stop-opacity="1" />
-            </linearGradient>
           </defs>
-          <circle cx="500" cy="500" r="500" style="fill: url(#dialGradient);" />
-          <line id="windDirectionHand" x1="500" y1="500" x2="500" y2="80" marker-start="url(#circleEnd)" marker-end="url(#arrowEnd)" style="stroke: #000000; stroke-width: 10; stroke-opacity: 0.5;" />
-          <line x1="500" y1="0" x2="500" y2="100" />
-          <text style="font-size: 80px; text-anchor: middle;" x="500" y="180">N</text>
-          <line x1="1000" y1="500" x2="900" y2="500" />
-          <text style="font-size: 80px; text-anchor: end;" x="880" y="530">E</text>
-          <line x1="500" y1="1000" x2="500" y2="900" />
-          <text style="font-size: 80px; text-anchor: middle;" x="500" y="880">S</text>
-          <line x1="0" y1="500" x2="100" y2="500" />
-          <text style="font-size: 80px; text-anchor: start;" x="120" y="530">W</text>
-          <line x1="146.4" y1="146.4" x2="181.8" y2="181.8" />
-          <text style="font-size: 80px; text-anchor: start;" x="200" y="280">NW</text>
-          <line x1="853.6" y1="146.4" x2="818.2" y2="181.8" />
-          <text style="font-size: 80px; text-anchor: end;" x="800" y="280">NE</text>
-          <line x1="146.4" y1="853.6" x2="181.8" y2="818.2" />
-          <text style="font-size: 80px; text-anchor: start;" x="200" y="800">SW</text>
-          <line x1="853.6" y1="853.6" x2="818.2" y2="818.2" />
-          <text style="font-size: 80px; text-anchor: end;" x="800" y="800">SE</text>
-          <text id="windDirectionDisplay" x="500" y="380"></text>
-          <text id="windSpeedDisplay" x="500" y="680"></text>
+          <circle cx="50" cy="50" r="50" style="fill:#e0dedb;" />
+          <path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1" d="M 50.000001,1.4999902 V 9.5000098" />
+          <path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1" d="m 15.499997,15.499997 5.657004,5.656868" />
+          <path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1" d="m 21.157002,78.499997 -5.657005,5.657004" />
+          <path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1" d="m 84.157003,15.499997 -5.657006,5.657004" />
+          <path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1" d="M 84.157001,84.157003 78.499997,78.499997" />
+          <path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1" d="m 50,90.499997 v 8.00002" />
+          <path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1" d="m 98.500017,50 h -8.00002" />
+          <path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1" d="m 9.5000175,50 h -8.00002" />
+          <path d="m 52.533203,17.710937 h -1.539062 l -2.484375,-4.320312 h -0.03516 q 0.01563,0.269531 0.02734,0.542969 0.01172,0.273437 0.02344,0.546875 0.01172,0.269531 0.02344,0.542969 v 2.687499 H 47.466797 V 12 h 1.527344 l 2.480468,4.277344 h 0.02734 q -0.0078,-0.265625 -0.01953,-0.527344 -0.01172,-0.261719 -0.02344,-0.523437 -0.0078,-0.261719 -0.01563,-0.523438 V 12 h 1.089844 z" />
+          <path d="M 71.273437,29.367935 H 69.734375 L 67.25,25.047623 h -0.03516 q 0.01563,0.269531 0.02734,0.542968 0.01172,0.273438 0.02344,0.546875 0.01172,0.269532 0.02344,0.542969 v 2.6875 h -1.082031 v -5.710937 h 1.527344 l 2.480469,4.277343 h 0.02734 q -0.0078,-0.265625 -0.01953,-0.527343 -0.01172,-0.261719 -0.02344,-0.523438 -0.0078,-0.261719 -0.01563,-0.523437 v -2.703125 h 1.089843 z" />
+          <path d="M 76,29.367935 H 72.710937 V 23.656998 H 76 v 0.992187 h -2.078125 v 1.253906 h 1.933594 v 0.992188 h -1.933594 v 1.472656 H 76 Z" />
+          <path d="M 88,52.855469 H 84.710937 V 47.144531 H 88 v 0.992188 h -2.078125 v 1.253906 h 1.933594 v 0.992187 h -1.933594 v 1.472657 H 88 Z" />
+          <path d="m 71.675781,74.335937 q 0,0.507813 -0.246094,0.882813 -0.246093,0.375 -0.71875,0.578125 Q 70.242187,76 69.570312,76 69.273437,76 68.988281,75.96094 68.707031,75.92188 68.445312,75.847659 68.1875,75.769529 67.953125,75.656253 v -1.125 q 0.40625,0.179687 0.84375,0.324219 Q 69.234375,75 69.664062,75 q 0.296875,0 0.476563,-0.07813 0.183594,-0.07813 0.265625,-0.214844 0.08203,-0.136719 0.08203,-0.3125 0,-0.214844 -0.144531,-0.367187 -0.144531,-0.152344 -0.398438,-0.285157 -0.25,-0.132812 -0.566406,-0.285156 -0.199219,-0.09375 -0.433594,-0.226562 Q 68.710937,73.09375 68.5,72.898437 q -0.210938,-0.195312 -0.347656,-0.472656 -0.132813,-0.28125 -0.132813,-0.671875 0,-0.511719 0.234375,-0.875 0.234375,-0.363281 0.667969,-0.554687 0.4375,-0.195313 1.03125,-0.195313 0.445312,0 0.847656,0.105469 0.40625,0.101562 0.847656,0.296875 l -0.390625,0.941406 q -0.394531,-0.160156 -0.707031,-0.246094 -0.3125,-0.08984 -0.636719,-0.08984 -0.226562,0 -0.386718,0.07422 -0.160157,0.07031 -0.242188,0.203125 -0.08203,0.128907 -0.08203,0.300782 0,0.203125 0.117187,0.34375 0.121094,0.136718 0.359375,0.265625 0.242188,0.128906 0.601563,0.300781 0.4375,0.207031 0.746094,0.433594 0.3125,0.222656 0.480468,0.527343 0.167969,0.300782 0.167969,0.75 z" />
+          <path d="M 76,75.921875 H 72.710937 V 70.210937 H 76 v 0.992188 h -2.078125 v 1.253906 h 1.933594 v 0.992188 h -1.933594 v 1.472656 H 76 Z" />
+          <path d="m 51.861328,86.335937 q 0,0.507813 -0.246094,0.882813 -0.246093,0.375 -0.71875,0.578125 Q 50.427734,88 49.755859,88 q -0.296875,0 -0.582031,-0.03906 -0.28125,-0.03906 -0.542969,-0.113281 -0.257812,-0.07813 -0.492187,-0.191406 v -1.125 q 0.40625,0.179687 0.84375,0.324219 Q 49.419922,87 49.849609,87 q 0.296875,0 0.476563,-0.07813 0.183594,-0.07813 0.265625,-0.214844 0.08203,-0.136719 0.08203,-0.3125 0,-0.214844 -0.144531,-0.367187 -0.144531,-0.152344 -0.398438,-0.285157 -0.25,-0.132812 -0.566406,-0.285156 -0.199219,-0.09375 -0.433594,-0.226562 -0.234375,-0.136719 -0.445312,-0.332032 -0.210938,-0.195312 -0.347656,-0.472656 -0.132813,-0.28125 -0.132813,-0.671875 0,-0.511719 0.234375,-0.875 0.234375,-0.363281 0.667969,-0.554687 0.4375,-0.195313 1.03125,-0.195313 0.445312,0 0.847656,0.105469 0.40625,0.101562 0.847656,0.296875 l -0.390625,0.941406 q -0.394531,-0.160156 -0.707031,-0.246094 -0.3125,-0.08984 -0.636719,-0.08984 -0.226562,0 -0.386718,0.07422 -0.160157,0.07031 -0.242188,0.203125 -0.08203,0.128907 -0.08203,0.300782 0,0.203125 0.117187,0.34375 0.121094,0.136718 0.359375,0.265625 0.242188,0.128906 0.601563,0.300781 0.4375,0.207031 0.746094,0.433594 0.3125,0.222656 0.480468,0.527343 0.167969,0.300782 0.167969,0.75 z" />
+          <path d="m 27.379656,74.335937 q 0,0.507813 -0.246094,0.882813 -0.246094,0.375 -0.71875,0.578125 Q 25.946062,76 25.274187,76 24.977312,76 24.692156,75.960937 24.410906,75.921875 24.149187,75.847656 23.891375,75.769531 23.657,75.65625 v -1.125 q 0.40625,0.179687 0.84375,0.324219 Q 24.93825,75 25.367937,75 q 0.296875,0 0.476563,-0.07813 0.183593,-0.07813 0.265625,-0.214844 0.08203,-0.136719 0.08203,-0.3125 0,-0.214844 -0.144531,-0.367187 -0.144532,-0.152344 -0.398438,-0.285157 -0.25,-0.132812 -0.566406,-0.285156 -0.199219,-0.09375 -0.433594,-0.226562 -0.234375,-0.136719 -0.445312,-0.332032 -0.210938,-0.195312 -0.347657,-0.472656 -0.132812,-0.28125 -0.132812,-0.671875 0,-0.511719 0.234375,-0.875 0.234375,-0.363281 0.667969,-0.554687 0.4375,-0.195313 1.03125,-0.195313 0.445312,0 0.847656,0.105469 0.40625,0.101562 0.847656,0.296875 l -0.390625,0.941406 q -0.394531,-0.160156 -0.707031,-0.246094 -0.3125,-0.08984 -0.636719,-0.08984 -0.226562,0 -0.386719,0.07422 -0.160156,0.07031 -0.242187,0.203125 -0.08203,0.128907 -0.08203,0.300782 0,0.203125 0.117187,0.34375 0.121094,0.136718 0.359375,0.265625 0.242188,0.128906 0.601563,0.300781 0.4375,0.207031 0.746093,0.433594 0.3125,0.222656 0.480469,0.527343 0.167969,0.300782 0.167969,0.75 z" />
+          <path d="m 35.430437,70.210937 -1.453125,5.710938 h -1.378906 l -0.773438,-3 q -0.02344,-0.08594 -0.0625,-0.261719 -0.03906,-0.175781 -0.08203,-0.382812 -0.04297,-0.210938 -0.07813,-0.394532 -0.03125,-0.1875 -0.04297,-0.296875 -0.01172,0.109375 -0.04687,0.292969 -0.03125,0.183594 -0.07422,0.390625 -0.03906,0.207031 -0.07813,0.386719 -0.03906,0.179687 -0.0625,0.273437 l -0.769532,2.992188 h -1.375 l -1.457031,-5.710938 h 1.191406 l 0.730469,3.117188 q 0.03125,0.140625 0.07031,0.335937 0.04297,0.195313 0.08203,0.410157 0.04297,0.210937 0.07422,0.410156 0.03516,0.195312 0.05078,0.339844 0.01953,-0.148438 0.05078,-0.34375 0.03125,-0.199219 0.06641,-0.402344 0.03906,-0.207031 0.07813,-0.382813 0.03906,-0.175781 0.07031,-0.285156 l 0.832031,-3.199219 h 1.144531 l 0.832032,3.199219 q 0.02734,0.105469 0.0625,0.285156 0.03906,0.175782 0.07813,0.382813 0.03906,0.207031 0.07031,0.40625 0.03516,0.195312 0.05078,0.339844 0.02734,-0.195313 0.07422,-0.472657 0.05078,-0.28125 0.105469,-0.558593 0.05859,-0.277344 0.101562,-0.464844 l 0.726563,-3.117188 z" />
+          <path d="m 19.73439,47.144531 -1.453125,5.710938 h -1.378906 l -0.773437,-3 q -0.02344,-0.08594 -0.0625,-0.261719 -0.03906,-0.175781 -0.08203,-0.382813 Q 15.941422,49 15.906265,48.816406 q -0.03125,-0.1875 -0.04297,-0.296875 -0.01172,0.109375 -0.04687,0.292969 -0.03125,0.183594 -0.07422,0.390625 -0.03906,0.207031 -0.07813,0.386719 -0.03906,0.179687 -0.0625,0.273437 l -0.769531,2.992188 h -1.375 l -1.457032,-5.710938 h 1.191407 l 0.730468,3.117188 q 0.03125,0.140625 0.07031,0.335937 0.04297,0.195313 0.08203,0.410156 0.04297,0.210938 0.07422,0.410157 0.03516,0.195312 0.05078,0.339843 0.01953,-0.148437 0.05078,-0.34375 0.03125,-0.199218 0.06641,-0.402343 0.03906,-0.207032 0.07813,-0.382813 0.03906,-0.175781 0.07031,-0.285156 l 0.832031,-3.199219 h 1.144532 l 0.832031,3.199219 q 0.02734,0.105469 0.0625,0.285156 0.03906,0.175781 0.07813,0.382813 0.03906,0.207031 0.07031,0.40625 0.03516,0.195312 0.05078,0.339843 0.02734,-0.195312 0.07422,-0.472656 0.05078,-0.28125 0.105469,-0.558594 0.05859,-0.277343 0.101563,-0.464843 l 0.726562,-3.117188 z" />
+          <path d="m 28.723404,29.3678 h -1.539063 l -2.484375,-4.320313 h -0.03516 q 0.01563,0.269532 0.02734,0.542969 0.01172,0.273438 0.02344,0.546875 0.01172,0.269531 0.02344,0.542969 v 2.6875 h -1.082031 v -5.710938 h 1.527343 l 2.480469,4.277344 h 0.02734 q -0.0078,-0.265625 -0.01953,-0.527344 -0.01172,-0.261718 -0.02344,-0.523437 -0.0078,-0.261719 -0.01563,-0.523438 v -2.703125 h 1.089844 z" />
+          <path d="M 37.176529,23.656862 35.723404,29.3678 h -1.378906 l -0.773438,-3 Q 33.54762,26.28186 33.50856,26.106081 33.4695,25.9303 33.42653,25.723269 33.38356,25.512331 33.3484,25.328737 q -0.03125,-0.1875 -0.04297,-0.296875 -0.01172,0.109375 -0.04687,0.292969 -0.03125,0.183594 -0.07422,0.390625 -0.03906,0.207031 -0.07813,0.386719 -0.03906,0.179687 -0.0625,0.273437 L 32.274185,29.3678 h -1.375 l -1.457031,-5.710938 h 1.191406 l 0.730469,3.117188 q 0.03125,0.140625 0.07031,0.335937 0.04297,0.195313 0.08203,0.410157 0.04297,0.210937 0.07422,0.410156 0.03516,0.195312 0.05078,0.339844 0.01953,-0.148438 0.05078,-0.34375 0.03125,-0.199219 0.06641,-0.402344 0.03906,-0.207031 0.07813,-0.382813 0.03906,-0.175781 0.07031,-0.285156 l 0.832031,-3.199219 h 1.144531 l 0.832031,3.199219 q 0.02734,0.105469 0.0625,0.285156 0.03906,0.175782 0.07813,0.382813 0.03906,0.207031 0.07031,0.40625 0.03516,0.195312 0.05078,0.339844 0.02734,-0.195313 0.07422,-0.472657 0.05078,-0.28125 0.105469,-0.558593 0.05859,-0.277344 0.101562,-0.464844 l 0.726563,-3.117188 z" />
+          <path class="wind_dial" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.5;marker-start:url(#m1);marker-end:url(#m2)" d="M 50,49.693707 V 6.6821827" />
+          <text class="wind_direction" style="font-weight:bold;font-size:6px;line-height:1.25;font-family:'Open Sans',sans-serif;text-anchor: middle;" x="50" y="40">From 270°</text>
+          <text class="wind_speed" style="font-weight:bold;font-size:6px;line-height:1.25;font-family:'Open Sans',sans-serif;text-anchor: middle;" x="50" y="65">10 MPH</text>
         </svg>
       </div>
     </div>
-    <div class="card showondata">
+    <div class="card showondata gust_wind">
       <div class="description">
         <div>Wind Gust</div>
         <div>Last 10 Minutes</div>
       </div>
       <div class="imagecontentonly">
-        <svg viewBox="0 0 1000 1000">
-          <circle cx="500" cy="500" r="500" style="fill: url(#dialGradient);" />
-          <line id="windGustDirectionHand" x1="500" y1="500" x2="500" y2="80" marker-start="url(#circleEnd)" marker-end="url(#arrowEnd)" style="stroke: #000000; stroke-width: 10; stroke-opacity: 0.5;" />
-          <line x1="500" y1="0" x2="500" y2="100" />
-          <text style="font-size: 80px; text-anchor: middle;" x="500" y="180">N</text>
-          <line x1="1000" y1="500" x2="900" y2="500" />
-          <text style="font-size: 80px; text-anchor: end;" x="880" y="530">E</text>
-          <line x1="500" y1="1000" x2="500" y2="900" />
-          <text style="font-size: 80px; text-anchor: middle;" x="500" y="880">S</text>
-          <line x1="0" y1="500" x2="100" y2="500" />
-          <text style="font-size: 80px; text-anchor: start;" x="120" y="530">W</text>
-          <line x1="146.4" y1="146.4" x2="181.8" y2="181.8" />
-          <text style="font-size: 80px; text-anchor: start;" x="200" y="280">NW</text>
-          <line x1="853.6" y1="146.4" x2="818.2" y2="181.8" />
-          <text style="font-size: 80px; text-anchor: end;" x="800" y="280">NE</text>
-          <line x1="146.4" y1="853.6" x2="181.8" y2="818.2" />
-          <text style="font-size: 80px; text-anchor: start;" x="200" y="800">SW</text>
-          <line x1="853.6" y1="853.6" x2="818.2" y2="818.2" />
-          <text style="font-size: 80px; text-anchor: end;" x="800" y="800">SE</text>
-          <text id="windGustDirectionDisplay" x="500" y="380"></text>
-          <text id="windGustSpeedDisplay" x="500" y="680"></text>
+        <svg viewBox="0 0 100 100">
+          <defs>
+            <marker style="overflow:visible" id="m1" refX="0.0" refY="0.0" orient="auto">
+              <path transform="scale(0.4) translate(7.4, 1)" style="fill-rule:evenodd;fill:context-stroke;stroke:context-stroke;stroke-width:1.0pt" d="M -2.5,-1.0 C -2.5,1.7600000 -4.7400000,4.0 -7.5,4.0 C -10.260000,4.0 -12.5,1.7600000 -12.5,-1.0 C -12.5,-3.7600000 -10.260000,-6.0 -7.5,-6.0 C -4.7400000,-6.0 -2.5,-3.7600000 -2.5,-1.0 z" />
+            </marker>
+            <marker style="overflow:visible" id="m2" refX="0.0" refY="0.0" orient="auto">
+              <path transform="scale(0.8)" style="fill-rule:evenodd;fill:context-stroke;stroke:context-stroke;stroke-width:1.0pt" d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z" />
+            </marker>
+          </defs>
+          <circle cx="50" cy="50" r="50" style="fill:#e0dedb;" />
+          <path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1" d="M 50.000001,1.4999902 V 9.5000098" />
+          <path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1" d="m 15.499997,15.499997 5.657004,5.656868" />
+          <path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1" d="m 21.157002,78.499997 -5.657005,5.657004" />
+          <path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1" d="m 84.157003,15.499997 -5.657006,5.657004" />
+          <path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1" d="M 84.157001,84.157003 78.499997,78.499997" />
+          <path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1" d="m 50,90.499997 v 8.00002" />
+          <path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1" d="m 98.500017,50 h -8.00002" />
+          <path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1" d="m 9.5000175,50 h -8.00002" />
+          <path d="m 52.533203,17.710937 h -1.539062 l -2.484375,-4.320312 h -0.03516 q 0.01563,0.269531 0.02734,0.542969 0.01172,0.273437 0.02344,0.546875 0.01172,0.269531 0.02344,0.542969 v 2.687499 H 47.466797 V 12 h 1.527344 l 2.480468,4.277344 h 0.02734 q -0.0078,-0.265625 -0.01953,-0.527344 -0.01172,-0.261719 -0.02344,-0.523437 -0.0078,-0.261719 -0.01563,-0.523438 V 12 h 1.089844 z" />
+          <path d="M 71.273437,29.367935 H 69.734375 L 67.25,25.047623 h -0.03516 q 0.01563,0.269531 0.02734,0.542968 0.01172,0.273438 0.02344,0.546875 0.01172,0.269532 0.02344,0.542969 v 2.6875 h -1.082031 v -5.710937 h 1.527344 l 2.480469,4.277343 h 0.02734 q -0.0078,-0.265625 -0.01953,-0.527343 -0.01172,-0.261719 -0.02344,-0.523438 -0.0078,-0.261719 -0.01563,-0.523437 v -2.703125 h 1.089843 z" />
+          <path d="M 76,29.367935 H 72.710937 V 23.656998 H 76 v 0.992187 h -2.078125 v 1.253906 h 1.933594 v 0.992188 h -1.933594 v 1.472656 H 76 Z" />
+          <path d="M 88,52.855469 H 84.710937 V 47.144531 H 88 v 0.992188 h -2.078125 v 1.253906 h 1.933594 v 0.992187 h -1.933594 v 1.472657 H 88 Z" />
+          <path d="m 71.675781,74.335937 q 0,0.507813 -0.246094,0.882813 -0.246093,0.375 -0.71875,0.578125 Q 70.242187,76 69.570312,76 69.273437,76 68.988281,75.96094 68.707031,75.92188 68.445312,75.847659 68.1875,75.769529 67.953125,75.656253 v -1.125 q 0.40625,0.179687 0.84375,0.324219 Q 69.234375,75 69.664062,75 q 0.296875,0 0.476563,-0.07813 0.183594,-0.07813 0.265625,-0.214844 0.08203,-0.136719 0.08203,-0.3125 0,-0.214844 -0.144531,-0.367187 -0.144531,-0.152344 -0.398438,-0.285157 -0.25,-0.132812 -0.566406,-0.285156 -0.199219,-0.09375 -0.433594,-0.226562 Q 68.710937,73.09375 68.5,72.898437 q -0.210938,-0.195312 -0.347656,-0.472656 -0.132813,-0.28125 -0.132813,-0.671875 0,-0.511719 0.234375,-0.875 0.234375,-0.363281 0.667969,-0.554687 0.4375,-0.195313 1.03125,-0.195313 0.445312,0 0.847656,0.105469 0.40625,0.101562 0.847656,0.296875 l -0.390625,0.941406 q -0.394531,-0.160156 -0.707031,-0.246094 -0.3125,-0.08984 -0.636719,-0.08984 -0.226562,0 -0.386718,0.07422 -0.160157,0.07031 -0.242188,0.203125 -0.08203,0.128907 -0.08203,0.300782 0,0.203125 0.117187,0.34375 0.121094,0.136718 0.359375,0.265625 0.242188,0.128906 0.601563,0.300781 0.4375,0.207031 0.746094,0.433594 0.3125,0.222656 0.480468,0.527343 0.167969,0.300782 0.167969,0.75 z" />
+          <path d="M 76,75.921875 H 72.710937 V 70.210937 H 76 v 0.992188 h -2.078125 v 1.253906 h 1.933594 v 0.992188 h -1.933594 v 1.472656 H 76 Z" />
+          <path d="m 51.861328,86.335937 q 0,0.507813 -0.246094,0.882813 -0.246093,0.375 -0.71875,0.578125 Q 50.427734,88 49.755859,88 q -0.296875,0 -0.582031,-0.03906 -0.28125,-0.03906 -0.542969,-0.113281 -0.257812,-0.07813 -0.492187,-0.191406 v -1.125 q 0.40625,0.179687 0.84375,0.324219 Q 49.419922,87 49.849609,87 q 0.296875,0 0.476563,-0.07813 0.183594,-0.07813 0.265625,-0.214844 0.08203,-0.136719 0.08203,-0.3125 0,-0.214844 -0.144531,-0.367187 -0.144531,-0.152344 -0.398438,-0.285157 -0.25,-0.132812 -0.566406,-0.285156 -0.199219,-0.09375 -0.433594,-0.226562 -0.234375,-0.136719 -0.445312,-0.332032 -0.210938,-0.195312 -0.347656,-0.472656 -0.132813,-0.28125 -0.132813,-0.671875 0,-0.511719 0.234375,-0.875 0.234375,-0.363281 0.667969,-0.554687 0.4375,-0.195313 1.03125,-0.195313 0.445312,0 0.847656,0.105469 0.40625,0.101562 0.847656,0.296875 l -0.390625,0.941406 q -0.394531,-0.160156 -0.707031,-0.246094 -0.3125,-0.08984 -0.636719,-0.08984 -0.226562,0 -0.386718,0.07422 -0.160157,0.07031 -0.242188,0.203125 -0.08203,0.128907 -0.08203,0.300782 0,0.203125 0.117187,0.34375 0.121094,0.136718 0.359375,0.265625 0.242188,0.128906 0.601563,0.300781 0.4375,0.207031 0.746094,0.433594 0.3125,0.222656 0.480468,0.527343 0.167969,0.300782 0.167969,0.75 z" />
+          <path d="m 27.379656,74.335937 q 0,0.507813 -0.246094,0.882813 -0.246094,0.375 -0.71875,0.578125 Q 25.946062,76 25.274187,76 24.977312,76 24.692156,75.960937 24.410906,75.921875 24.149187,75.847656 23.891375,75.769531 23.657,75.65625 v -1.125 q 0.40625,0.179687 0.84375,0.324219 Q 24.93825,75 25.367937,75 q 0.296875,0 0.476563,-0.07813 0.183593,-0.07813 0.265625,-0.214844 0.08203,-0.136719 0.08203,-0.3125 0,-0.214844 -0.144531,-0.367187 -0.144532,-0.152344 -0.398438,-0.285157 -0.25,-0.132812 -0.566406,-0.285156 -0.199219,-0.09375 -0.433594,-0.226562 -0.234375,-0.136719 -0.445312,-0.332032 -0.210938,-0.195312 -0.347657,-0.472656 -0.132812,-0.28125 -0.132812,-0.671875 0,-0.511719 0.234375,-0.875 0.234375,-0.363281 0.667969,-0.554687 0.4375,-0.195313 1.03125,-0.195313 0.445312,0 0.847656,0.105469 0.40625,0.101562 0.847656,0.296875 l -0.390625,0.941406 q -0.394531,-0.160156 -0.707031,-0.246094 -0.3125,-0.08984 -0.636719,-0.08984 -0.226562,0 -0.386719,0.07422 -0.160156,0.07031 -0.242187,0.203125 -0.08203,0.128907 -0.08203,0.300782 0,0.203125 0.117187,0.34375 0.121094,0.136718 0.359375,0.265625 0.242188,0.128906 0.601563,0.300781 0.4375,0.207031 0.746093,0.433594 0.3125,0.222656 0.480469,0.527343 0.167969,0.300782 0.167969,0.75 z" />
+          <path d="m 35.430437,70.210937 -1.453125,5.710938 h -1.378906 l -0.773438,-3 q -0.02344,-0.08594 -0.0625,-0.261719 -0.03906,-0.175781 -0.08203,-0.382812 -0.04297,-0.210938 -0.07813,-0.394532 -0.03125,-0.1875 -0.04297,-0.296875 -0.01172,0.109375 -0.04687,0.292969 -0.03125,0.183594 -0.07422,0.390625 -0.03906,0.207031 -0.07813,0.386719 -0.03906,0.179687 -0.0625,0.273437 l -0.769532,2.992188 h -1.375 l -1.457031,-5.710938 h 1.191406 l 0.730469,3.117188 q 0.03125,0.140625 0.07031,0.335937 0.04297,0.195313 0.08203,0.410157 0.04297,0.210937 0.07422,0.410156 0.03516,0.195312 0.05078,0.339844 0.01953,-0.148438 0.05078,-0.34375 0.03125,-0.199219 0.06641,-0.402344 0.03906,-0.207031 0.07813,-0.382813 0.03906,-0.175781 0.07031,-0.285156 l 0.832031,-3.199219 h 1.144531 l 0.832032,3.199219 q 0.02734,0.105469 0.0625,0.285156 0.03906,0.175782 0.07813,0.382813 0.03906,0.207031 0.07031,0.40625 0.03516,0.195312 0.05078,0.339844 0.02734,-0.195313 0.07422,-0.472657 0.05078,-0.28125 0.105469,-0.558593 0.05859,-0.277344 0.101562,-0.464844 l 0.726563,-3.117188 z" />
+          <path d="m 19.73439,47.144531 -1.453125,5.710938 h -1.378906 l -0.773437,-3 q -0.02344,-0.08594 -0.0625,-0.261719 -0.03906,-0.175781 -0.08203,-0.382813 Q 15.941422,49 15.906265,48.816406 q -0.03125,-0.1875 -0.04297,-0.296875 -0.01172,0.109375 -0.04687,0.292969 -0.03125,0.183594 -0.07422,0.390625 -0.03906,0.207031 -0.07813,0.386719 -0.03906,0.179687 -0.0625,0.273437 l -0.769531,2.992188 h -1.375 l -1.457032,-5.710938 h 1.191407 l 0.730468,3.117188 q 0.03125,0.140625 0.07031,0.335937 0.04297,0.195313 0.08203,0.410156 0.04297,0.210938 0.07422,0.410157 0.03516,0.195312 0.05078,0.339843 0.01953,-0.148437 0.05078,-0.34375 0.03125,-0.199218 0.06641,-0.402343 0.03906,-0.207032 0.07813,-0.382813 0.03906,-0.175781 0.07031,-0.285156 l 0.832031,-3.199219 h 1.144532 l 0.832031,3.199219 q 0.02734,0.105469 0.0625,0.285156 0.03906,0.175781 0.07813,0.382813 0.03906,0.207031 0.07031,0.40625 0.03516,0.195312 0.05078,0.339843 0.02734,-0.195312 0.07422,-0.472656 0.05078,-0.28125 0.105469,-0.558594 0.05859,-0.277343 0.101563,-0.464843 l 0.726562,-3.117188 z" />
+          <path d="m 28.723404,29.3678 h -1.539063 l -2.484375,-4.320313 h -0.03516 q 0.01563,0.269532 0.02734,0.542969 0.01172,0.273438 0.02344,0.546875 0.01172,0.269531 0.02344,0.542969 v 2.6875 h -1.082031 v -5.710938 h 1.527343 l 2.480469,4.277344 h 0.02734 q -0.0078,-0.265625 -0.01953,-0.527344 -0.01172,-0.261718 -0.02344,-0.523437 -0.0078,-0.261719 -0.01563,-0.523438 v -2.703125 h 1.089844 z" />
+          <path d="M 37.176529,23.656862 35.723404,29.3678 h -1.378906 l -0.773438,-3 Q 33.54762,26.28186 33.50856,26.106081 33.4695,25.9303 33.42653,25.723269 33.38356,25.512331 33.3484,25.328737 q -0.03125,-0.1875 -0.04297,-0.296875 -0.01172,0.109375 -0.04687,0.292969 -0.03125,0.183594 -0.07422,0.390625 -0.03906,0.207031 -0.07813,0.386719 -0.03906,0.179687 -0.0625,0.273437 L 32.274185,29.3678 h -1.375 l -1.457031,-5.710938 h 1.191406 l 0.730469,3.117188 q 0.03125,0.140625 0.07031,0.335937 0.04297,0.195313 0.08203,0.410157 0.04297,0.210937 0.07422,0.410156 0.03516,0.195312 0.05078,0.339844 0.01953,-0.148438 0.05078,-0.34375 0.03125,-0.199219 0.06641,-0.402344 0.03906,-0.207031 0.07813,-0.382813 0.03906,-0.175781 0.07031,-0.285156 l 0.832031,-3.199219 h 1.144531 l 0.832031,3.199219 q 0.02734,0.105469 0.0625,0.285156 0.03906,0.175782 0.07813,0.382813 0.03906,0.207031 0.07031,0.40625 0.03516,0.195312 0.05078,0.339844 0.02734,-0.195313 0.07422,-0.472657 0.05078,-0.28125 0.105469,-0.558593 0.05859,-0.277344 0.101562,-0.464844 l 0.726563,-3.117188 z" />
+          <path class="wind_dial" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.5;marker-start:url(#m1);marker-end:url(#m2)" d="M 50,49.693707 V 6.6821827" />
+          <text class="wind_direction" style="font-weight:bold;font-size:6px;line-height:1.25;font-family:'Open Sans',sans-serif;text-anchor: middle;" x="50" y="40">From 270°</text>
+          <text class="wind_speed" style="font-weight:bold;font-size:6px;line-height:1.25;font-family:'Open Sans',sans-serif;text-anchor: middle;" x="50" y="65">10 MPH</text>
         </svg>
       </div>
     </div>
@@ -267,7 +223,7 @@
             <td>Swell Angle</td>
             <td>
               <div><span id="buoy_swell_angle_degrees"></span>&deg;</div>
-              <svg viewBox="0 0 1000 1000">
+              <svg viewBox="0 0 100 100">
                 <defs>
                   <marker id="swell_direction_arrow_end" markerWidth="8" markerHeight="8" refx="0" refy="4" orient="auto">
                     <path d="M0,0 L8,4 L0,8 Z" style="fill: #000000; fill-opacity: 1;" />
@@ -276,8 +232,8 @@
                     <circle cx="3" cy="3" r="3" style="fill: #000000;" />
                   </marker>
                 </defs>
-                <circle cx="500" cy="500" r="500" style="fill: #efefef;" />
-                <line id="swell_angle_hand" x1="500" y1="500" x2="500" y2="80" marker-start="url(#swell_direction_circle_end)" marker-end="url(#swell_direction_arrow_end)" style="stroke: #000000; stroke-width: 10; stroke-opacity: 0.5;" />
+                <circle cx="50" cy="50" r="50" style="fill:#e0dedb;" />
+                <line id="swell_angle_hand" x1="50" y1="50" x2="50" y2="8" marker-start="url(#swell_direction_circle_end)" marker-end="url(#swell_direction_arrow_end)" style="stroke: #000000; stroke-width: 1px; stroke-opacity: 0.5;" />
               </svg>
             </td>
           </tr>
@@ -323,7 +279,7 @@
     </div>
     <div class="card">
       <div class="description">
-        <div>Water Temperature at The Pier (<a href="https://www.ndbc.noaa.gov/station_page.php?station=sauf1" target="_blank" rel="noopener noreferrer">SAUF1</a>)</div>
+        <div><a href="https://www.ndbc.noaa.gov/station_page.php?station=sauf1" target="_blank" rel="noopener noreferrer">Water Temperature at The Pier</a></div>
       </div>
       <div class="imagecontentonly"><a href="/dynamic/water_temperature.png" target="_blank"><img src="/dynamic/water_temperature.png"></a></div>
     </div>
@@ -378,11 +334,11 @@
           timeout: 2000,
           url: '/dynamic/wx.json'
         }).done(function(wx) {
-          'd' in wx && $windDirectionHand.attr('transform', 'rotate(' + wx.d + ' 500 500)');
+          'd' in wx && $windDirectionHand.attr('transform', 'rotate(' + wx.d + ' 50 50)');
           'd' in wx && $windDirectionDisplay.html('From ' + wx.d + '&deg;');
           'w' in wx && $windSpeedDisplay.text(wx.w + ' MPH');
           't' in wx && $windInstant.text(new Date(wx.t).toLocaleString('en-US', {timeZone: 'America/New_York'}));
-          'gd' in wx && $windGustDirectionHand.attr('transform', 'rotate(' + wx.gd + ' 500 500)');
+          'gd' in wx && $windGustDirectionHand.attr('transform', 'rotate(' + wx.gd + ' 50 50)');
           'gd' in wx && $windGustDirectionDisplay.html('From ' + wx.gd + '&deg;');
           'g' in wx && $windGustSpeedDisplay.text(wx.g + ' MPH');
           'f' in wx && $temperature.text(wx.f);
@@ -413,16 +369,16 @@
           'swell_period_secs' in data.buoy && $('#buoy_swell_period_secs').text(data.buoy.swell_period_secs);
           'swell_angle_degrees' in data.buoy && $('#buoy_swell_angle_degrees').text(data.buoy.swell_angle_degrees);
           'temperature_fahrenheit' in data.buoy && $('#buoy_temperature_fahrenheit').text(data.buoy.temperature_fahrenheit);
-          'swell_angle_degrees' in data.buoy && $('#swell_angle_hand').attr('transform', 'rotate(' +  ((parseInt(data.buoy.swell_angle_degrees, 10) + 180) % 360) + ' 500 500)');
+          'swell_angle_degrees' in data.buoy && $('#swell_angle_hand').attr('transform', 'rotate(' +  ((parseInt(data.buoy.swell_angle_degrees, 10) + 180) % 360) + ' 50 50)');
         });
 
-        $windDirectionHand = $('#windDirectionHand');
-        $windDirectionDisplay = $('#windDirectionDisplay');
-        $windSpeedDisplay = $('#windSpeedDisplay');
+        $windDirectionHand = $('.current_wind .wind_dial');
+        $windDirectionDisplay = $('.current_wind .wind_direction');
+        $windSpeedDisplay = $('.current_wind .wind_speed');
         $windInstant = $('#windInstant');
-        $windGustDirectionHand = $('#windGustDirectionHand');
-        $windGustDirectionDisplay = $('#windGustDirectionDisplay');
-        $windGustSpeedDisplay = $('#windGustSpeedDisplay');
+        $windGustDirectionHand = $('.gust_wind .wind_dial');
+        $windGustDirectionDisplay = $('.gust_wind .wind_direction');
+        $windGustSpeedDisplay = $('.gust_wind .wind_speed');
         $temperature = $('#temperature');
         $humidity = $('#humidity');
         $showondata = $('.showondata');
