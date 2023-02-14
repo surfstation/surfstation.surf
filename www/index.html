@@ -142,7 +142,7 @@
             <path d="M 50,0 46,6 54,6 z"/>
           </g>
           <circle cx="50" cy="50" r="2" style="fill:#000000;"/>
-          <text class="direction" x="50" y="38">From 270°</text>
+          <text class="direction" x="50" y="38">From 270&deg;</text>
           <text class="speed" x="50" y="62">10 MPH</text>
         </svg>
       </div>
@@ -186,13 +186,14 @@
       <div class="description"><a href="https://cdip.ucsd.edu/m/products/?stn=194p1" target="_blank" rel="noopener noreferrer">Buoy</a></div>
       <div>
         <table>
+          <tr><td>Surface Temp</td><td><span id="buoy_temperature_fahrenheit"></span>&deg; F</td></tr>
           <tr><td>Swell Height</td><td><span id="buoy_swell_height_feet"></span> feet</td></tr>
           <tr><td>Swell Period</td><td><span id="buoy_swell_period_secs"></span> secs</td></tr>
-          <tr><td>Surface Temp</td><td><span id="buoy_temperature_fahrenheit"></span>° F</td></tr>
           <tr>
             <td>Swell Angle</td>
             <td>
-              <div><span id="buoy_swell_angle_degrees"></span>&deg;</div>
+              <div>From <span id="buoy_swell_angle_degrees"></span>&deg;</div>
+              <div>Heading <span id="buoy_swell_heading_angle_degrees"></span>&deg;</div>
               <div class="swell_angle">
                 <svg width="100" height="100" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="50" cy="50" r="50" style="fill:#e0dedb;"/>
@@ -209,6 +210,7 @@
                     <path d="M 50,0 46,6 54,6 z"/>
                   </g>
                   <circle cx="50" cy="50" r="2" style="fill:#000000;"/>
+                  <text class="direction" x="50" y="38">Heading</text>
                 </svg>
               </div>
             </td>
@@ -265,8 +267,7 @@
     </div>
     <div class="card">
       <div class="description">
-        <div>About the Weather Station</div>
-        <div>GPS: 29.846861, -81.266361</div>
+        <div>Weather Station GPS: 29.846861, -81.266361</div>
       </div>
       <div><a href="/static/wx-818b519807575cb096fe1197b200327a.jpg" target="_blank"><img src="/static/wx-818b519807575cb096fe1197b200327a.jpg"></a></div>
     </div>
@@ -342,9 +343,12 @@
         $.getJSON('/dynamic/buoy.json').done(function(data) {
           data.buoy = data.buoy || {};
           'swell_height_feet' in data.buoy && $('#buoy_swell_height_feet').text(data.buoy.swell_height_feet);
-          'swell_period_secs' in data.buoy && $('#buoy_swell_period_secs').text(data.buoy.swell_period_secs);
-          'swell_angle_degrees' in data.buoy && $('#buoy_swell_angle_degrees').text(data.buoy.swell_angle_degrees);
           'temperature_fahrenheit' in data.buoy && $('#buoy_temperature_fahrenheit').text(data.buoy.temperature_fahrenheit);
+          $('#buoy_swell_period_secs').closest('tr').toggle('swell_period_secs' in data.buoy);
+          'swell_period_secs' in data.buoy && $('#buoy_swell_period_secs').text(data.buoy.swell_period_secs);
+          $('#buoy_swell_angle_degrees').closest('tr').toggle('swell_angle_degrees' in data.buoy);
+          'swell_angle_degrees' in data.buoy && $('#buoy_swell_angle_degrees').text(data.buoy.swell_angle_degrees);
+          'swell_angle_degrees' in data.buoy && $('#buoy_swell_heading_angle_degrees').text((parseInt(data.buoy.swell_angle_degrees, 10) + 180) % 360);
           'swell_angle_degrees' in data.buoy && $('.swell_angle .arrow').css('transform', 'rotate(' +  ((parseInt(data.buoy.swell_angle_degrees, 10) + 180) % 360) + 'deg)');
         });
 
