@@ -7,75 +7,118 @@
     <title>The Surf Station Weather / Home</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans">
     <style>
+      html {
+        --black: rgba(0, 0, 0, 1);
+        --black-30: rgba(0, 0, 0, 0.30);
+        --white: rgba(255, 255, 255, 1);
+        --light-gray: rgba(239, 239, 239, 1);
+        --dark-gray: rgba(58, 58, 58, 1);
+        --dial-bg: rgba(224, 222, 219, 1);
+        --header-gradient-1: rgba(178, 254, 250, 1);
+        --header-gradient-2: rgba(14, 210, 247, 1);
+        --card-gradient-1: rgba(28, 181, 224, 1);
+        --card-gradient-2: rgba(0, 8, 81, 1);
+      }
       body {
         margin: 0;
         border: 0;
         padding: 0;
+        background-color: var(--light-gray);
+        color: var(--black);
         font-family: 'Open Sans', sans-serif;
         text-align: center;
         word-break: break-word;
       }
-
       a {
         color: inherit;
       }
-
-      header {
-        background-color: #3a3a3a;
-      }
-
       img, svg, iframe {
         max-width: 100%;
         display: block;
         margin: 0 auto;
       }
-
-      div.card > div.description {
-        color: #ffffff;
-        background-color: #4082ab;
-        font-weight: 600;
-      }
-
-      .showondata, .forecast {
-        display: none;
-      }
-
-      table {
-        border-spacing: 0;
-        border-top: 1px solid #efefef;
-        margin: 0 auto;
-      }
-
-      td {
-        padding: 10px;
-        border-bottom: 1px solid #efefef;
-      }
-
       ul {
         list-style-type: none;
         margin: 0 auto;
         padding: 0;
         width: fit-content;
       }
-
-      ul li {
+      ul > li {
         padding: 5px 0;
-        border-bottom: 1px solid #efefef;
+        border-bottom: 1px solid var(--light-gray);
       }
-
+      ul > li:last-child {
+        border: none;
+      }
+      table {
+        border-collapse: collapse;
+        margin: 0 auto;
+      }
+      tr {
+        border-bottom: 1px solid var(--light-gray);
+      }
+      tr:last-child {
+        border: none;
+      }
+      td {
+        padding: 10px;
+      }
       iframe {
         width: 100%;
         min-height: 360px;
       }
-
-      footer {
-        background-color: #3a3a3a;
-        color: #ffffff;
-        clear: both;
+      div.main-container {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 10px;
       }
-
+      div.main-container > div {
+        grid-column: span 12;
+      }
+      div.header {
+        background: linear-gradient(0deg, var(--header-gradient-1) 0%, var(--header-gradient-2) 100%);
+      }
+      div.footer {
+        background-color: var(--dark-gray);
+        color: var(--white);
+      }
+      div.ads {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        gap: 10px;
+      }
+      div.tile {
+        padding: 10px;
+        border-radius: 12px;
+        box-shadow: 0 2px 4px 0 var(--black-30);
+        background-color: var(--white);
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        gap: 10px;
+      }
+      div.main-container > div.container-1, div.main-container > div.container-2, div.main-container > div.container-3 {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: stretch;
+        gap: 10px;
+      }
+      div.card > div:nth-child(1) {
+        color: var(--white);
+        background: linear-gradient(0deg, var(--card-gradient-1) 0%, var(--card-gradient-2) 100%);
+        font-weight: 600;
+        border-radius: 6px;
+        padding: 5px;
+      }
+      .showondata, .forecast {
+        display: none;
+      }
       svg line {
-        stroke:#000000;stroke-width:1px;stroke-linecap:round;
+        stroke:var(--black);stroke-width:1px;stroke-linecap:round;
       }
       svg text {
         font-size:8px;font-weight:800;font-family:'Open Sans',sans-serif;
@@ -84,220 +127,232 @@
         dominant-baseline:middle;text-anchor:middle;font-size:6px;font-weight:600;
       }
       svg > g.arrow {
-        stroke:#000000;stroke-width:0;fill:#000000;opacity:0.5;transform-origin:center;
+        stroke:var(--black);stroke-width:0;fill:var(--black);opacity:0.5;transform-origin:center;
       }
-
-      @media (min-width: 600px) {
-        div.card {
-          float: left;
-          width: 50%;
+      @media (min-width: 650px) {
+        div.main-container > div.container-1 {
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: center;
         }
       }
-
       @media (min-width: 1000px) {
-        div.card {
-          max-width: 33.333%;
+        div.main-container > div.container-1 {
+          grid-column: span 3;
+          flex-direction: column;
+          flex-wrap: nowrap;
+          align-items: stretch;
         }
-
-        ul.ads > li, ul.ads img {
-          display: inline;
-          border: 0;
+        div.main-container > div.container-2 {
+          grid-column: span 5;
+        }
+        div.main-container > div.container-3 {
+          grid-column: span 4;
         }
       }
     </style>
   </head>
   <body>
-    <header><img src="/static/logo-1.png"></header>
-    <ul class="ads">
-      <li><a href="https://www.mbaileygroup.com/" target="_blank"><img src="/static/ad1-1.svg"></a></li>
-      <li><a href="https://www.atlanticmechanicalac.com/" target="_blank"><img src="/static/ad2-1.jpg"></a></li>
-      <li><a href="https://www.surfstationstore.com/" target="_blank"><img src="/static/weather_shop_button-1.svg"></a></li>
-    </ul>
-    <div class="card showondata">
-      <div class="description">
-        <div>Current Wind</div>
-        <div>Last Updated: <span id="wind_instant"></span></div>
+    <div class="main-container">
+      <div class="header"><img src="/static/header-1.svg"></div>
+      <div class="ads">
+        <div class="tile"><a href="https://www.mbaileygroup.com/" target="_blank"><img src="/static/ad-bailey-1.svg"></a></div>
+        <div class="tile"><a href="https://www.atlanticmechanicalac.com/" target="_blank"><img src="/static/ad-atlantic-1.jpg"></a></div>
+        <div class="tile"><a href="https://www.surfstationstore.com/" target="_blank"><img src="/static/ad-surfstation-1.svg"></a></div>
       </div>
-      <div class="wind_current">
-        <svg viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="50" cy="50" r="50" style="fill:#e0dedb;"/>
-          <line x1="99.0000" y1="50.0000" x2="90.0000" y2="50.0000"/>
-          <line x1="84.6482" y1="84.6482" x2="78.2843" y2="78.2843"/>
-          <line x1="50.0000" y1="99.0000" x2="50.0000" y2="90.0000"/>
-          <line x1="15.3518" y1="84.6482" x2="21.7157" y2="78.2843"/>
-          <line x1="1.0000" y1="50.0000" x2="10.0000" y2="50.0000"/>
-          <line x1="15.3518" y1="15.3518" x2="21.7157" y2="21.7157"/>
-          <line x1="50.0000" y1="1.0000" x2="50.0000" y2="10.0000"/>
-          <line x1="84.6482" y1="15.3518" x2="78.2843" y2="21.7157"/>
-          <text x="88.0000" y="50.0000" style="dominant-baseline:middle;text-anchor:end;">E</text>
-          <text x="77.2843" y="77.2843" style="dominant-baseline:auto;text-anchor:end;">SE</text>
-          <text x="50.0000" y="88.0000" style="dominant-baseline:auto;text-anchor:middle;">S</text>
-          <text x="22.7157" y="77.2843" style="dominant-baseline:auto;text-anchor:start;">SW</text>
-          <text x="12.0000" y="50.0000" style="dominant-baseline:middle;text-anchor:start;">W</text>
-          <text x="22.7157" y="22.7157" style="dominant-baseline:hanging;text-anchor:start;">NW</text>
-          <text x="50.0000" y="12.0000" style="dominant-baseline:hanging;text-anchor:middle;">N</text>
-          <text x="77.2843" y="22.7157" style="dominant-baseline:hanging;text-anchor:end;">NE</text>
-          <g class="arrow">
-            <line x1="50" y1="50" x2="50" y2="1"/>
-            <path d="M 50,0 46,6 54,6 z"/>
-          </g>
-          <circle cx="50" cy="50" r="2" style="fill:#000000;"/>
-          <text class="direction" x="50" y="38">From 270&deg;</text>
-          <text class="speed" x="50" y="62">10 MPH</text>
-        </svg>
+      <div class="container-1">
+        <div class="tile card showondata">
+          <div>
+            <div>Current Wind</div>
+            <div>Last Updated: <span class="updated_at"></span></div>
+          </div>
+          <div class="wind_current">
+            <svg viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="50" style="fill:var(--dial-bg);"/>
+              <line x1="99.0000" y1="50.0000" x2="90.0000" y2="50.0000"/>
+              <line x1="84.6482" y1="84.6482" x2="78.2843" y2="78.2843"/>
+              <line x1="50.0000" y1="99.0000" x2="50.0000" y2="90.0000"/>
+              <line x1="15.3518" y1="84.6482" x2="21.7157" y2="78.2843"/>
+              <line x1="1.0000" y1="50.0000" x2="10.0000" y2="50.0000"/>
+              <line x1="15.3518" y1="15.3518" x2="21.7157" y2="21.7157"/>
+              <line x1="50.0000" y1="1.0000" x2="50.0000" y2="10.0000"/>
+              <line x1="84.6482" y1="15.3518" x2="78.2843" y2="21.7157"/>
+              <text x="88.0000" y="50.0000" style="dominant-baseline:middle;text-anchor:end;">E</text>
+              <text x="77.2843" y="77.2843" style="dominant-baseline:auto;text-anchor:end;">SE</text>
+              <text x="50.0000" y="88.0000" style="dominant-baseline:auto;text-anchor:middle;">S</text>
+              <text x="22.7157" y="77.2843" style="dominant-baseline:auto;text-anchor:start;">SW</text>
+              <text x="12.0000" y="50.0000" style="dominant-baseline:middle;text-anchor:start;">W</text>
+              <text x="22.7157" y="22.7157" style="dominant-baseline:hanging;text-anchor:start;">NW</text>
+              <text x="50.0000" y="12.0000" style="dominant-baseline:hanging;text-anchor:middle;">N</text>
+              <text x="77.2843" y="22.7157" style="dominant-baseline:hanging;text-anchor:end;">NE</text>
+              <g class="arrow">
+                <line x1="50" y1="50" x2="50" y2="1"/>
+                <path d="M 50,0 46,6 54,6 z"/>
+              </g>
+              <circle cx="50" cy="50" r="2" style="fill:var(--black);"/>
+              <text class="direction" x="50" y="38">From 270&deg;</text>
+              <text class="speed" x="50" y="62">10 MPH</text>
+            </svg>
+          </div>
+        </div>
+        <div class="tile card showondata">
+          <div>
+            <div>Max Wind Gust Last 10 Minutes</div>
+            <div>Last Updated: <span class="updated_at"></span></div>
+          </div>
+          <div class="wind_gust"></div>
+        </div>
+        <div class="tile card">
+          <div>Today's Tides</div>
+          <div><ul id="tides"></ul></div>
+        </div>
+        <div class="tile card">
+          <div>Tomorrow's Tides</div>
+          <div><ul id="tomorrowstides"></ul></div>
+        </div>
+        <div class="tile card">
+          <div>Daylight</div>
+          <div>
+            <table>
+              <tr><td>First Light</td><td><span id="firstLight"></span></td></tr>
+              <tr><td>Sunrise</td><td><span id="sunrise"></span></td></tr>
+              <tr><td>Sunset</td><td><span id="sunset"></span></td></tr>
+              <tr><td>Last Light</td><td><span id="lastLight"></span></td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="tile card showondata">
+          <div>Local Observations</div>
+          <div>
+            <table>
+              <tr><td>Updated</td><td><span class="updated_at"></span></td></tr>
+              <tr><td>Temperature</td><td><span id="temperature"></span>&deg; F</td></tr>
+              <tr><td>Humidity</td><td><span id="humidity"></span>%</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="tile card">
+          <div><a href="https://cdip.ucsd.edu/m/products/?stn=194p1" target="_blank" rel="noopener noreferrer">Buoy</a></div>
+          <div>
+            <table>
+              <tr><td>Surface Temp</td><td><span id="buoy_temperature_fahrenheit"></span>&deg; F</td></tr>
+              <tr><td>Swell Height</td><td><span id="buoy_swell_height_feet"></span> feet</td></tr>
+              <tr><td>Swell Period</td><td><span id="buoy_swell_period_secs"></span> secs</td></tr>
+              <tr>
+                <td>Swell Angle</td>
+                <td>
+                  <div>From <span id="buoy_swell_angle_degrees"></span>&deg;</div>
+                  <div>Heading <span id="buoy_swell_heading_angle_degrees"></span>&deg;</div>
+                  <div class="swell_angle">
+                    <svg width="100" height="100" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="50" cy="50" r="50" style="fill:var(--dial-bg);"/>
+                      <line x1="99.0000" y1="50.0000" x2="90.0000" y2="50.0000"/>
+                      <line x1="84.6482" y1="84.6482" x2="78.2843" y2="78.2843"/>
+                      <line x1="50.0000" y1="99.0000" x2="50.0000" y2="90.0000"/>
+                      <line x1="15.3518" y1="84.6482" x2="21.7157" y2="78.2843"/>
+                      <line x1="1.0000" y1="50.0000" x2="10.0000" y2="50.0000"/>
+                      <line x1="15.3518" y1="15.3518" x2="21.7157" y2="21.7157"/>
+                      <line x1="50.0000" y1="1.0000" x2="50.0000" y2="10.0000"/>
+                      <line x1="84.6482" y1="15.3518" x2="78.2843" y2="21.7157"/>
+                      <g class="arrow" style="opacity:1;">
+                        <line x1="50" y1="50" x2="50" y2="1"/>
+                        <path d="M 50,0 46,6 54,6 z"/>
+                      </g>
+                      <circle cx="50" cy="50" r="2" style="fill:var(--black);"/>
+                      <text class="direction" x="50" y="38">Heading</text>
+                    </svg>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="tile card">
+          <div>Buoy Swell Combined Polar Spectrum</div>
+          <div><a href="/dynamic/swell_polar_spectrum_combined.png" target="_blank"><img src="/dynamic/swell_polar_spectrum_combined.png"></a></div>
+        </div>
       </div>
-    </div>
-    <div class="card showondata">
-      <div class="description">
-        <div>Wind Gust</div>
-        <div>Last 10 Minutes</div>
+      <div class="container-2">
+        <div class="tile card">
+          <div>Pier North Cam</div>
+          <div>
+            <iframe src="https://camstreamer.com/embed/Cwyc610HmMb53lJKweotlAb3biST7WgGWXfc8nd8?autoplay=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="tile card">
+          <div>Pier South Cam</div>
+          <div>
+            <iframe src="https://camstreamer.com/embed/JULvJitzgQ31uxTEcBWFDxDcauow6FP93I3q8iSg?autoplay=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="tile card">
+          <div>3rd St Cam</div>
+          <div>
+            <iframe src="https://camstreamer.com/yt-embed/68a2c2b1d0a16ce/S-29474?autoplay=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="tile card forecast">
+          <div>Forecast</div>
+          <div>
+            <div><a href="https://www.firstcoastnews.com/forecast" target="_blank" rel="noopener noreferrer"><img src="" referrerpolicy="no-referrer"></a></div>
+            <div>Credit: WTLV</div>
+          </div>
+        </div>
+        <div class="tile card">
+          <div>Moon</div>
+          <div><a href="/dynamic/moon.jpg" target="_blank"><img src="/dynamic/moon.jpg"></a></div>
+        </div>
       </div>
-      <div class="wind_gust"></div>
-    </div>
-    <div class="card">
-      <div class="description">Today's Tides</div>
-      <div><ul id="tides"></ul></div>
-    </div>
-    <div class="card">
-      <div class="description">Tomorrow's Tides</div>
-      <div><ul id="tomorrowstides"></ul></div>
-    </div>
-    <div class="card">
-      <div class="description">Daylight</div>
-      <div>
-        <table>
-          <tr><td>First Light</td><td><span id="firstLight"></span></td></tr>
-          <tr><td>Sunrise</td><td><span id="sunrise"></span></td></tr>
-          <tr><td>Sunset</td><td><span id="sunset"></span></td></tr>
-          <tr><td>Last Light</td><td><span id="lastLight"></span></td></tr>
-        </table>
+      <div class="container-3">
+        <div class="tile card">
+          <div><a href="https://cdip.ucsd.edu/m/products/?stn=194p1" target="_blank" rel="noopener noreferrer">Buoy Predictions</a></div>
+          <div><a href="/dynamic/ucsd_forecast.png" target="_blank"><img src="/dynamic/ucsd_forecast.png"></a></div>
+        </div>
+        <div class="tile card">
+          <div>
+            <div><a href="https://www.ndbc.noaa.gov/station_page.php?station=sauf1" target="_blank" rel="noopener noreferrer">Water Temperature at The Pier</a></div>
+          </div>
+          <div><a href="/dynamic/water_temperature.png" target="_blank"><img src="/dynamic/water_temperature.png"></a></div>
+        </div>
+        <div class="tile card">
+          <div><a href="https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=8720587&units=standard&bdate=20210501&edate=20210531&timezone=LST/LDT&clock=12hour&datum=MLLW&interval=hilo&action=monthlychart" target="_blank" rel="noopener noreferrer">Tide Heights</a></div>
+          <div><a href="/dynamic/tideheights.svg" target="_blank"><img src="/dynamic/tideheights.svg"></a></div>
+        </div>
+        <div class="tile card">
+          <div>
+            <div>Weather Station GPS: 29.846861, -81.266361</div>
+          </div>
+          <div><a href="/static/wx-1.jpg" target="_blank"><img src="/static/wx-1.jpg"></a></div>
+        </div>
+        <div class="tile card">
+          <div>Links</div>
+          <div>
+            <ul>
+              <li><a href="https://www.surf-station.com/" target="_blank">The Surf Station Surf Report</a></li>
+              <li><a href="https://www.surf-station.com/north-florida-surf-forecast/" target="_blank">Dean&apos;s North Florida Surf Forecast</a></li>
+              <li><a href="https://www.ndbc.noaa.gov/station_page.php?station=41117" target="_blank">St. Augustine Buoy</a></li>
+              <li><a href="https://www.ndbc.noaa.gov/station_page.php?station=41009" target="_blank">Canaveral Buoy</a></li>
+              <li><a href="https://www.ndbc.noaa.gov/station_page.php?station=41008" target="_blank">Grays Reef Buoy</a></li>
+              <li><a href="https://www.ndbc.noaa.gov/obs.shtml?lat=29.709466&lon=-80.659100&zoom=7&type=oceans&status=r&pgm=&op=&ls=n" target="_blank">Check Local Buoys</a></li>
+              <li><a href="https://www.ndbc.noaa.gov/data/Forecasts/FZUS52.KJAX.html" target="_blank">Local Marine Forecast</a></li>
+              <li><a href="https://www.accuweather.com/en/us/st-augustine/32084/weather-radar/332327" target="_blank" rel="noopener noreferrer">Local Radar</a></li>
+              <li><a href="https://cdip.ucsd.edu/" target="_blank" rel="noopener noreferrer">Buoy Data courtesy of CDIP</a></li>
+              <li><a href="https://www.surfstationstore.com/" target="_blank"><img src="/static/weather_shop_button-1.svg"></a></li>
+            </ul>
+          </div>
+        </div>
       </div>
+      <div class="footer">St. Augustine Beach, FL 32080</div>
     </div>
-    <div class="card showondata">
-      <div class="description">Local Observations</div>
-      <div>
-        <table>
-          <tr><td>Temperature</td><td><span id="temperature"></span>&deg; F</td></tr>
-          <tr><td>Humidity</td><td><span id="humidity"></span>%</td></tr>
-        </table>
-      </div>
-    </div>
-    <div class="card">
-      <div class="description"><a href="https://cdip.ucsd.edu/m/products/?stn=194p1" target="_blank" rel="noopener noreferrer">Buoy</a></div>
-      <div>
-        <table>
-          <tr><td>Surface Temp</td><td><span id="buoy_temperature_fahrenheit"></span>&deg; F</td></tr>
-          <tr><td>Swell Height</td><td><span id="buoy_swell_height_feet"></span> feet</td></tr>
-          <tr><td>Swell Period</td><td><span id="buoy_swell_period_secs"></span> secs</td></tr>
-          <tr>
-            <td>Swell Angle</td>
-            <td>
-              <div>From <span id="buoy_swell_angle_degrees"></span>&deg;</div>
-              <div>Heading <span id="buoy_swell_heading_angle_degrees"></span>&deg;</div>
-              <div class="swell_angle">
-                <svg width="100" height="100" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="50" cy="50" r="50" style="fill:#e0dedb;"/>
-                  <line x1="99.0000" y1="50.0000" x2="90.0000" y2="50.0000"/>
-                  <line x1="84.6482" y1="84.6482" x2="78.2843" y2="78.2843"/>
-                  <line x1="50.0000" y1="99.0000" x2="50.0000" y2="90.0000"/>
-                  <line x1="15.3518" y1="84.6482" x2="21.7157" y2="78.2843"/>
-                  <line x1="1.0000" y1="50.0000" x2="10.0000" y2="50.0000"/>
-                  <line x1="15.3518" y1="15.3518" x2="21.7157" y2="21.7157"/>
-                  <line x1="50.0000" y1="1.0000" x2="50.0000" y2="10.0000"/>
-                  <line x1="84.6482" y1="15.3518" x2="78.2843" y2="21.7157"/>
-                  <g class="arrow" style="opacity:1;">
-                    <line x1="50" y1="50" x2="50" y2="1"/>
-                    <path d="M 50,0 46,6 54,6 z"/>
-                  </g>
-                  <circle cx="50" cy="50" r="2" style="fill:#000000;"/>
-                  <text class="direction" x="50" y="38">Heading</text>
-                </svg>
-              </div>
-            </td>
-          </tr>
-        </table>
-      </div>
-    </div>
-    <div class="card">
-      <div class="description">Pier North Cam</div>
-      <div>
-        <iframe src="https://camstreamer.com/embed/Cwyc610HmMb53lJKweotlAb3biST7WgGWXfc8nd8?autoplay=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-    </div>
-    <div class="card">
-      <div class="description">Pier South Cam</div>
-      <div>
-        <iframe src="https://camstreamer.com/embed/JULvJitzgQ31uxTEcBWFDxDcauow6FP93I3q8iSg?autoplay=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-    </div>
-    <div class="card">
-      <div class="description">3rd St Cam</div>
-      <div>
-        <iframe src="https://camstreamer.com/yt-embed/68a2c2b1d0a16ce/S-29474?autoplay=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-    </div>
-    <div class="card">
-      <div class="description">Buoy Swell Combined Polar Spectrum</div>
-      <div><a href="/dynamic/swell_polar_spectrum_combined.png" target="_blank"><img src="/dynamic/swell_polar_spectrum_combined.png"></a></div>
-    </div>
-    <div class="card">
-      <div class="description"><a href="https://cdip.ucsd.edu/m/products/?stn=194p1" target="_blank" rel="noopener noreferrer">Buoy Predictions</a></div>
-      <div><a href="/dynamic/ucsd_forecast.png" target="_blank"><img src="/dynamic/ucsd_forecast.png"></a></div>
-    </div>
-    <div class="card">
-      <div class="description">Moon</div>
-      <div><a href="/dynamic/moon.jpg" target="_blank"><img src="/dynamic/moon.jpg"></a></div>
-    </div>
-    <div class="card forecast">
-      <div class="description">Forecast</div>
-      <div>
-        <div><a href="https://www.firstcoastnews.com/forecast" target="_blank" rel="noopener noreferrer"><img src="" referrerpolicy="no-referrer"></a></div>
-        <div>Credit: WTLV</div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="description">
-        <div><a href="https://www.ndbc.noaa.gov/station_page.php?station=sauf1" target="_blank" rel="noopener noreferrer">Water Temperature at The Pier</a></div>
-      </div>
-      <div><a href="/dynamic/water_temperature.png" target="_blank"><img src="/dynamic/water_temperature.png"></a></div>
-    </div>
-    <div class="card">
-      <div class="description"><a href="https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=8720587&units=standard&bdate=20210501&edate=20210531&timezone=LST/LDT&clock=12hour&datum=MLLW&interval=hilo&action=monthlychart" target="_blank" rel="noopener noreferrer">Tide Heights</a></div>
-      <div><a href="/dynamic/tideheights.svg" target="_blank"><img src="/dynamic/tideheights.svg"></a></div>
-    </div>
-    <div class="card">
-      <div class="description">
-        <div>Weather Station GPS: 29.846861, -81.266361</div>
-      </div>
-      <div><a href="/static/wx-1.jpg" target="_blank"><img src="/static/wx-1.jpg"></a></div>
-    </div>
-    <div class="card">
-      <div class="description">Links</div>
-      <div>
-        <ul>
-          <li><a href="https://www.surf-station.com/" target="_blank">The Surf Station Surf Report</a></li>
-          <li><a href="https://www.surf-station.com/north-florida-surf-forecast/" target="_blank">Dean&apos;s North Florida Surf Forecast</a></li>
-          <li><a href="https://www.ndbc.noaa.gov/station_page.php?station=41117" target="_blank">St. Augustine Buoy</a></li>
-          <li><a href="https://www.ndbc.noaa.gov/station_page.php?station=41009" target="_blank">Canaveral Buoy</a></li>
-          <li><a href="https://www.ndbc.noaa.gov/station_page.php?station=41008" target="_blank">Grays Reef Buoy</a></li>
-          <li><a href="https://www.ndbc.noaa.gov/obs.shtml?lat=29.709466&lon=-80.659100&zoom=7&type=oceans&status=r&pgm=&op=&ls=n" target="_blank">Check Local Buoys</a></li>
-          <li><a href="https://www.ndbc.noaa.gov/data/Forecasts/FZUS52.KJAX.html" target="_blank">Local Marine Forecast</a></li>
-          <li><a href="https://www.accuweather.com/en/us/st-augustine/32084/weather-radar/332327" target="_blank" rel="noopener noreferrer">Local Radar</a></li>
-          <li><a href="https://cdip.ucsd.edu/" target="_blank" rel="noopener noreferrer">Buoy Data courtesy of CDIP</a></li>
-          <li><a href="https://www.surfstationstore.com/" target="_blank"><img src="/static/weather_shop_button-1.svg"></a></li>
-        </ul>
-      </div>
-    </div>
-    <footer>St. Augustine Beach, FL 32080</footer>
     <script src="/static/jquery-3.6.3.min.js"></script>
     <script>
       var $wind_current_arrow = null;
       var $wind_current_direction = null;
       var $wind_current_speed = null;
-      var $wind_instant = null;
       var $wind_gust_arrow = null;
       var $wind_gust_direction = null;
       var $wind_gust_speed = null;
+      var $updated_at = null;
       var $temperature = null;
       var $humidity = null;
       var $showondata = null;
@@ -311,10 +366,16 @@
           timeout: 2000,
           url: '/dynamic/wx.json'
         }).done(function(wx) {
+          let date_time_str = "N/A";
+          if (('t' in wx) && wx.t) {
+            let d = new Date(wx.t);
+            date_time_str = d.toLocaleString('en-US', {timeZone: 'America/New_York', month: '2-digit', day: '2-digit', year: 'numeric'}) + " " +
+                            d.toLocaleString('en-US', {timeZone: 'America/New_York', hour:'2-digit', minute: '2-digit', second: '2-digit', hour12: true});
+          }
+          $updated_at.text(date_time_str);
           'd' in wx && $wind_current_arrow.css('transform', 'rotate(' + wx.d + 'deg)');
           'd' in wx && $wind_current_direction.html('From ' + wx.d + '&deg;');
           'w' in wx && $wind_current_speed.text(wx.w + ' MPH');
-          't' in wx && $wind_instant.text(new Date(wx.t).toLocaleString('en-US', {timeZone: 'America/New_York'}));
           'gd' in wx && $wind_gust_arrow.css('transform', 'rotate(' + wx.gd + 'deg)');
           'gd' in wx && $wind_gust_direction.html('From ' + wx.gd + '&deg;');
           'g' in wx && $wind_gust_speed.text(wx.g + ' MPH');
@@ -356,10 +417,10 @@
         $wind_current_arrow = $('.wind_current .arrow');
         $wind_current_direction = $('.wind_current .direction');
         $wind_current_speed = $('.wind_current .speed');
-        $wind_instant = $('#wind_instant');
         $wind_gust_arrow = $('.wind_gust .arrow');
         $wind_gust_direction = $('.wind_gust .direction');
         $wind_gust_speed = $('.wind_gust .speed');
+        $updated_at = $('.updated_at');
         $temperature = $('#temperature');
         $humidity = $('#humidity');
         $showondata = $('.showondata');
