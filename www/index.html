@@ -14,10 +14,8 @@
         --light-gray: rgba(239, 239, 239, 1);
         --dark-gray: rgba(58, 58, 58, 1);
         --dial-bg: rgba(224, 222, 219, 1);
-        --header-gradient-1: rgba(178, 254, 250, 1);
-        --header-gradient-2: rgba(14, 210, 247, 1);
-        --card-gradient-1: rgba(28, 181, 224, 1);
-        --card-gradient-2: rgba(0, 8, 81, 1);
+        --gradient-1: rgba(28, 181, 224, 1);
+        --gradient-2: rgba(0, 8, 81, 1);
       }
       body {
         margin: 0;
@@ -76,7 +74,8 @@
         grid-column: span 12;
       }
       div.header {
-        background: linear-gradient(0deg, var(--header-gradient-1) 0%, var(--header-gradient-2) 100%);
+        background: linear-gradient(0deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
+        padding: 10px;
       }
       div.footer {
         background-color: var(--dark-gray);
@@ -109,7 +108,7 @@
       }
       div.card > div:nth-child(1) {
         color: var(--white);
-        background: linear-gradient(0deg, var(--card-gradient-1) 0%, var(--card-gradient-2) 100%);
+        background: linear-gradient(0deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
         font-weight: 600;
         border-radius: 6px;
         padding: 5px;
@@ -154,7 +153,7 @@
   </head>
   <body>
     <div class="main-container">
-      <div class="header"><img src="/static/header-1.svg"></div>
+      <div class="header"><img src="/static/header-2.svg"></div>
       <div class="ads">
         <div class="tile"><a href="https://www.mbaileygroup.com/" target="_blank"><img src="/static/ad-bailey-1.svg"></a></div>
         <div class="tile"><a href="https://www.atlanticmechanicalac.com/" target="_blank"><img src="/static/ad-atlantic-1.jpg"></a></div>
