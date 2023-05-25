@@ -461,6 +461,8 @@
         poll_wx_data();
 
         if (document.location.origin === "https://wx.surf-station.com") {
+          $('div.adsense').removeClass('adsense');
+
           let adsense = document.createElement('script');
           adsense.async = true;
           adsense.crossorigin = 'anonymous';
@@ -471,8 +473,6 @@
           s0.parentNode.insertBefore(adsense, s0);
 
           (adsbygoogle = window.adsbygoogle || []).push({});
-
-          $('div.adsense').removeClass('adsense');
         }
       });
     </script>
