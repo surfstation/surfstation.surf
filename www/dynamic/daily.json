@@ -1,19 +1,19 @@
 {
   "tides": [
-    "04:03 AM High",
-    "10:26 AM Low",
-    "04:45 PM High",
-    "10:40 PM Low"
+    "12:39 AM High",
+    "07:20 AM Low",
+    "01:16 PM High",
+    "07:16 PM Low"
   ],
   "tides_tomorrow": [
-    "04:56 AM High",
-    "11:10 AM Low",
-    "05:33 PM High",
-    "11:32 PM Low"
+    "01:26 AM High",
+    "08:09 AM Low",
+    "02:08 PM High",
+    "08:13 PM Low"
   ],
-  "firstLight": "05:49 AM",
-  "sunrise": "06:44 AM",
-  "sunset": "08:01 PM",
-  "lastLight": "08:56 PM",
+  "firstLight": "05:28 AM",
+  "sunrise": "06:27 AM",
+  "sunset": "08:17 PM",
+  "lastLight": "09:16 PM",
   "forecast_url": "https://cdn.tegna-media.com/wtlv/weather/7Day_forecast.jpg"
 }
