@@ -115,7 +115,7 @@
         border-radius: 6px;
         padding: 5px;
       }
-      .showondata, .forecast, div.adsense {
+      .showondata, .forecast {
         display: none;
       }
       svg line {
@@ -359,7 +359,14 @@
               <div class="tile"><a href="https://www.mbaileygroup.com/" target="_blank"><img src="/static/ad-bailey-1.svg"></a></div>
               <div class="tile"><a href="https://www.atlanticmechanicalac.com/" target="_blank"><img src="/static/ad-atlantic-1.jpg"></a></div>
               <div class="tile"><a href="https://www.surfstationstore.com/" target="_blank"><img src="/static/ad-surfstation-1.svg"></a></div>
-              <div class="tile adsense"><ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-4650334183553750" data-ad-slot="8837489835"></ins></div>
+              <div class="tile">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4650334183553750" crossorigin="anonymous"></script>
+                <!-- wx-1 -->
+                <ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-4650334183553750" data-ad-slot="8837489835"></ins>
+                <script>
+                  (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+              </div>
             </div>
           </div>
         </div>
@@ -459,21 +466,6 @@
         $humidity = $('#humidity');
         $showondata = $('.showondata');
         poll_wx_data();
-
-        if (document.location.origin === "https://wx.surf-station.com") {
-          $('div.adsense').removeClass('adsense');
-
-          let adsense = document.createElement('script');
-          adsense.async = true;
-          adsense.setAttribute('crossOrigin', 'anonymous');
-          adsense.type = 'text/javascript';
-          adsense.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4650334183553750';
-
-          let s0 = document.getElementsByTagName('script')[0];
-          s0.parentNode.insertBefore(adsense, s0);
-
-          (adsbygoogle = window.adsbygoogle || []).push({});
-        }
       });
     </script>
   </body>
