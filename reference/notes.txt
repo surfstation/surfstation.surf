@@ -1,0 +1,7 @@
+cd surfstation.surf/;
+DYNAMIC_VERSION="$(date -u '+%Y%m%d%H%M%S')";
+find www/dynamic/ -type l -regextype 'posix-extended' -regex '.*/[0-9]{14}$' -exec git mv {} "www/dynamic/$DYNAMIC_VERSION" \;
+sed -E -i "s/\/dynamic\/[^\/]+\//\/dynamic\/${DYNAMIC_VERSION}\//g" www/index.html;
+git add www/index.html;
+git commit -m 'cache busting content versioning update';
+git push origin master;
