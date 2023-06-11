@@ -326,7 +326,7 @@
         </div>
         <div class="tile card">
           <div>Buoy Swell Combined Polar Spectrum</div>
-          <div><a href="/dynamic/version/swell_polar_spectrum_combined.png" target="_blank"><img src="/dynamic/version/swell_polar_spectrum_combined.png"></a></div>
+          <div><a href="/dynamic/20230611090804/swell_polar_spectrum_combined.png" target="_blank"><img src="/dynamic/20230611090804/swell_polar_spectrum_combined.png"></a></div>
         </div>
       </div>
       <div class="container-2">
@@ -363,7 +363,7 @@
         </div>
         <div class="tile card">
           <div>Moon</div>
-          <div><a href="/dynamic/version/moon.jpg" target="_blank"><img src="/dynamic/version/moon.jpg"></a></div>
+          <div><a href="/dynamic/20230611090804/moon.jpg" target="_blank"><img src="/dynamic/20230611090804/moon.jpg"></a></div>
         </div>
         <div class="tile card">
           <div>Windy</div>
@@ -398,17 +398,17 @@
       <div class="container-3">
         <div class="tile card">
           <div><a href="https://cdip.ucsd.edu/m/products/?stn=194p1" target="_blank" rel="noopener noreferrer">Buoy Predictions</a></div>
-          <div><a href="/dynamic/version/ucsd_forecast.png" target="_blank"><img src="/dynamic/version/ucsd_forecast.png"></a></div>
+          <div><a href="/dynamic/20230611090804/ucsd_forecast.png" target="_blank"><img src="/dynamic/20230611090804/ucsd_forecast.png"></a></div>
         </div>
         <div class="tile card">
           <div>
             <div><a href="https://www.ndbc.noaa.gov/station_page.php?station=sauf1" target="_blank" rel="noopener noreferrer">Water Temperature at The Pier</a></div>
           </div>
-          <div><a href="/dynamic/version/water_temperature.png" target="_blank"><img src="/dynamic/version/water_temperature.png"></a></div>
+          <div><a href="/dynamic/20230611090804/water_temperature.png" target="_blank"><img src="/dynamic/20230611090804/water_temperature.png"></a></div>
         </div>
         <div class="tile card">
           <div><a href="https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=8720587&units=standard&bdate=20210501&edate=20210531&timezone=LST/LDT&clock=12hour&datum=MLLW&interval=hilo&action=monthlychart" target="_blank" rel="noopener noreferrer">Tide Heights</a></div>
-          <div><a href="/dynamic/version/tideheights.svg" target="_blank"><img src="/dynamic/version/tideheights.svg"></a></div>
+          <div><a href="/dynamic/20230611090804/tideheights.svg" target="_blank"><img src="/dynamic/20230611090804/tideheights.svg"></a></div>
         </div>
         <div class="tile card">
           <div>
@@ -465,7 +465,7 @@
           dataType: 'json',
           method: 'GET',
           timeout: 2000,
-          url: '/dynamic/version/wx.json'
+          url: '/dynamic/20230611090804/wx.json'
         }).done(function(wx) {
           let date_time_str = "N/A";
           if (('t' in wx) && wx.t) {
@@ -489,7 +489,7 @@
       }
 
       $(function() {
-        $.getJSON('/dynamic/version/daily.json').done(function(data) {
+        $.getJSON('/dynamic/20230611090804/daily.json').done(function(data) {
           'firstLight' in data && $('#firstLight').text(data.firstLight);
           'sunrise' in data && $('#sunrise').text(data.sunrise);
           'sunset' in data && $('#sunset').text(data.sunset);
@@ -502,7 +502,7 @@
           }
         });
 
-        $.getJSON('/dynamic/version/buoy.json').done(function(data) {
+        $.getJSON('/dynamic/20230611090804/buoy.json').done(function(data) {
           data.buoy = data.buoy || {};
           'swell_height_feet' in data.buoy && $('#buoy_swell_height_feet').text(data.buoy.swell_height_feet);
           'temperature_fahrenheit' in data.buoy && $('#buoy_temperature_fahrenheit').text(data.buoy.temperature_fahrenheit);
