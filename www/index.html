@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Get live surf, beach, and coastal water conditions in St. Augustine FL 32080">
+    <meta name="description" content="Get live surf, beach, and coastal water conditions for St. Augustine, FL">
     <title>Surf Station Weather: Live Wind and Wave Cams</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans">
     <style>
-      /* design: assumes minimum viewport width >= 320px. assumes mobile device viewport width <= 430px. */
+      /* design: minimum viewport width >= 320px. mobile device viewport width <= 430px. */
       html {
         --black: rgba(0, 0, 0, 1);
         --black-30: rgba(0, 0, 0, 0.30);
@@ -73,14 +73,14 @@
         gap: 10px;
         align-items: start;
       }
-      div.main-container > div, div.main-container > ins {
+      div.main-container > div {
         grid-column: span 12;
       }
-      div.header {
+      header {
         background: linear-gradient(0deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
         padding: 10px;
       }
-      div.footer {
+      footer {
         background-color: var(--dark-gray);
         color: var(--white);
       }
@@ -182,8 +182,8 @@
     </script>
   </head>
   <body>
+    <header><img src="/static/header-2.svg"></header>
     <div class="main-container">
-      <div class="header"><img src="/static/header-2.svg"></div>
       <div class="container-1">
         <div class="tile card showondata">
           <div>
@@ -346,27 +346,6 @@
           <div>Local Weather Comments</div>
           <div><iframe src="https://docs.google.com/document/d/e/2PACX-1vQHgEjqu8naQNHHbdWeqgRB0lR-_03Fl4IL4ZNYR-5G4yGsCVK0JR8I6pXZi5i0UHU0CFZJjJYoZ8Xy/pub?embedded=true"></iframe></div>
         </div>
-        <div class="tile card">
-          <div>About</div>
-          <div>
-            Here in North East FL, there are lots of ways to be active and enjoy the outdoors.
-            But, the weather changes fast and plays a huge role in determining which activities will make the best use of your day.
-            This site is our collection of the best local weather resources to help you figure that out.
-            Whether you want to:
-            <ul>
-              <li>surf the waves</li>
-              <li>SUP along the intracoastal</li>
-              <li>kayak through Salt Run</li>
-              <li>walk downtown</li>
-              <li>run or bike the miles of white sand beaches</li>
-              <li>get a more aquatic view of the Oldest City jet skiing, boating, or sailing</li>
-              <li>fish off a pier</li>
-              <li>kitesurf down a windy coast</li>
-              <li>or chillax on the beach with a cold drink and the stray rays</li>
-            </ul>
-            Check here first to get live weather data from our weather station and cams located in the heart of St. Augustine Beach.
-          </div>
-        </div>
       </div>
       <div class="container-3">
         <div class="tile card">
@@ -414,10 +393,10 @@
           </div>
         </div>
       </div>
-      <div class="footer">
-        <div>St. Augustine Beach, FL 32080</div>
-      </div>
     </div>
+    <footer>
+      <div>St. Augustine Beach, FL 32080</div>
+    </footer>
     <script src="/static/jquery-3.7.0.min.js"></script>
     <script>
       var $wind_current_arrow = null;
