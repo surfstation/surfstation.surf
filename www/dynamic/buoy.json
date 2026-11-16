@@ -1,8 +1,10 @@
 {
   "buoy": {
-    "swell_height_feet": "4.3",
-    "temperature_fahrenheit": "75.0",
-    "when": "11/05/2026 04:05 AM",
-    "timestamp": "2026-11-05T09:30:00"
+    "swell_height_feet": "4.6",
+    "swell_period_secs": "4.4",
+    "swell_angle_degrees": "34",
+    "temperature_fahrenheit": "73.0",
+    "when": "11/16/2026 07:10 AM",
+    "timestamp": "2026-11-16T12:30:00"
   }
 }
